@@ -1,0 +1,14 @@
+# 忽略开发文件夹
+/.vs/
+/debug/
+/.idea/
+
+# 忽略服务器运行时文件
+/.well-known/
+.user.ini
+
+# 忽略数据
+/data/*
+
+# 不忽略配置文件
+!.htaccess
