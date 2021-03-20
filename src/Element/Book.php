@@ -10,15 +10,25 @@ class Book {
 		$this->name = $name;
 	}
 	
+	/**
+	 * @param DOMNode $xmlData
+	 * @return Book
+	 * @throws Exception
+	 */
 	public static function parse (DOMNode $xmlData): Book {
-		$id = "";
-		$name = "";
 		if ($xmlData->hasAttributes()) {
-			$id = $xmlData->attributes->getNamedItem("id")->nodeValue;
-			$name = $xmlData->attributes->getNamedItem("name")->nodeValue;
-		} else {
-			echo "ERROR PARSE XML BOOK NO ATTRIBUTE\n";
-		}
+			$attrName = $xmlData->attributes->getNamedItem("name");
+			$attrId = $xmlData->attributes->getNamedItem("id");
+			if ($attrName == null)
+				if ($attrId == null) throw new Exception("Book xml data missing attribute \"name\"");
+				else throw new Exception("Book xml data with id \"$attrId->nodeValue\" missing attribute \"name\"");
+			else $name = $attrName->nodeValue;
+			if ($attrId == null) throw new Exception("Book xml data named \"$name\" missing attribute \"id\"");
+			else $id = $attrId->nodeValue;
+		} else
+			throw new Exception("Book xml data missing attributes");
+		if ($xmlData->hasChildNodes())
+			throw new Exception("Book xml with id \"$id\" have some children which are not supported");
 		return new Book($id, $name);
 	}
 	

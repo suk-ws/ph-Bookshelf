@@ -16,9 +16,21 @@ class LinkCollection {
 		$this->array = $a;
 	}
 	
+	/**
+	 * @param DOMNode $root
+	 * @param bool $isRoot
+	 * @return LinkCollection
+	 * @throws Exception
+	 */
 	public static function parse (DOMNode $root, bool $isRoot = false): LinkCollection {
 		$name = LinkCollection::ROOT;
-		if (!$isRoot) $name = $root->attributes->getNamedItem("name")->nodeValue;
+		if (!$isRoot) {
+			if ($root->hasAttributes()) {
+				$attrName = $root->attributes->getNamedItem("name");
+				if ($attrName == null) throw new Exception("LinkCollection (not root) xml data missing attribute \"name\"");
+				else $name = $attrName->nodeValue;
+			} else throw new Exception("LinkCollection (not root) xml data missing attributes");
+		}
 		$node = new LinkCollection($name, array());
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
@@ -31,10 +43,14 @@ class LinkCollection {
 				case "#text":
 					break;
 				default:
-					echo "ERROR UNSUPPORTED NODE TYPE ON LINK COLLECTION\n";
+					throw new Exception("Unsupported element type \"$child->nodeName\" in LinkCollection named \"$name\"");
 			}
 		}
 		return $node;
+	}
+	
+	public function getName (): string {
+		return $this->name;
 	}
 	
 	/**

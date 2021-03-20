@@ -1,8 +1,6 @@
 <?php
 
-require_once "./src/Element/Book.php";
 require_once "./src/Element/BookCollection.php";
-require_once "./src/Element/Link.php";
 require_once "./src/Element/LinkCollection.php";
 require_once "./src/Element/BookContent/BookContented.php";
 
@@ -15,6 +13,11 @@ class Bookshelf {
 	
 	private BookContented $rootBook;
 	
+	/**
+	 * @param string $xmlData
+	 * @return Bookshelf
+	 * @throws Exception
+	 */
 	public static function parseString (string $xmlData): Bookshelf {
 		$return = new Bookshelf();
 		$dom = new DOMDocument();
@@ -23,7 +26,9 @@ class Bookshelf {
 			if ($dom->hasAttributes() && $dom->hasChildNodes()) {
 				
 				// Bookshelf 属性
-				$return->siteName = $dom->attributes->getNamedItem("siteName")->nodeValue;
+				$attrSiteName = $dom->attributes->getNamedItem("siteName");
+				if ($attrSiteName == null) throw new Exception("Bookshelf xml data missing attribute \"siteName\"");
+				$return->siteName = $attrSiteName->nodeValue;
 				
 				// 对根节点的子节点进行遍历
 				for ($rc = $dom->firstChild; $rc != null; $rc = $rc->nextSibling) {
@@ -40,12 +45,12 @@ class Bookshelf {
 						case "#text":
 							break;
 						default:
-							echo "ERROR UNSUPPORTED TYPE ON BOOKSHELF\n";
+							throw new Exception("Unsupported element type \"$rc->nodeName\" in root child of Bookshelf");
 					}
 				}
 				
-			} else echo "ERROR ROOT NO CONTENT\n";
-		} else echo "ERROR PARSE BOOKSHELF DOM FAILED\n";
+			} else throw new Exception("No child or attribute found on Bookshelf");
+		} else throw new Exception("Load Bookshelf xml file failed");
 		return $return;
 	}
 	
@@ -53,16 +58,10 @@ class Bookshelf {
 		return $this->siteName;
 	}
 	
-	/**
-	 * @return LinkCollection
-	 */
 	public function getLinks (): LinkCollection {
 		return $this->links;
 	}
 	
-	/**
-	 * @return BookCollection
-	 */
 	public function getBooks (): BookCollection {
 		return $this->books;
 	}

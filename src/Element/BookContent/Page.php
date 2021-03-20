@@ -16,16 +16,24 @@ class Page {
 		$this->segues = $childs;
 	}
 	
+	/**
+	 * @param DOMNode $xmlData
+	 * @return Page
+	 * @throws Exception
+	 */
 	public static function parse (DOMNode $xmlData): Page {
-		$node = null;
-		if (!$xmlData->hasAttributes()) {
-			echo "ERROR PARSE XML PAGE NO ATTRIBUTE\n";
-		} else {
-			$node = new Page(
-				$xmlData->attributes->getNamedItem("id")->nodeValue,
-				$xmlData->attributes->getNamedItem("name")->nodeValue
-			);
-		}
+		if ($xmlData->hasAttributes()) {
+			$attrName = $xmlData->attributes->getNamedItem("name");
+			$attrId = $xmlData->attributes->getNamedItem("id");
+			if ($attrName == null)
+				if ($attrId == null) throw new Exception("Page xml data missing attribute \"name\"");
+				else throw new Exception("Page xml data with id \"$attrId->nodeValue\" missing attribute \"name\"");
+			else $name = $attrName->nodeValue;
+			if ($attrId == null) throw new Exception("Page xml data named \"$name\" missing attribute \"id\"");
+			else $id = $attrId->nodeValue;
+			$node = new Page($id, $name);
+		} else
+			throw new Exception("Book xml data missing attributes");
 		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Segment":
@@ -34,7 +42,7 @@ class Page {
 				case "#text":
 					break;
 				default:
-					echo "ERROR UNSUPPORTED NODE TYPE ON PAGE CHAPTER\n";
+					throw new Exception("Unsupported element type \"$child->nodeName\" in Page with id $id");
 			}
 		}
 		return $node;

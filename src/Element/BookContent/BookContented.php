@@ -8,32 +8,38 @@ class BookContented extends Book {
 	private Chapter $childs;
 	
 	public static function parse (DOMNode $xmlData): BookContented {
-		$id = "";
-		$name = "";
-		if ($xmlData->hasAttributes()) {
-			$id = $xmlData->attributes->getNamedItem("id")->nodeValue;
-			$name = $xmlData->attributes->getNamedItem("name")->nodeValue;
-		} else {
-			echo "ERROR PARSE XML BOOK WITH CONTENT NO ATTRIBUTE\n";
-		}
-		$node = new BookContented($id, $name);
-		if ($xmlData->hasChildNodes()) {
+		if ($xmlData->hasAttributes() && $xmlData->hasChildNodes()) {
+			$attrName = $xmlData->attributes->getNamedItem("name");
+			$attrId = $xmlData->attributes->getNamedItem("id");
+			if ($attrName == null)
+				if ($attrId == null) throw new Exception("BookWithContent xml data missing attribute \"name\"");
+				else throw new Exception("BookWithContent xml data with id \"$attrId->nodeValue\" missing attribute \"name\"");
+			else $name = $attrName->nodeValue;
+			if ($attrId == null) throw new Exception("BookWithContent xml data named \"$name\" missing attribute \"id\"");
+			else $id = $attrId->nodeValue;
+			$node = new BookContented($id, $name);
 			$node->childs = Chapter::parse($xmlData);
-		} else {
-			echo "ERROR PARSE XML BOOK WITH CONTENT NO CHILD\n";
-		}
+		} else
+			throw new Exception("No child or attribute found on BookWithContent");
 		return $node;
 	}
 	
+	/**
+	 * @param string $xmlContent
+	 * @return BookContented
+	 * @throws Exception
+	 */
 	public static function parseString (string $xmlContent): BookContented {
 		
-		$node = null;
 		$dom = new DOMDocument();
 		if ($dom->loadXML($xmlContent)) {
-			$node = self::parse($dom->firstChild);
-		} else echo "ERROR PARSE BOOK CONTENTED DOM FAILED\n";
-		return $node;
+			return self::parse($dom->firstChild);
+		} else throw new Exception("Load BookWithContent xml file failed");
 		
+	}
+	
+	public function getChilds (): Chapter {
+		return $this->childs;
 	}
 	
 }
