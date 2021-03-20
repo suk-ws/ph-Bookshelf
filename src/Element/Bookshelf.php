@@ -29,10 +29,10 @@ class Bookshelf {
 				for ($rc = $dom->firstChild; $rc != null; $rc = $rc->nextSibling) {
 					switch ($rc->nodeName) {
 						case "links":
-							$return->links = LinkCollection::parse($rc);
+							$return->links = LinkCollection::parse($rc, true);
 							break;
 						case "books":
-							$return->books = BookCollection::parse($rc);
+							$return->books = BookCollection::parse($rc, true);
 							break;
 						case "rootBook":
 							$return->rootBook = BookContented::parse($rc);

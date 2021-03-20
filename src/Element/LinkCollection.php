@@ -4,15 +4,22 @@ require_once "./src/Element/Link.php";
 
 class LinkCollection {
 	
+	const ROOT = "::root";
+	
+	private string $name;
+	
 	/** @var Link[]|LinkCollection[] */
 	private array $array;
 	
-	private function __construct (array $a) {
+	private function __construct (string $name, array $a) {
+		$this->name = $name;
 		$this->array = $a;
 	}
 	
-	public static function parse (DOMNode $root): LinkCollection {
-		$node = new LinkCollection(array());
+	public static function parse (DOMNode $root, bool $isRoot = false): LinkCollection {
+		$name = LinkCollection::ROOT;
+		if (!$isRoot) $name = $root->attributes->getNamedItem("name")->nodeValue;
+		$node = new LinkCollection($name, array());
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Link":
