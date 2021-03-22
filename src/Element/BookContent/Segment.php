@@ -1,21 +1,26 @@
 <?php
 
+require_once "./src/Element/BookContent/Page.php";
+
 class Segment {
 	
 	private string $id;
 	private string $name;
+	private Page $parent;
 	
-	public function __construct ($id, $name) {
+	public function __construct (string $id, string $name, Page $parent) {
 		$this->id = $id;
 		$this->name = $name;
+		$this->parent = $parent;
 	}
 	
 	/**
 	 * @param DOMNode $xmlData
+	 * @param Page $parent
 	 * @return Segment
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData): Segment {
+	public static function parse (DOMNode $xmlData, Page $parent): Segment {
 		if ($xmlData->hasAttributes()) {
 			$attrName = $xmlData->attributes->getNamedItem("name");
 			$attrId = $xmlData->attributes->getNamedItem("id");
@@ -29,7 +34,7 @@ class Segment {
 			throw new Exception("Segment xml data missing attributes");
 		if ($xmlData->hasChildNodes())
 			throw new Exception("Segment xml named \"$name\" have some children which are not supported");
-		return new Segment($id, $name);
+		return new Segment($id, $name, $parent);
 	}
 	
 	public function getId (): string {
@@ -38,6 +43,10 @@ class Segment {
 	
 	public function getName (): string {
 		return $this->name;
+	}
+	
+	public function getParent (): Page {
+		return $this->parent;
 	}
 	
 }

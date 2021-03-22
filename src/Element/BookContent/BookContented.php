@@ -3,10 +3,23 @@
 require_once "./src/Element/Book.php";
 require_once "./src/Element/BookContent/Chapter.php";
 
-class BookContented extends Book {
+class BookContented {
+	
+	private string $id;
+	private string $name;
+	
+	public function __construct (string $id, string $name) {
+		$this->id = $id;
+		$this->name = $name;
+	}
 	
 	private Chapter $childs;
 	
+	/**
+	 * @param DOMNode $xmlData
+	 * @return BookContented
+	 * @throws Exception
+	 */
 	public static function parse (DOMNode $xmlData): BookContented {
 		if ($xmlData->hasAttributes() && $xmlData->hasChildNodes()) {
 			$attrName = $xmlData->attributes->getNamedItem("name");
@@ -18,7 +31,7 @@ class BookContented extends Book {
 			if ($attrId == null) throw new Exception("BookWithContent xml data named \"$name\" missing attribute \"id\"");
 			else $id = $attrId->nodeValue;
 			$node = new BookContented($id, $name);
-			$node->childs = Chapter::parse($xmlData);
+			$node->childs = Chapter::parse($xmlData, null);
 		} else
 			throw new Exception("No child or attribute found on BookWithContent");
 		return $node;
@@ -36,6 +49,14 @@ class BookContented extends Book {
 			return self::parse($dom->firstChild);
 		} else throw new Exception("Load BookWithContent xml file failed");
 		
+	}
+	
+	public function getId (): string {
+		return $this->id;
+	}
+	
+	public function getName (): string {
+		return $this->name;
 	}
 	
 	public function getChilds (): Chapter {

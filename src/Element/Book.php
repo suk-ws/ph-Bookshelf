@@ -1,21 +1,26 @@
 <?php
 
+require_once "./src/Element/BookCollection.php";
+
 class Book {
 	
 	private string $id;
 	private string $name;
+	private BookCollection $parent;
 	
-	public function __construct (string $id, string $name) {
+	public function __construct (string $id, string $name, BookCollection $parent) {
 		$this->id = $id;
 		$this->name = $name;
+		$this->parent = $parent;
 	}
 	
 	/**
 	 * @param DOMNode $xmlData
+	 * @param BookCollection $parent
 	 * @return Book
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData): Book {
+	public static function parse (DOMNode $xmlData, BookCollection $parent): Book {
 		if ($xmlData->hasAttributes()) {
 			$attrName = $xmlData->attributes->getNamedItem("name");
 			$attrId = $xmlData->attributes->getNamedItem("id");
@@ -29,7 +34,7 @@ class Book {
 			throw new Exception("Book xml data missing attributes");
 		if ($xmlData->hasChildNodes())
 			throw new Exception("Book xml with id \"$id\" have some children which are not supported");
-		return new Book($id, $name);
+		return new Book($id, $name, $parent);
 	}
 	
 	public function getId (): string {
@@ -38,6 +43,13 @@ class Book {
 	
 	public function getName (): string {
 		return $this->name;
+	}
+	
+	/**
+	 * @return BookCollection|null
+	 */
+	public function getParent (): BookCollection {
+		return $this->parent;
 	}
 	
 }

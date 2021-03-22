@@ -9,29 +9,33 @@ class Chapter {
 	/** @var Chapter[]|Page[] */
 	private array $childs;
 	
-	private function __construct (string $name, array $array) {
+	private Chapter $parent;
+	
+	private function __construct (string $name, array $array, Chapter $parent) {
 		$this->name = $name;
 		$this->childs = $array;
+		$this->parent = $parent;
 	}
 	
 	/**
 	 * @param DOMNode $xmlData
+	 * @param Chapter $parent
 	 * @return Chapter
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData): Chapter {
+	public static function parse (DOMNode $xmlData, Chapter $parent): Chapter {
 		if ($xmlData->hasAttributes()) {
 			$attrName = $xmlData->attributes->getNamedItem("name");
 			if ($attrName == null) throw new Exception("Chapter xml data missing attribute \"name\"");
-			else $node = new Chapter($xmlData->attributes->getNamedItem("name")->nodeValue, array());
+			else $node = new Chapter($xmlData->attributes->getNamedItem("name")->nodeValue, array(), $parent);
 		} else throw new Exception("Chapter xml data missing attributes");
 		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Page":
-					array_push($node->childs, Page::parse($child));
+					array_push($node->childs, Page::parse($child, $node));
 					break;
 				case "Chapter":
-					array_push($node->childs, self::parse($child));
+					array_push($node->childs, self::parse($child, $node));
 					break;
 				case "#text":
 					break;
@@ -51,6 +55,13 @@ class Chapter {
 	 */
 	public function getChilds (): array {
 		return $this->childs;
+	}
+	
+	/**
+	 * @return Chapter|null
+	 */
+	public function getParent (): Chapter {
+		return $this->parent;
 	}
 	
 }

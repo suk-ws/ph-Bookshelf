@@ -10,19 +10,22 @@ class BookCollection {
 	
 	/** @var Book[]|BookCollection[] */
 	private array $array;
+	private BookCollection $parent;
 	
-	private function __construct (string $name, array $a) {
+	private function __construct (string $name, array $a, BookCollection $parent) {
 		$this->name = $name;
 		$this->array = $a;
+		$this->parent = $parent;
 	}
 	
 	/**
 	 * @param DOMNode $root
+	 * @param BookCollection $parent
 	 * @param bool $isRoot
 	 * @return BookCollection
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $root, bool $isRoot = false): BookCollection {
+	public static function parse (DOMNode $root, BookCollection $parent, bool $isRoot = false): BookCollection {
 		$name = BookCollection::ROOT;
 		if (!$isRoot) {
 			if ($root->hasAttributes()) {
@@ -31,14 +34,14 @@ class BookCollection {
 				else $name = $attrName->nodeValue;
 			} else throw new Exception("BookCollection (not root) xml data missing attributes");
 		}
-		$node = new BookCollection($name, array());
+		$node = new BookCollection($name, array(), $parent);
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Book":
-					array_push($node->array, Book::parse($child));
+					array_push($node->array, Book::parse($child, $node));
 					break;
 				case "Collection":
-					array_push($node->array, BookCollection::parse($child));
+					array_push($node->array, BookCollection::parse($child, $node));
 					break;
 				case "#text":
 					break;
@@ -58,6 +61,13 @@ class BookCollection {
 	 */
 	public function getCollection (): array {
 		return $this->array;
+	}
+	
+	/**
+	 * @return BookCollection|null
+	 */
+	public function getParent (): BookCollection {
+		return $this->parent;
 	}
 	
 }

@@ -1,5 +1,6 @@
 <?php
 
+require_once "./src/Element/BookContent/Chapter.php";
 require_once "./src/Element/BookContent/Segment.php";
 
 class Page {
@@ -9,19 +10,22 @@ class Page {
 	
 	/** @var Segment[] */
 	private array $segues;
+	private Chapter $parent;
 	
-	public function __construct (string $id, string $name, array $childs = array()) {
+	public function __construct (string $id, string $name, Chapter $parent, array $childs = array()) {
 		$this->id = $id;
 		$this->name = $name;
+		$this->parent = $parent;
 		$this->segues = $childs;
 	}
 	
 	/**
 	 * @param DOMNode $xmlData
+	 * @param Chapter $parent
 	 * @return Page
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData): Page {
+	public static function parse (DOMNode $xmlData, Chapter $parent): Page {
 		if ($xmlData->hasAttributes()) {
 			$attrName = $xmlData->attributes->getNamedItem("name");
 			$attrId = $xmlData->attributes->getNamedItem("id");
@@ -31,13 +35,13 @@ class Page {
 			else $name = $attrName->nodeValue;
 			if ($attrId == null) throw new Exception("Page xml data named \"$name\" missing attribute \"id\"");
 			else $id = $attrId->nodeValue;
-			$node = new Page($id, $name);
+			$node = new Page($id, $name, $parent);
 		} else
 			throw new Exception("Book xml data missing attributes");
 		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Segment":
-					array_push($node->segues, Segment::parse($child));
+					array_push($node->segues, Segment::parse($child, $node));
 					break;
 				case "#text":
 					break;
@@ -61,6 +65,10 @@ class Page {
 	 */
 	public function getSegments (): array {
 		return $this->segues;
+	}
+	
+	public function getParent (): Chapter {
+		return $this->parent;
 	}
 	
 }

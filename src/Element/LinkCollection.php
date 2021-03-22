@@ -10,19 +10,22 @@ class LinkCollection {
 	
 	/** @var Link[]|LinkCollection[] */
 	private array $array;
+	private LinkCollection $parent;
 	
-	private function __construct (string $name, array $a) {
+	private function __construct (string $name, array $a, LinkCollection $parent) {
 		$this->name = $name;
 		$this->array = $a;
+		$this->parent = $parent;
 	}
 	
 	/**
 	 * @param DOMNode $root
+	 * @param LinkCollection $parent
 	 * @param bool $isRoot
 	 * @return LinkCollection
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $root, bool $isRoot = false): LinkCollection {
+	public static function parse (DOMNode $root, LinkCollection $parent, bool $isRoot = false): LinkCollection {
 		$name = LinkCollection::ROOT;
 		if (!$isRoot) {
 			if ($root->hasAttributes()) {
@@ -31,14 +34,14 @@ class LinkCollection {
 				else $name = $attrName->nodeValue;
 			} else throw new Exception("LinkCollection (not root) xml data missing attributes");
 		}
-		$node = new LinkCollection($name, array());
+		$node = new LinkCollection($name, array(), $parent);
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Link":
-					array_push($node->array, Link::parse($child));
+					array_push($node->array, Link::parse($child, $node));
 					break;
 				case "Collection":
-					array_push($node->array, LinkCollection::parse($child));
+					array_push($node->array, LinkCollection::parse($child, $node));
 					break;
 				case "#text":
 					break;
@@ -58,6 +61,13 @@ class LinkCollection {
 	 */
 	public function getCollection (): array {
 		return $this->array;
+	}
+	
+	/**
+	 * @return LinkCollection|null
+	 */
+	public function getParent (): LinkCollection {
+		return $this->parent;
 	}
 	
 }
