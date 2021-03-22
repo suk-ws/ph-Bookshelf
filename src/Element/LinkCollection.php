@@ -4,7 +4,7 @@ require_once "./src/Element/Link.php";
 
 class LinkCollection {
 	
-	const ROOT = "::root";
+	const ROOT = "%root";
 	
 	private string $name;
 	

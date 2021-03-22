@@ -48,4 +48,19 @@ class Page {
 		return $node;
 	}
 	
+	public function getId (): string {
+		return $this->id;
+	}
+	
+	public function getName (): string {
+		return $this->name;
+	}
+	
+	/**
+	 * @return Segment[]
+	 */
+	public function getSegments (): array {
+		return $this->segues;
+	}
+	
 }

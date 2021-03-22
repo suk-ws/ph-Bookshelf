@@ -4,7 +4,7 @@ require_once "./src/Element/Book.php";
 
 class BookCollection {
 	
-	const ROOT = "::root";
+	const ROOT = "%root";
 	
 	private string $name;
 	
