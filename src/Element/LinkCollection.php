@@ -10,9 +10,9 @@ class LinkCollection {
 	
 	/** @var Link[]|LinkCollection[] */
 	private array $array;
-	private LinkCollection $parent;
+	private ?LinkCollection $parent;
 	
-	private function __construct (string $name, array $a, LinkCollection $parent) {
+	private function __construct (string $name, array $a, ?LinkCollection $parent) {
 		$this->name = $name;
 		$this->array = $a;
 		$this->parent = $parent;
@@ -20,12 +20,12 @@ class LinkCollection {
 	
 	/**
 	 * @param DOMNode $root
-	 * @param LinkCollection $parent
+	 * @param ?LinkCollection $parent
 	 * @param bool $isRoot
 	 * @return LinkCollection
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $root, LinkCollection $parent, bool $isRoot = false): LinkCollection {
+	public static function parse (DOMNode $root, ?LinkCollection $parent, bool $isRoot = false): LinkCollection {
 		$name = LinkCollection::ROOT;
 		if (!$isRoot) {
 			if ($root->hasAttributes()) {

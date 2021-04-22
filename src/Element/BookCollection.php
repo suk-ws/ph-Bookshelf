@@ -10,9 +10,9 @@ class BookCollection {
 	
 	/** @var Book[]|BookCollection[] */
 	private array $array;
-	private BookCollection $parent;
+	private ?BookCollection $parent;
 	
-	private function __construct (string $name, array $a, BookCollection $parent) {
+	private function __construct (string $name, array $a, ?BookCollection $parent) {
 		$this->name = $name;
 		$this->array = $a;
 		$this->parent = $parent;
@@ -20,12 +20,12 @@ class BookCollection {
 	
 	/**
 	 * @param DOMNode $root
-	 * @param BookCollection $parent
+	 * @param ?BookCollection $parent
 	 * @param bool $isRoot
 	 * @return BookCollection
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $root, BookCollection $parent, bool $isRoot = false): BookCollection {
+	public static function parse (DOMNode $root, ?BookCollection $parent, bool $isRoot = false): BookCollection {
 		$name = BookCollection::ROOT;
 		if (!$isRoot) {
 			if ($root->hasAttributes()) {

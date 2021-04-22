@@ -9,9 +9,9 @@ class Chapter {
 	/** @var Chapter[]|Page[] */
 	private array $childs;
 	
-	private Chapter $parent;
+	private ?Chapter $parent;
 	
-	private function __construct (string $name, array $array, Chapter $parent) {
+	private function __construct (string $name, array $array, ?Chapter $parent) {
 		$this->name = $name;
 		$this->childs = $array;
 		$this->parent = $parent;
@@ -19,11 +19,11 @@ class Chapter {
 	
 	/**
 	 * @param DOMNode $xmlData
-	 * @param Chapter $parent
+	 * @param ?Chapter $parent
 	 * @return Chapter
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData, Chapter $parent): Chapter {
+	public static function parse (DOMNode $xmlData, ?Chapter $parent): Chapter {
 		if ($xmlData->hasAttributes()) {
 			$attrName = $xmlData->attributes->getNamedItem("name");
 			if ($attrName == null) throw new Exception("Chapter xml data missing attribute \"name\"");
