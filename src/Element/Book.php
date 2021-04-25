@@ -52,4 +52,8 @@ class Book {
 		return $this->parent;
 	}
 	
+	public function getHtml (): string {
+		return "<li class='link'><a class='link' href='$this->id'>$this->name</a></li>";
+	}
+	
 }

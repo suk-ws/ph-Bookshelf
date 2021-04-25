@@ -24,25 +24,13 @@ class SiteMeta {
 	public static function getGitbookStylesheetsList (): array {
 		return array(
 			"/assets/gitbook/style.css",
-			"/assets/gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css",
-			"/assets/gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css",
-			"/assets/gitbook/gitbook-plugin-highlight/website.css",
-			"/assets/gitbook/gitbook-plugin-search/search.css",
-			"/assets/gitbook/gitbook-plugin-fontsettings/website.css"
 		);
 	}
 	
 	public static function getGitbookJavascriptList (): array {
 		return array(
 			"/assets/gitbook/gitbook.js",
-			"/assets/gitbook/theme.js",
-			"/assets/gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js",
-			"/assets/gitbook/gitbook-plugin-search/search-engine.js",
-			"/assets/gitbook/gitbook-plugin-search/search.js",
-			"/assets/gitbook/gitbook-plugin-lunr/lunr.min.js",
-			"/assets/gitbook/gitbook-plugin-lunr/search-lunr.js",
-			"/assets/gitbook/gitbook-plugin-sharing/buttons.js",
-			"/assets/gitbook/gitbook-plugin-fontsettings/fontsettings.js"
+			"/assets/gitbook-fix.js",
 		);
 	}
 	

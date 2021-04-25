@@ -12,9 +12,9 @@ class LinkCollection {
 	private array $array;
 	private ?LinkCollection $parent;
 	
-	private function __construct (string $name, array $a, ?LinkCollection $parent) {
+	private function __construct (string $name, ?LinkCollection $parent) {
 		$this->name = $name;
-		$this->array = $a;
+		$this->array = array();
 		$this->parent = $parent;
 	}
 	
@@ -34,7 +34,7 @@ class LinkCollection {
 				else $name = $attrName->nodeValue;
 			} else throw new Exception("LinkCollection (not root) xml data missing attributes");
 		}
-		$node = new LinkCollection($name, array(), $parent);
+		$node = new LinkCollection($name, $parent);
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Link":
@@ -68,6 +68,16 @@ class LinkCollection {
 	 */
 	public function getParent (): LinkCollection {
 		return $this->parent;
+	}
+	
+	public function getHtml (): string {
+		$str = "";
+		if ($this->name != self::ROOT) $str .= "<li><a class='link-collection chapter' href='#'>$this->name</a><ul class='link-collection articles'>";
+		foreach ($this->array as $node) {
+			$str .= $node->getHtml();
+		}
+		if ($this->name != self::ROOT) $str .= "</ul></li>";
+		return $str;
 	}
 	
 }

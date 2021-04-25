@@ -70,4 +70,14 @@ class Bookshelf {
 		return $this->rootBook;
 	}
 	
+	public function getHtml (): string {
+		$str = "<ul id='global-container' class='summary'>";
+		$str .= $this->links->getHtml();
+		$str .= "<li class='divider'></li>";
+		$str .= $this->books->getHtml();
+		$str .= "</ul>";
+		// TODO books list
+		return $str;
+	}
+	
 }

@@ -12,9 +12,9 @@ class BookCollection {
 	private array $array;
 	private ?BookCollection $parent;
 	
-	private function __construct (string $name, array $a, ?BookCollection $parent) {
+	private function __construct (string $name, ?BookCollection $parent) {
 		$this->name = $name;
-		$this->array = $a;
+		$this->array = array();
 		$this->parent = $parent;
 	}
 	
@@ -34,7 +34,7 @@ class BookCollection {
 				else $name = $attrName->nodeValue;
 			} else throw new Exception("BookCollection (not root) xml data missing attributes");
 		}
-		$node = new BookCollection($name, array(), $parent);
+		$node = new BookCollection($name, $parent);
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Book":
@@ -68,6 +68,16 @@ class BookCollection {
 	 */
 	public function getParent (): BookCollection {
 		return $this->parent;
+	}
+	
+	public function getHtml (): string {
+		$str = "";
+		if ($this->name != self::ROOT) $str .= "<li><a class='book-collection' href='#'>$this->name</a><ul class='book-collection'>";
+		foreach ($this->array as $node) {
+			$str .= $node->getHtml();
+		}
+		if ($this->name != self::ROOT) $str .= "</ul></li>";
+		return $str;
 	}
 	
 }
