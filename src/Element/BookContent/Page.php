@@ -84,4 +84,8 @@ class Page {
 		return $str;
 	}
 	
+	public function getMarkdownContent (): string {
+		return file_get_contents("./data/".PageMeta::$book->getId()."/".$this->id.".md");
+	}
+	
 }

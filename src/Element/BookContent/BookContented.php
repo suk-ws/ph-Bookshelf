@@ -67,7 +67,7 @@ class BookContented {
 		return $this->childs->getSummaryHtml();
 	}
 	
-	public function getPage (string $id): Page {
+	public function getPage (string $id): ?Page {
 		return $this->childs->getPage($id);
 	}
 	
