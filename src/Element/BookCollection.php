@@ -72,12 +72,27 @@ class BookCollection {
 	
 	public function getHtml (): string {
 		$str = "";
-		if ($this->name != self::ROOT) $str .= "<li><a class='book-collection' href='#'>$this->name</a><ul class='book-collection'>";
+		if ($this->name != self::ROOT) $str .= "<li><a class='book-collection' href='#'>$this->name</a><ul class='book-collection summary'>";
 		foreach ($this->array as $node) {
 			$str .= $node->getHtml();
 		}
 		if ($this->name != self::ROOT) $str .= "</ul></li>";
 		return $str;
+	}
+	
+	public function getBook (string $id): ?Book {
+		
+		foreach ($this->array as $node) {
+			if ($node instanceof Book && $node->getId() == $id)
+				return $node;
+			else if ($node instanceof BookCollection) {
+				$got = $node->getBook($id);
+				if ($got != null) return $got;
+			}
+		}
+		
+		return null;
+		
 	}
 	
 }

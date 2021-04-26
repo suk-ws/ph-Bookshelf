@@ -7,7 +7,7 @@ class PageMeta {
 	
 	public static BookContented $book;
 	public static Page $page;
-	public static bool $isMainPage;
+	public static bool $isMainPage = false;
 	
 	public static function getPageTitle (): string {
 		return self::$page->getName()." - ".self::$book->getName();

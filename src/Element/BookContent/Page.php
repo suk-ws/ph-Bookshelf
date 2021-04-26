@@ -71,4 +71,17 @@ class Page {
 		return $this->parent;
 	}
 	
+	public function getSummaryHtml (): string {
+		$str = "<li class='page-contented chapter" . (PageMeta::$page->getId()==$this->id?" active":"") . "'><a class='page-contented' href='/" . (PageMeta::$page->getId()==$this->id?"#":(PageMeta::$book->getId()."/".$this->id)) . "'>$this->name</a>";
+		if (sizeof($this->segues) > 0) {
+			$str .= "<ul class='page-contented summary'>";
+			foreach ($this->segues as $node) {
+				$str .= $node->getSummaryHtml();
+			}
+			$str .= "</ul>";
+		}
+		$str .= "</li>";
+		return $str;
+	}
+	
 }

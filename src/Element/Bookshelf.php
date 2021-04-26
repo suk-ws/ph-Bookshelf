@@ -75,9 +75,15 @@ class Bookshelf {
 		$str .= $this->links->getHtml();
 		$str .= "<li class='divider'></li>";
 		$str .= $this->books->getHtml();
+		$str .= "<li class='divider'></li>";
+		$str .= PageMeta::$book->getSummaryHtml();
+		$str .= "<li class='divider'></li><li><a href='https://github.com/Eyre-S/ph-Bookshelf' target='blank' class='gitbook-link'>Generated with ph-Bookshelf</a></li><li><a href='https://www.gitbook.com' target='blank' class='gitbook-link'>Front-End by GitBook</a></li>";
 		$str .= "</ul>";
-		// TODO books list
 		return $str;
+	}
+	
+	public function getBook (string $id): ?Book {
+		return $this->books->getBook($id);
 	}
 	
 }

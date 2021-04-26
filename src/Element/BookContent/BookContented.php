@@ -63,4 +63,12 @@ class BookContented {
 		return $this->childs;
 	}
 	
+	public function getSummaryHtml (): string {
+		return $this->childs->getSummaryHtml();
+	}
+	
+	public function getPage (string $id): Page {
+		return $this->childs->getPage($id);
+	}
+	
 }

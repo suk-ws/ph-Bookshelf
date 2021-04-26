@@ -1,6 +1,6 @@
 const WITH_SUMMARY_CLASS = "with-summary"
 
-var bookRoot;
+let bookRoot;
 
 function summaryOnOrOff () {
 	

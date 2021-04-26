@@ -6,9 +6,32 @@ require_once "./src/Data/PageMeta.php";
 try {
 	
 	SiteMeta::load();
-	PageMeta::$book = SiteMeta::getBookshelf()->getRootBook();
-	PageMeta::$page = PageMeta::$book->getChilds()->getChilds()[0];
-	PageMeta::$isMainPage = true;
+	
+	// 格式化所给链接，并将链接转化为路径字符串数组
+	$tmp = $_GET['p'];
+	if (strlen($tmp) > 0 && $tmp[strlen($tmp) - 1] === '/')
+		$tmp = substr($tmp, 0, -1);
+	$uri = explode("/", $tmp, 2);
+	
+	if (sizeof($uri) > 0 && $uri[0] != null) {
+		// 非主页面，判定当前定义的 book
+		$tmp = SiteMeta::getBookshelf()->getBook($uri[0]);
+		if ($tmp == null) throw new Exception("Book required \"$uri[0]\" not found!");
+		PageMeta::$book = $tmp->getContentedNode();
+		// 判定当前页面
+		if (sizeof($uri) > 1 && $uri[1] != null) {
+			$tmp = PageMeta::$book->getPage($uri[1]);
+			if ($tmp == null) throw new Exception("Page required \"$uri[1]\" not found on book \"$uri[0]\"!");
+			PageMeta::$page = $tmp;
+		} else {
+			PageMeta::$page = PageMeta::$book->getChilds()->getChilds()[0];
+		}
+	} else {
+		// 主页面
+		PageMeta::$book = SiteMeta::getBookshelf()->getRootBook();
+		PageMeta::$page = PageMeta::$book->getChilds()->getChilds()[0];
+		PageMeta::$isMainPage = true;
+	}
 	
 	require "./template/header.php";
 	
@@ -21,22 +44,7 @@ try {
 			</ul>
 		</div>
 		<nav role="navigation">
-			<ul class="summary">
-				<?= SiteMeta::getBookshelf()->getHtml(); ?>
-				<li class="divider"></li>
-				<li class="chapter active" data-level="1.1" data-path="./"><a href="./">占位主页面</a></li>
-				<li class="chapter " data-level="1.2" data-path="api/">
-					<a href="#">占位章节</a>
-					<ul class="articles">
-						<li class="chapter " data-level="1.2.1" data-path="api/color.html"><a href="chp/page.html">占位页面</a></li>
-						<li class="chapter " data-level="1.2.2" data-path="api/suka-talk.html"><a href="chp/page-other.html">另一个占位页面</a></li>
-					</ul>
-				</li>
-				<li class="chapter " data-level="1.3" data-path="srv-dev.html"><a href="backnote.html">占位后记</a></li>
-				<li class="divider"></li>
-				<li><a href="https://github.com/Eyre-S/ph-Bookshelf" target="blank" class="gitbook-link">Generated with ph-Bookshelf</a></li>
-				<li><a href="https://www.gitbook.com" target="blank" class="gitbook-link">Front-End by GitBook</a></li>
-			</ul>
+			<?= SiteMeta::getBookshelf()->getHtml(); ?>
 		</nav>
 	</div>
 	<div class="book-body">

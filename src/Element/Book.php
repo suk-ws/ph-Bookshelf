@@ -1,6 +1,7 @@
 <?php
 
 require_once "./src/Element/BookCollection.php";
+require_once "./src/Element/BookContent/BookContented.php";
 
 class Book {
 	
@@ -53,7 +54,14 @@ class Book {
 	}
 	
 	public function getHtml (): string {
-		return "<li class='link'><a class='link' href='$this->id'>$this->name</a></li>";
+		return "<li class='link" . (PageMeta::$book->getId()==$this->id?" active":"") . "'><a class='link' href='/$this->id'>$this->name</a></li>";
+	}
+	
+	/**
+	 * @throws Exception
+	 */
+	public function getContentedNode (): BookContented {
+		return BookContented::parseString(file_get_contents("./data/$this->id/book.xml"));
 	}
 	
 }

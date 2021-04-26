@@ -64,4 +64,29 @@ class Chapter {
 		return $this->parent;
 	}
 	
+	public function getSummaryHtml (): string {
+		$str = "";
+		if ($this->parent != null) $str .= "<li class='chapter'><a class='page-chapter' href='#'>$this->name</a><ul class='page-chapter summary'>";
+		foreach ($this->childs as $node) {
+			$str .= $node->getSummaryHtml();
+		}
+		if ($this->parent != null) $str .= "</ul></li>";
+		return $str;
+	}
+	
+	public function getPage (string $id): ?Page {
+		
+		foreach ($this->childs as $node) {
+			if ($node instanceof Page && $node->getId() == $id)
+				return $node;
+			else if ($node instanceof Chapter) {
+				$got = $node->getPage($id);
+				if ($got != null) return $got;
+			}
+		}
+		
+		return null;
+		
+	}
+	
 }
