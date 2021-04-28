@@ -66,7 +66,7 @@ class Chapter {
 	
 	public function getSummaryHtml (): string {
 		$str = "";
-		if ($this->parent != null) $str .= "<li class='chapter fold'><a class='page-chapter' href='#'>$this->name<i class='exc-trigger fa'></i></a><ul class='page-chapter summary'>";
+		if ($this->parent != null) $str .= "<li class='chapter fold" . ($this->getPage(PageMeta::$page->getId())==null?"":"on") . "'><a class='page-chapter' href='#'>$this->name<i class='exc-trigger fa'></i></a><ul class='page-chapter summary'>";
 		foreach ($this->childs as $node) {
 			$str .= $node->getSummaryHtml();
 		}
