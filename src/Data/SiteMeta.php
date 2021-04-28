@@ -24,6 +24,7 @@ class SiteMeta {
 	public static function getGitbookStylesheetsList (): array {
 		return array(
 			"/assets/gitbook/style.css",
+			"/assets/gitbook-fix.css",
 		);
 	}
 	

@@ -1,0 +1,29 @@
+
+.fold > ul {
+	max-height: 0;
+	overflow: hidden;
+	transition-duration: 0.5s;
+}
+
+.fold.on > ul {
+	max-height: unset;
+}
+
+.book .book-summary ul.summary li a, .book .book-summary ul.summary li span {
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.book .book-summary .exc-trigger {
+	position: absolute;
+	left: 12px;
+	top: 12px;
+}
+
+.book .book-summary .on > a .exc-trigger:before {
+	content: "\f078";
+}
+
+.book .book-summary .exc-trigger:before {
+	content: "\f054";
+}

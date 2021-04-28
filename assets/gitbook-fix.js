@@ -21,3 +21,11 @@ window.onload = function () {
 	}
 	
 };
+
+for (let node of document.getElementsByClassName("fold")) {
+	node.childNodes[0].addEventListener("click", function () {
+		if (node.classList.contains("on")) {
+			node.classList.remove("on");
+		} else node.classList.add("on");
+	});
+}
