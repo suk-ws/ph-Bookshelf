@@ -50,7 +50,7 @@ class Segment {
 	}
 	
 	public function getSummaryHtml (): string {
-		return "<li class='page-segment chapter'><a href='/" . (PageMeta::$page->getId()==$this->parent->getId()?"":PageMeta::$book->getId()."/".$this->parent->getId()."") . "#$this->id'>$this->name</a></li>";
+		return "<li class='page-segment chapter'><a href='" . (PageMeta::$page->getId()==$this->parent->getId()?"":"/".PageMeta::$book->getId()."/".$this->parent->getId()."") . "#$this->id'>$this->name</a></li>";
 	}
 	
 }

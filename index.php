@@ -47,7 +47,7 @@ try {
 	<div class="book-summary">
 		<div id="book-search-input">
 			<ul id="site-name" class="summary">
-				<li class="chapter active"><a><?= SiteMeta::getBookshelf()->getSiteName() ?></a></li>
+				<li class="chapter active"><a href="."><?= SiteMeta::getBookshelf()->getSiteName() ?></a></li>
 			</ul>
 		</div>
 		<nav role="navigation">
@@ -82,7 +82,7 @@ try {
 				</div>
 				<h1>
 					<i class="fa fa-circle-o-notch fa-spin"></i>
-					<a href="."><?= PageMeta::$book->getName() ?></a>
+					<a><?= PageMeta::$book->getName() ?></a>
 				</h1>
 			</div>
 			<div class="page-wrapper" tabindex="-1" role="main">

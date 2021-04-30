@@ -72,7 +72,7 @@ class LinkCollection {
 	
 	public function getHtml (): string {
 		$str = "";
-		if ($this->name != self::ROOT) $str .= "<li class='link-collection fold'><a class='link-collection chapter' href='#'>$this->name<i class='exc-trigger fa'></i></a><ul class='link-collection articles'>";
+		if ($this->name != self::ROOT) $str .= "<li class='link-collection fold'><a class='link-collection chapter'>$this->name<i class='exc-trigger fa'></i></a><ul class='link-collection articles'>";
 		foreach ($this->array as $node) {
 			$str .= $node->getHtml();
 		}

@@ -15,6 +15,10 @@
 
 下载/clone此仓库的内容，然后拖进 php 站点根目录。
 
+**要求 php 环境安装了 php-xml 插件**
+（7.0及以下旧版本可能叫做 php-dom 插件）
+（安装方法应该是能 Google 到的）
+
 对于 Apache（即 .htaccess 支持的 php 环境），可以直接运行。
 
 对于 Nginx 或者别的之类的 php 环境，需要转换一下伪静态配置，以 .htaccess 文件内的内容为依据即可。
