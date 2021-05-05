@@ -35,4 +35,12 @@ class SiteMeta {
 		);
 	}
 	
+	public static function getCustomCssContent (string $id): string {
+		return file_get_contents("./data/$id.css");
+	}
+	
+	public static function getCustomScriptContent (string $id): string {
+		return file_get_contents("./data/$id.js");
+	}
+	
 }

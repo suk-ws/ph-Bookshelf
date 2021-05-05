@@ -24,6 +24,8 @@
 			echo "<link rel=\"stylesheet\" href=\"$item\">";
 		}
 		?>
+		<!-- Customs(css) -->
+		<style><?= SiteMeta::getCustomCssContent("custom") ?></style>
 	</head>
 	<body>
 		<div class="book">

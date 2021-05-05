@@ -10,6 +10,7 @@
 			echo "<script src=\"$item\"></script>";
 		}
 		?>
+		<script><?= SiteMeta::getCustomScriptContent("custom") ?></script>
 		
 	</body>
 	
