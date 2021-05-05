@@ -561,7 +561,20 @@ class Parsedown
 					'function' => 'lineElements',
 					'argument' => $text,
 					'destination' => 'elements',
-				)
+				),
+				/**
+				 * Custom Start
+				 *
+				 * 生成标题的跳转用id
+				 *
+				 * @author Sukazyo
+				 */
+				'attributes' => array(
+					'id' => $text,
+				),
+				/**
+				 * Custom End
+				 */
 			),
 		);
 		
