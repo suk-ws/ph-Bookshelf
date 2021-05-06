@@ -29,3 +29,16 @@ for (let node of document.getElementsByClassName("fold")) {
 		} else node.classList.add("on");
 	});
 }
+
+for (const node of document.getElementsByClassName("summary-container")) {
+	
+	node.nextElementSibling.innerHTML = node.nextElementSibling.innerHTML + "<a class='summary-container-icon'><i class='fa'></i></a>";
+	node.nextElementSibling.getElementsByClassName("summary-container-icon")[0].addEventListener("click", function () {
+		if (node.classList.contains("on")) {
+			node.classList.remove("on")
+		} else {
+			node.classList.add("on")
+		}
+	})
+	
+}

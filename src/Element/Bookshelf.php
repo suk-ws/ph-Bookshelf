@@ -73,9 +73,9 @@ class Bookshelf {
 	public function getHtml (): string {
 		$str = "<ul id='global-container' class='summary'>";
 		$str .= $this->links->getHtml();
-		$str .= "<li class='divider'></li>";
+		$str .= "<li class='divider block-start'></li><div class='summary-container" . (PageMeta::$isMainPage?" on":"") . "'>";
 		$str .= $this->books->getHtml();
-		$str .= "<li class='divider'></li>";
+		$str .= "</div><li class='divider block-end'></li>";
 		$str .= PageMeta::$book->getSummaryHtml();
 		$str .= "<li class='divider'></li><li><a href='https://github.com/Eyre-S/ph-Bookshelf' target='blank' class='gitbook-link'>Generated with ph-Bookshelf</a></li><li><a href='https://www.gitbook.com' target='blank' class='gitbook-link'>Front-End by GitBook</a></li>";
 		$str .= "</ul>";
