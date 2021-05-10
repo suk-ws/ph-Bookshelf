@@ -68,3 +68,13 @@
 .book-summary ul.summary div.summary-container.on + li.divider.block-end {
 	transform: rotateX(180deg);
 }
+
+.book .book-summary ul.summary li span.annotation {
+	padding: 0;
+	font-size: 0.2em;
+	color: rgba(0, 0, 0, 0.2);
+}
+
+.book .book-summary ul.summary li span.annotation:hover {
+	text-decoration: none !important;
+}

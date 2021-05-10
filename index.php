@@ -6,6 +6,7 @@ require_once "./src/Data/PageMeta.php";
 require_once "./lib/Parsedown/Parsedown.php";
 require_once "./src/Utils/PageParse.php";
 require_once "./src/Utils/RequestNotExistException.php";
+require_once "./constant.php";
 
 $parser = new Parsedown();
 
@@ -76,7 +77,22 @@ try {
 			</ul>
 		</div>
 		<nav role="navigation">
-			<?= SiteMeta::getBookshelf()->getHtml(); ?>
+			<ul id='global-container' class='summary'>
+				<?= SiteMeta::getBookshelf()->getHtml(); ?>
+				<li class='divider'></li>
+				<li>
+					<a href='https://github.com/Eyre-S/ph-Bookshelf' target='blank' class='gitbook-link'>
+						Generated with ph-Bookshelf
+						<br/><span class="annotation"><?= sprintf("%s at %s/%s", VERSION, CHANNEL, BRANCH) ?></span>
+					</a>
+				</li>
+				<li>
+					<a href='https://www.gitbook.com' target='blank' class='gitbook-link'>
+						Front-End by GitBook
+						<br/><span class="annotation"><?= GITBOOK_VERSION ?></span>
+					</a>
+				</li>
+			</ul>
 		</nav>
 	</div>
 	<div class="book-body">

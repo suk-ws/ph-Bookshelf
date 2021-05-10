@@ -1,9 +1,9 @@
 <?php
 
-define("APP_NAME", "ph-Bookshelf");
-define("VERSION", "0.1");
-define("GITBOOK_VERSION", "3.2.3");
+const APP_NAME = "ph-Bookshelf";
 
-function get_frontpage_generate_version (): string {
-	return APP_NAME." ".VERSION." with Gitbook ".GITBOOK_VERSION;
-}
+const VERSION = "0.1-dev";
+const CHANNEL = "workshop-origin";
+const BRANCH = "master";
+
+const GITBOOK_VERSION = "3.2.3";

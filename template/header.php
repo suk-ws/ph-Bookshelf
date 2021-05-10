@@ -1,4 +1,3 @@
-<?php require_once "./constant.php" ?>
 <?php require_once "./src/Data/SiteMeta.php" ?>
 <?php require_once "./src/Data/PageMeta.php" ?>
 <!DOCTYPE HTML>
@@ -17,7 +16,7 @@
 		<!-- Unused: <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png"> -->
 		<title><?= PageMeta::getPageTitle() ?></title>
 		<meta name="description" content="<?= PageMeta::getDescription() ?>">
-		<meta name="generator" content="<?= get_frontpage_generate_version() ?>">
+		<meta name="generator" content="<?= SiteMeta::get_frontpage_generate_version() ?>">
 		<!-- Gitbook Assets(css) -->
 		<?php
 		foreach (SiteMeta::getGitbookStylesheetsList() as $item) {

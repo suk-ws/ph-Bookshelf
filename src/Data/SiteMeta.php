@@ -1,10 +1,15 @@
 <?php
 
 require_once "./src/Element/Bookshelf.php";
+require_once "./constant.php";
 
 class SiteMeta {
 	
 	private static Bookshelf $BOOKSHELF;
+
+	static function get_frontpage_generate_version (): string {
+		return APP_NAME." ".VERSION." with Gitbook ".GITBOOK_VERSION;
+	}
 	
 	/**
 	 * @throws Exception
