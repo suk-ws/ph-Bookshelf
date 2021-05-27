@@ -1,6 +1,10 @@
 const WITH_SUMMARY_CLASS = "with-summary"
 
+const DROPDOWN_OPEN_CLASS = "open";
+
 let bookRoot;
+
+let fontSettingDiv;
 
 function summaryOnOrOff () {
 	
@@ -15,6 +19,8 @@ function summaryOnOrOff () {
 window.onload = function () {
 	
 	bookRoot = document.getElementsByClassName("book")[0];
+	
+	fontSettingDiv = document.getElementsByClassName("font-settings")[0].getElementsByClassName("dropdown-menu")[0];
 	
 	if (window.innerWidth > 600) {
 		bookRoot.classList.add(WITH_SUMMARY_CLASS);
@@ -41,4 +47,70 @@ for (const node of document.getElementsByClassName("summary-container")) {
 		}
 	})
 	
+}
+
+function openOrCloseFontSettings () {
+	if (fontSettingDiv.classList.contains(DROPDOWN_OPEN_CLASS)) {
+		fontSettingDiv.classList.remove(DROPDOWN_OPEN_CLASS);
+	} else {
+		fontSettingDiv.classList.add(DROPDOWN_OPEN_CLASS);
+	}
+}
+
+function getFontSize () {
+	return parseInt(
+		/ font-size-([0-9]+) /.exec(bookRoot.className)[1]
+	);
+}
+
+function setFontSize (size) {
+	if (size < 0) size = 0;
+	else if (size > 4) size = 4;
+	bookRoot.className = bookRoot.className.replace(/ font-size-[0-9]+ /, " font-size-"+size+" ");
+	setCookie("font-size", size);
+}
+
+function enlargeFontSize () {
+	setFontSize(getFontSize()+1);
+}
+
+function reduceFontSize () {
+	setFontSize(getFontSize()-1);
+}
+
+function setFontFamily (familyId) {
+	bookRoot.className = bookRoot.className.replace(/ font-family-[0-9]+ /, " font-family-"+familyId+" ");
+	setCookie("font-family", familyId);
+}
+
+function setFontFamilySerif () {
+	setFontFamily(0);
+}
+
+function setFontFamilySans () {
+	setFontFamily(1);
+}
+
+function setColorTheme (colorThemeId) {
+	bookRoot.className = bookRoot.className.replace(/ color-theme-[0-9]+ /, " color-theme-"+colorThemeId+" ");
+	setCookie("color-theme", colorThemeId);
+}
+
+function setColorThemeWhite () {
+	setColorTheme(0);
+}
+
+function setColorThemeSepia () {
+	setColorTheme(1);
+}
+
+function setColorThemeNight () {
+	setColorTheme(2);
+}
+
+function setCookie(name, value) {
+	const d = new Date()
+	d.setTime(d.getTime() + (30*24*60*60*1000));
+	const expires = "expires=" + d.toGMTString()
+	document.cookie = name + "=" + value + "; " + expires;
 }

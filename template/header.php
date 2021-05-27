@@ -27,5 +27,5 @@
 		<style><?= SiteMeta::getCustomCssContent("custom") ?></style>
 	</head>
 	<body>
-		<div class="book">
+		<div class="book <?= SiteMeta::getUserThemes() ?>">
 		

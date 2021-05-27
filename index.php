@@ -101,23 +101,23 @@ try {
 				<!-- Title -->
 				<a class="btn pull-left js-toolbar-action" aria-label="" href="#" onclick="summaryOnOrOff()"><i class="fa fa-align-justify"></i></a>
 				<div class="dropdown pull-left font-settings js-toolbar-action">
-					<a class="btn toggle-dropdown" aria-label="Font Settings" href="#"><i class="fa fa-font"></i></a>
+					<a class="btn toggle-dropdown" aria-label="Font Settings" onclick="openOrCloseFontSettings()"><i class="fa fa-font"></i></a>
 					<div class="dropdown-menu dropdown-right">
 						<div class="dropdown-caret">
 							<span class="caret-outer"></span>
 							<span class="caret-inner"></span>
 						</div>
 						<div class="buttons">
-							<button class="button size-2 font-reduce">A</button>
-							<button class="button size-2 font-enlarge">A</button>
+							<button class="button size-2 font-reduce" onclick="reduceFontSize()">A</button>
+							<button class="button size-2 font-enlarge" onclick="enlargeFontSize()">A</button>
 						</div>
 						<div class="buttons">
-							<button class="button size-2 ">Serif</button>
-							<button class="button size-2 ">Sans</button>
+							<button class="button size-2" onclick="setFontFamilySerif()">Serif</button>
+							<button class="button size-2" onclick="setFontFamilySans()">Sans</button>
 						</div><div class="buttons">
-							<button class="button size-3 ">White</button>
-							<button class="button size-3 ">Sepia</button>
-							<button class="button size-3 ">Night</button>
+							<button class="button size-3" onclick="setColorThemeWhite()">White</button>
+							<button class="button size-3" onclick="setColorThemeSepia()">Sepia</button>
+							<button class="button size-3" onclick="setColorThemeNight()">Night</button>
 						</div>
 					</div>
 				</div>
