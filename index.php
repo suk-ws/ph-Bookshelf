@@ -3,12 +3,12 @@
 
 require_once "./src/Data/SiteMeta.php";
 require_once "./src/Data/PageMeta.php";
-require_once "./lib/Parsedown/Parsedown.php";
+require_once "./src/Utils/ParsedownExtend.php";
 require_once "./src/Utils/PageParse.php";
 require_once "./src/Utils/RequestNotExistException.php";
 require_once "./constant.php";
 
-$parser = new Parsedown();
+$parser = new ParsedownExtend();
 
 $parser->setMarkupEscaped(false);
 $parser->setSafeMode(false);

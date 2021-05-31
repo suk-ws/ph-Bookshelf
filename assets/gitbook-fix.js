@@ -163,6 +163,8 @@ function updatePage (bookId, pageId = "") {
 			// history
 			window.history.pushState(document.documentElement.innerHTML, document.title, url);
 			pageContainer.classList.remove("loading");
+			// post-process
+			updateRef();
 			
 		}
 	}

@@ -1,0 +1,6 @@
+ref {
+	display: block;
+	border: 2px solid var(--color-graystyle);
+	padding: 1em 2em;
+	margin: 1.7em 0
+}

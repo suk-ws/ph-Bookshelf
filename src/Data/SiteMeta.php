@@ -31,6 +31,7 @@ class SiteMeta {
 			"/assets/gitbook/style.css",
 			"/assets/gitbook/gitbook-plugin-fontsettings/website.css",
 			"/assets/gitbook-fix.css",
+			"/assets/ref.css",
 		);
 	}
 	
@@ -38,6 +39,8 @@ class SiteMeta {
 		return array(
 			"/assets/gitbook/gitbook.js",
 			"/assets/gitbook-fix.js",
+			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
+			"/assets/ref.js",
 		);
 	}
 	

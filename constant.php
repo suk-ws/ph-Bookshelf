@@ -2,7 +2,7 @@
 
 const APP_NAME = "ph-Bookshelf";
 
-const VERSION = "0.1-dev";
+const VERSION = "0.2-dev";
 const CHANNEL = "workshop-origin";
 const BRANCH = "master";
 
