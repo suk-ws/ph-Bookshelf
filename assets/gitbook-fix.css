@@ -102,3 +102,11 @@
 #book-search-input {
 	background-color: var(--color-nav-background-base);
 }
+
+#page-container {
+	transition-duration: 400ms;
+}
+
+#page-container.loading {
+	opacity: 0.2;
+}

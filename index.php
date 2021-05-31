@@ -17,6 +17,10 @@ try {
 	
 	SiteMeta::load();
 	
+	// 检查是否为 ajax 请求
+	$rawContent = $_GET['raw']=="true";
+	$rawWithNav = $_GET['nav']=="true";
+	
 	// 格式化所给链接，并将链接转化为路径字符串数组
 	$req = $_GET['p'];
 	if (strlen($req) > 0 && $req[strlen($req) - 1] === '/')
@@ -65,6 +69,12 @@ try {
 		PageParse::outputBinaryFile($resLoc);
 		
 	}
+	
+	if ($rawContent && $rawWithNav) {
+		echo PageMeta::$book->getSummaryHtml() . "\n";
+	}
+	
+	if (!$rawContent) :
 	
 	require "./template/header.php";
 	
@@ -123,11 +133,12 @@ try {
 				</div>
 				<h1>
 					<i class="fa fa-circle-o-notch fa-spin"></i>
-					<a><?= PageMeta::$book->getName() ?></a>
+					<a id="page-title"><?= PageMeta::$book->getName() ?></a>
 				</h1>
 			</div>
 			<div class="page-wrapper" tabindex="-1" role="main">
-				<div class="page-inner">
+				<div id="page-container" class="page-inner">
+					<?php endif; ?>
 					<div id="book-search-results">
 						<div class="search-noresults">
 							<section class="normal markdown-section">
@@ -136,6 +147,7 @@ try {
 							</section>
 						</div>
 					</div>
+					<?php if (!$rawContent) : ?>
 				</div>
 			</div>
 		</div>
@@ -144,6 +156,8 @@ try {
 	<?php
 	
 	require "./template/footer.php";
+	
+	endif;
 	
 } catch (Exception $e) {
 	

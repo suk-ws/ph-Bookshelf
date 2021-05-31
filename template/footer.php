@@ -11,6 +11,10 @@
 		}
 		?>
 		<script><?= SiteMeta::getCustomScriptContent("custom") ?></script>
+		<script>
+			bookCurrentId = "<?= PageMeta::$book->getId() ?>";
+			pageCurrentId = "<?= PageMeta::$page->getId() ?>";
+		</script>
 		
 	</body>
 	

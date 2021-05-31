@@ -3,8 +3,13 @@ const WITH_SUMMARY_CLASS = "with-summary"
 const DROPDOWN_OPEN_CLASS = "open";
 
 let bookRoot;
+let pageContainer;
+let inBookNavContainer;
 
 let fontSettingDiv;
+
+let bookCurrentId;
+let pageCurrentId;
 
 function summaryOnOrOff () {
 	
@@ -19,6 +24,8 @@ function summaryOnOrOff () {
 window.onload = function () {
 	
 	bookRoot = document.getElementsByClassName("book")[0];
+	pageContainer = document.getElementById("page-container");
+	inBookNavContainer = document.getElementById("in-book-nav-container");
 	
 	fontSettingDiv = document.getElementsByClassName("font-settings")[0].getElementsByClassName("dropdown-menu")[0];
 	
@@ -28,16 +35,17 @@ window.onload = function () {
 	
 };
 
-for (let node of document.getElementsByClassName("fold")) {
-	node.childNodes[0].addEventListener("click", function () {
-		if (node.classList.contains("on")) {
-			node.classList.remove("on");
-		} else node.classList.add("on");
-	});
-}
+function bindFolderClickEvent () {
+	for (let node of document.getElementsByClassName("fold")) {
+		node.childNodes[0].addEventListener("click", function () {
+			if (node.classList.contains("on")) {
+				node.classList.remove("on");
+			} else node.classList.add("on");
+		});
+	}
+} bindFolderClickEvent();
 
 for (const node of document.getElementsByClassName("summary-container")) {
-	
 	node.nextElementSibling.innerHTML = node.nextElementSibling.innerHTML + "<a class='summary-container-icon'><i class='fa'></i></a>";
 	node.nextElementSibling.getElementsByClassName("summary-container-icon")[0].addEventListener("click", function () {
 		if (node.classList.contains("on")) {
@@ -46,7 +54,6 @@ for (const node of document.getElementsByClassName("summary-container")) {
 			node.classList.add("on")
 		}
 	})
-	
 }
 
 function openOrCloseFontSettings () {
@@ -114,3 +121,70 @@ function setCookie(name, value) {
 	const expires = "expires=" + d.toGMTString()
 	document.cookie = name + "=" + value + "; " + expires;
 }
+
+function updatePage (bookId, pageId = "") {
+	
+	const isNavRefresh = bookId !== bookCurrentId;
+	const request = new XMLHttpRequest();
+	const url = (
+		"/" + bookId + "/" + pageId
+	);
+	const urlParam = (
+		"?raw=true" +
+		((isNavRefresh)?("&nav=true"):(""))
+	)
+	request.open("GET", url + urlParam, true);
+	console.log(url + urlParam);
+	request.onreadystatechange = function () {
+		if (request.readyState === 4 && request.status === 200) {
+			
+			// data
+			const data = request.responseText.split("\n", 2);
+			const nav = isNavRefresh?data[0]:"";
+			const content = request.responseText.substr(nav.length);
+			console.log(nav);
+			console.log(content);
+			// content
+			pageContainer.innerHTML = content;
+			if (!isNavRefresh) document.getElementById("page/"+pageCurrentId).classList.remove("active");
+			if (!isNavRefresh) pageCurrentId = pageId;
+			if (!isNavRefresh) document.getElementById("page/"+pageId).classList.add("active");
+			// nav
+			if (isNavRefresh) {
+				inBookNavContainer.innerHTML = nav;
+				if (bookCurrentId !== "%root")
+					document.getElementById("book/"+bookCurrentId).classList.remove("active");
+				bookCurrentId = bookId;
+				pageCurrentId = inBookNavContainer.getElementsByClassName("active")[0].getAttribute("page-id");
+				document.getElementById("book/"+bookId).classList.add("active");
+				bindFolderClickEvent();
+				bindPageLinkClickEvent();
+			}
+			// history
+			window.history.pushState(document.documentElement.innerHTML, document.title, url);
+			pageContainer.classList.remove("loading");
+			
+		}
+	}
+	request.send();
+	pageContainer.classList.add("loading");
+	
+}
+
+function bindBookLinkClickEvent () {
+	for (let node of document.getElementsByClassName("link-book")) {
+		node.children[0].removeAttribute("href");
+		node.childNodes[0].addEventListener("click", function () {
+			updatePage(node.getAttribute("book-id"));
+		}, true);
+	}
+} bindBookLinkClickEvent();
+
+function bindPageLinkClickEvent () {
+	for (let node of document.getElementsByClassName("link-page")) {
+		node.children[0].removeAttribute("href");
+		node.childNodes[0].addEventListener("click", function () {
+			updatePage(bookCurrentId, node.getAttribute("page-id"));
+		}, true);
+	}
+} bindPageLinkClickEvent();

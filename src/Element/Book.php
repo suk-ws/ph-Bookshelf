@@ -54,7 +54,7 @@ class Book {
 	}
 	
 	public function getHtml (): string {
-		return "<li class='link" . (PageMeta::$book->getId()==$this->id?" active":"") . "'><a class='link' " . (PageMeta::$book->getId()==$this->id?"":" href='/$this->id'") . ">$this->name</a></li>";
+		return "<li id='book/$this->id' book-id='$this->id' class='link link-book" . (PageMeta::$book->getId()==$this->id?" active":"") . "'><a class='link' " . (PageMeta::$book->getId()==$this->id?"":" href='/$this->id'") . ">$this->name</a></li>";
 	}
 	
 	/**
