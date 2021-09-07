@@ -3,12 +3,12 @@
 
 require_once "./src/Data/SiteMeta.php";
 require_once "./src/Data/PageMeta.php";
-require_once "./lib/Parsedown/Parsedown.php";
+require_once "./src/Utils/ParsedownExtend.php";
 require_once "./src/Utils/PageParse.php";
 require_once "./src/Utils/RequestNotExistException.php";
 require_once "./constant.php";
 
-$parser = new Parsedown();
+$parser = new ParsedownExtend();
 
 $parser->setMarkupEscaped(false);
 $parser->setSafeMode(false);
@@ -16,6 +16,10 @@ $parser->setSafeMode(false);
 try {
 	
 	SiteMeta::load();
+	
+	// 检查是否为 ajax 请求
+	$rawContent = $_GET['raw']=="true";
+	$rawWithNav = $_GET['nav']=="true";
 	
 	// 格式化所给链接，并将链接转化为路径字符串数组
 	$req = $_GET['p'];
@@ -66,6 +70,12 @@ try {
 		
 	}
 	
+	if ($rawContent && $rawWithNav) {
+		echo PageMeta::$book->getSummaryHtml() . "\n";
+	}
+	
+	if (!$rawContent) :
+	
 	require "./template/header.php";
 	
 	?>
@@ -101,33 +111,34 @@ try {
 				<!-- Title -->
 				<a class="btn pull-left js-toolbar-action" aria-label="" href="#" onclick="summaryOnOrOff()"><i class="fa fa-align-justify"></i></a>
 				<div class="dropdown pull-left font-settings js-toolbar-action">
-					<a class="btn toggle-dropdown" aria-label="Font Settings" href="#"><i class="fa fa-font"></i></a>
+					<a class="btn toggle-dropdown" aria-label="Font Settings" onclick="openOrCloseFontSettings()"><i class="fa fa-font"></i></a>
 					<div class="dropdown-menu dropdown-right">
 						<div class="dropdown-caret">
 							<span class="caret-outer"></span>
 							<span class="caret-inner"></span>
 						</div>
 						<div class="buttons">
-							<button class="button size-2 font-reduce">A</button>
-							<button class="button size-2 font-enlarge">A</button>
+							<button class="button size-2 font-reduce" onclick="reduceFontSize()">A</button>
+							<button class="button size-2 font-enlarge" onclick="enlargeFontSize()">A</button>
 						</div>
 						<div class="buttons">
-							<button class="button size-2 ">Serif</button>
-							<button class="button size-2 ">Sans</button>
+							<button class="button size-2" onclick="setFontFamilySerif()">Serif</button>
+							<button class="button size-2" onclick="setFontFamilySans()">Sans</button>
 						</div><div class="buttons">
-							<button class="button size-3 ">White</button>
-							<button class="button size-3 ">Sepia</button>
-							<button class="button size-3 ">Night</button>
+							<button class="button size-3" onclick="setColorThemeWhite()">White</button>
+							<button class="button size-3" onclick="setColorThemeSepia()">Sepia</button>
+							<button class="button size-3" onclick="setColorThemeNight()">Night</button>
 						</div>
 					</div>
 				</div>
 				<h1>
 					<i class="fa fa-circle-o-notch fa-spin"></i>
-					<a><?= PageMeta::$book->getName() ?></a>
+					<a id="page-title"><?= PageMeta::$book->getName() ?></a>
 				</h1>
 			</div>
 			<div class="page-wrapper" tabindex="-1" role="main">
-				<div class="page-inner">
+				<div id="page-container" class="page-inner">
+					<?php endif; ?>
 					<div id="book-search-results">
 						<div class="search-noresults">
 							<section class="normal markdown-section">
@@ -136,6 +147,7 @@ try {
 							</section>
 						</div>
 					</div>
+					<?php if (!$rawContent) : ?>
 				</div>
 			</div>
 		</div>
@@ -144,6 +156,8 @@ try {
 	<?php
 	
 	require "./template/footer.php";
+	
+	endif;
 	
 } catch (Exception $e) {
 	

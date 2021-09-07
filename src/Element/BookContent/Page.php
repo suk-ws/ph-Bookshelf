@@ -73,7 +73,7 @@ class Page {
 	
 	public function getSummaryHtml (): string {
 		$str =
-			"<li class='page-contented chapter" .
+			"<li id='page/$this->id' page-id='$this->id' class='page-contented chapter link-page " .
 			(PageMeta::$page->getId()==$this->id?" active":"") .
 			"'><a class='page-contented' " .
 			(

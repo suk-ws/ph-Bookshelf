@@ -1,3 +1,23 @@
+:root {
+	--color-graystyle-background: rgba(0, 0, 0, 0.07);
+	--color-icon-in-background: white;
+	--color-graystyle: rgba(0, 0, 0, 0.2);
+	--color-nav-background-base: null;
+}
+
+.color-theme-1 {
+	--color-graystyle-background: rgba(255, 255, 255, 0.48);
+	--color-icon-in-background: black;
+	--color-graystyle: rgba(135, 127, 106, 0.5);
+	--color-nav-background-base: #1111111;
+}
+
+.color-theme-2 {
+	--color-graystyle-background: rgba(29, 34, 63, 0.6);
+	--color-icon-in-background: white;
+	--color-graystyle: rgba(193, 198, 215, 0.2);
+	--color-nav-background-base: #252737;
+}
 
 .fold > ul {
 	max-height: 0;
@@ -54,8 +74,8 @@
 	top: 1px;
 	right: 20px;
 	padding: 0 5px 2px;
-	background: rgba(0,0,0,.07);
-	color: white;
+	background: var(--color-graystyle-background);
+	color: var(--color-icon-in-background);
 	border-bottom: 0;
 	border-radius: 0 0 5px 5px;
 	z-index: 1000;
@@ -72,9 +92,21 @@
 .book .book-summary ul.summary li span.annotation {
 	padding: 0;
 	font-size: 0.2em;
-	color: rgba(0, 0, 0, 0.2);
+	color: var(--color-graystyle);
 }
 
 .book .book-summary ul.summary li span.annotation:hover {
 	text-decoration: none !important;
+}
+
+#book-search-input {
+	background-color: var(--color-nav-background-base);
+}
+
+#page-container {
+	transition-duration: 400ms;
+}
+
+#page-container.loading {
+	opacity: 0.2;
 }
