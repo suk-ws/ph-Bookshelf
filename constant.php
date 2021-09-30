@@ -2,8 +2,6 @@
 
 const APP_NAME = "ph-Bookshelf";
 
-const VERSION = "0.2-dev";
+const VERSION = "0.3-dev1";
 const CHANNEL = "workshop-origin";
 const BRANCH = "master";
-
-const GITBOOK_VERSION = "3.2.3";

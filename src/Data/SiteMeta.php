@@ -6,9 +6,9 @@ require_once "./constant.php";
 class SiteMeta {
 	
 	private static Bookshelf $BOOKSHELF;
-
+	
 	static function get_frontpage_generate_version (): string {
-		return APP_NAME." ".VERSION." with Gitbook ".GITBOOK_VERSION;
+		return APP_NAME." ".VERSION;
 	}
 	
 	/**
@@ -28,19 +28,21 @@ class SiteMeta {
 	
 	public static function getGitbookStylesheetsList (): array {
 		return array(
-			"/assets/gitbook/style.css",
-			"/assets/gitbook/gitbook-plugin-fontsettings/website.css",
-			"/assets/gitbook-fix.css",
-			"/assets/ref.css",
+//			"/assets/gitbook/style.css",
+//			"/assets/gitbook/gitbook-plugin-fontsettings/website.css",
+//			"/assets/gitbook-fix.css",
+//			"/assets/ref.css",
+			"/assets/main.css",
 		);
 	}
 	
 	public static function getGitbookJavascriptList (): array {
 		return array(
-			"/assets/gitbook/gitbook.js",
-			"/assets/gitbook-fix.js",
-			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
-			"/assets/ref.js",
+//			"/assets/gitbook/gitbook.js",
+//			"/assets/gitbook-fix.js",
+//			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
+//			"/assets/ref.js",
+			"/assets/main.js",
 		);
 	}
 	

@@ -1,0 +1,325 @@
+/******************************************************************************
+ ##############################################################################
+ #####                                                                    #####
+ #####   main.css of ph-Bookshelf                                         #####
+ #####                                                                    #####
+ ##############################################################################
+ ******************************************************************************/
+
+
+/*
+/*
+/******************************************************************
+ **       Overall Variable                                       **
+ ******************************************************************/
+:root {
+	
+	--color-font-base: #223b5c;
+	--color-font-base-link: #409dff;
+	
+	--color-sidebar-background: #f6f8fa;
+	--color-font-sidebar: var(--color-font-base);
+	--color-scrollbar-sidebar-background: none;
+	--color-scrollbar-sidebar-foreground: #78a8e021;
+	
+	--color-warn-noscript: #ce263d;
+	--color-font-warn-noscript: #f5eaea;
+	--color-font-sidebar-sitetitle: #3a2b8c;
+	--color-sidebar-sitetitle-background: #e8f0fe;
+	
+	--color-menu-list-separator: #ebeff2;
+	--color-menu-child-list-line: #78a8e021;
+	--color-menu-item-indicator-current: #6bacf1;
+	--color-menu-item-indicator-focus: #91c6ff;
+	--color-font-menu-item-current: #3697ff;
+	--color-font-menu-item-hover: #71b3f9;
+	
+}
+
+:root {
+	
+	--sidebar-width: 19rem;
+	--sidebar-margin-width: 2rem;
+	--sidebar-margin-height: 2rem;
+	
+	--sidebar-menu-container-external-max-height: 30%;
+	
+	--sidebar-menu-container-padding-width: 1.3rem;
+	--sidebar-menu-container-padding-height: 0.8rem;
+	--sidebar-menu-item-indent-width: 1.1rem;
+	
+	--sidebar-menu-list-seperator-width: 3px;
+	--sidebar-menu-list-seperator-length: 66%;
+	--sidebar-menu-item-indicator-active-width: 4px;
+	--sidebar-menu-item-indicator-focus-width: 4px;
+	
+}
+
+:root {
+	
+	--sidebar-radius: 0.5rem;
+	
+	--object-opacity-weakness: 0.4;
+	
+}
+
+:root {
+	--font-sarasa-gothic: "Sarasa Gothic J", "Sarasa Gothic K", "Sarasa Gothic TC", "Sarasa Gothic SC";
+	--font-sarasa-mono: "Sarasa Mono J", "Sarasa Mono K", "Sarasa Mono TC", "Sarasa Mono SC";
+	--font-sans-serif: "Alibaba Puhuiti", var(--font-sarasa-gothic), sans-serif;
+	--font-serif: "Georgia", serif;
+	/*--font-sans-serif: sans-serif;*/
+	/*--font-serif: "Times New Roman", serif;*/
+	--font-monospace: "Fira Code", "Monaco", "Consolas", var(--font-sarasa-mono), monospace;
+}
+
+:root {
+	--animation-speed-multiplier: 1;
+	/*	--color-background-graystyle: #3c3c3c;*/
+	/*	--color-font-graystyle-base: #bfbfbf;*/
+}
+
+
+/*
+/*
+/******************************************************************
+ **       Global Elements                                        **
+ ******************************************************************/
+
+::selection {
+
+}
+
+#test-overflow {
+	display: none;
+}
+
+small {
+	opacity: var(--object-opacity-weakness);
+}
+
+a {
+	color: var(--color-font-base-link);
+	text-decoration: none;
+}
+
+a.no-style {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+h1 {
+	font-size: 2.2rem;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: var(--font-sans-serif);
+}
+
+
+/*
+/*
+/******************************************************************
+ **       root item                                              **
+ ******************************************************************/
+body {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	color: var(--color-font-base);
+	display: grid;
+	grid-template-columns: min(calc(var(--sidebar-width) + var(--sidebar-margin-width) * 2), 100vw) auto;
+	grid-template-rows: 100vh;
+}
+
+
+/*
+/*
+/******************************************************************
+ **       sidebar                                                **
+ ******************************************************************/
+#sidebar {
+	font-size: 0.83rem;
+	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	margin: var(--sidebar-margin-height) var(--sidebar-margin-width);
+	color: var(--color-font-sidebar);
+}
+
+#sidebar .sidebar-card {
+	background: var(--color-sidebar-background);
+	border-radius: var(--sidebar-radius);
+	overflow: hidden;
+}
+
+#sidebar .sidebar-card:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+#sidebar > #noscript-warn {
+	flex-shrink: 0;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	background: var(--color-warn-noscript);
+	color: var(--color-font-warn-noscript);
+	z-index:15;
+}
+
+#sidebar > #site-title {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1rem;
+	font-style: normal;
+	background: var(--color-sidebar-sitetitle-background);
+	color: var(--color-font-sidebar-sitetitle);
+	border-radius: 0.5rem;
+	z-index:10;
+}
+
+#sidebar > #site-title + *,
+#sidebar > noscript#noscript-warn + * {
+	margin-top: -1rem;
+	border-width: 0;
+	border-top: 1rem;
+	border-style: solid;
+	border-color: #ffffff00;
+}
+
+#sidebar > .menu-container {
+	display: flex;
+	flex-direction: column;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#sidebar > .menu-container:last-child {
+	flex-grow: 1;
+}
+
+#sidebar > .menu-container::-webkit-scrollbar {
+	width: 2px;
+	background: none;
+}
+
+#sidebar > .menu-container::-webkit-scrollbar-thumb {
+	 background: var(--color-scrollbar-sidebar-background);
+ }
+
+#sidebar > .menu-container:hover::-webkit-scrollbar-thumb {
+	background: var(--color-scrollbar-sidebar-foreground);
+}
+
+#sidebar > .menu-container::-webkit-scrollbar-track {
+	background: var(--color-scrollbar-sidebar-background);
+}
+
+#sidebar > .menu-container > .menu {
+	padding: var(--sidebar-menu-container-padding-height) var(--sidebar-menu-container-padding-width);
+	padding-right: 0;
+	position: relative;
+}
+
+#sidebar > .menu-container > .menu:not(:first-child):before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: calc((100% - var(--sidebar-menu-list-seperator-length))/2);
+	left: calc((100% - var(--sidebar-menu-list-seperator-length))/2);
+	transform: translate(0, -50%);
+	height: var(--sidebar-menu-list-seperator-width);
+	border-radius: calc(var(--sidebar-menu-list-seperator-width) / 2);
+	background: var(--color-menu-list-separator);
+}
+
+#sidebar > .menu-container > .menu:nth-last-child(2) {
+	flex-grow: 1;
+}
+
+#sidebar > .menu-container > .menu .menu-item {
+	display: block;
+	padding: 0.55rem 0;
+	position: relative;
+}
+
+#sidebar > .menu-container > .menu .menu-item:hover {
+	color: var(--color-font-menu-item-hover);
+}
+
+#sidebar > .menu-container > .menu .menu-item.current {
+	color: var(--color-font-menu-item-current);
+}
+
+#sidebar > .menu-container > .menu .menu-item.current:after {
+	content: "";
+	position: absolute;
+	top: calc(var(--sidebar-menu-item-indicator-active-width) / 2);
+	bottom: calc(var(--sidebar-menu-item-indicator-active-width) / 2);
+	right: calc(var(--sidebar-menu-item-indicator-active-width));
+	width: var(--sidebar-menu-item-indicator-active-width);
+	border-radius: calc(var(--sidebar-menu-item-indicator-active-width) / 2);
+	background: var(--color-menu-item-indicator-current);
+}
+
+#sidebar > .menu-container > .menu .menu-item:focus-visible{
+	color: var(--color-font-menu-item-hover);
+	outline: none;
+}
+
+#sidebar > .menu-container > .menu .menu-item:focus-visible:before {
+	content: "";
+	position: absolute;
+	top: calc(var(--sidebar-menu-item-indicator-focus-width) / 2);
+	bottom: calc(var(--sidebar-menu-item-indicator-focus-width) / 2);
+	left:calc(0px - var(--sidebar-menu-item-indicator-focus-width) * 2);
+	width: var(--sidebar-menu-item-indicator-focus-width);
+	border-radius: calc(var(--sidebar-menu-item-indicator-focus-width) / 2);
+	background: var(--color-menu-item-indicator-focus);
+}
+
+#sidebar > .menu-container > .menu .menu-item-parent > *:first-child:after {
+	content: "▸";
+	color: var(--color-font-base-link);
+	display: inline-block;
+	margin-left: 0.5rem;
+	transition: transform calc(0.2s * var(--animation-speed-multiplier));
+}
+
+#sidebar > .menu-container > .menu .menu-item-parent.active > *:first-child:after {
+	transform: rotate(90deg);
+}
+
+#sidebar > .menu-container > .menu .menu-item-parent > .children {
+	padding-left: var(--sidebar-menu-item-indent-width);
+	border-style: solid;
+	border-width: 0;
+	border-color: var(--color-menu-child-list-line);
+	border-left-width: 1px;
+	overflow: hidden;
+	display: none;
+}
+
+#sidebar > .menu-container > .menu .menu-item-parent.active > .children {
+	display: block;
+}
+
+
+/*
+/*
+/******************************************************************
+ **      page content                                            **
+ ******************************************************************/
+#main {
+	color: var(--color-font-base);
+	padding: 1rem;
+	overflow: auto;
+}
+
+#article {
+	padding: 5rem;
+}

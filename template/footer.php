@@ -1,8 +1,4 @@
 <?php require_once "./src/Data/SiteMeta.php" ?>
-		</div>
-		
-		<!-- Page data -->
-		<?php // TODO Get Page data ?>
 		
 		<!-- Gitbook Assets(js) -->
 		<?php
