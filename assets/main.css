@@ -16,6 +16,10 @@
 	
 	--color-font-base: #223b5c;
 	--color-font-base-link: #409dff;
+	--color-font-base-link-hover: #0033ff;
+	--color-font-base-link-visited: #a27aeb;
+	--color-font-base-link-visited-hover: #5a00ff;
+	--color-font-base-link-focus-bg: #33aee92b;
 	
 	--color-sidebar-background: #f6f8fa;
 	--color-font-sidebar: var(--color-font-base);
@@ -34,6 +38,10 @@
 	--color-font-menu-item-current: #3697ff;
 	--color-font-menu-item-hover: #71b3f9;
 	
+	--color-tools-button-background: #f6f8fa;
+	--color-tools-button-background-active: #eef1f4;
+	--color-font-tools-button: #c3ccd6;
+	
 }
 
 :root {
@@ -41,6 +49,7 @@
 	--sidebar-width: 19rem;
 	--sidebar-margin-width: 2rem;
 	--sidebar-margin-height: 2rem;
+	--sidebar-font-size: 0.83rem;
 	
 	--sidebar-menu-container-external-max-height: 30%;
 	
@@ -52,6 +61,16 @@
 	--sidebar-menu-list-seperator-length: 66%;
 	--sidebar-menu-item-indicator-active-width: 4px;
 	--sidebar-menu-item-indicator-focus-width: 4px;
+	
+	--main-margin-height: 2rem;
+	--main-margin-width: 2rem;
+	
+	--tools-button-padding: 0.75rem;
+	--tools-font-size: 0.83rem;
+	
+	--article-padding-height: 2rem;
+	--article-padding-width: 2rem;
+	--article-margin-top: 3rem;
 	
 }
 
@@ -71,6 +90,20 @@
 	/*--font-sans-serif: sans-serif;*/
 	/*--font-serif: "Times New Roman", serif;*/
 	--font-monospace: "Fira Code", "Monaco", "Consolas", var(--font-sarasa-mono), monospace;
+}
+
+:root {
+	
+	--element-href-anima-speed: 0.1s;
+	
+	--sidebar-toggle-anima-speed: 0.4s;
+	
+	--sidebar-menu-item-anima-speed: 0.15s;
+	--sidebar-menu-item-parent-arrow-anima-speed: 0.2s;
+	--sidebar-menu-item-children-anima-speed: 0.2s;
+	
+	--tools-button-hover-anima-speed: 0.2s;
+	
 }
 
 :root {
@@ -94,6 +127,28 @@
 	display: none;
 }
 
+button {
+	appearance: none;
+	font-size: inherit;
+	font-family: inherit;
+	font-style: inherit;
+	font-variant-ligatures: inherit;
+	font-variant-caps: inherit;
+	font-variant-numeric: inherit;
+	font-variant-east-asian: inherit;
+	font-weight: inherit;
+	font-stretch: inherit;
+	color: inherit;
+	letter-spacing: normal;
+	word-spacing: normal;
+	line-height: normal;
+	text-transform: none;
+	box-sizing: border-box;
+	background: none;
+	border: none;
+	border-radius: 0.5rem;
+}
+
 small {
 	opacity: var(--object-opacity-weakness);
 }
@@ -101,12 +156,46 @@ small {
 a {
 	color: var(--color-font-base-link);
 	text-decoration: none;
+	transition:
+			color calc(var(--element-href-anima-speed) * var(--animation-speed-multiplier)),
+			background-color calc(var(--element-href-anima-speed) * var(--animation-speed-multiplier));
+	border-radius: 0.3rem;
+}
+
+a:hover {
+	color: var(--color-font-base-link-hover);
+}
+
+a:visited {
+	color: var(--color-font-base-link-visited);
+}
+
+a:visited:hover {
+	color: var(--color-font-base-link-visited-hover);
+}
+
+a:focus-visible {
+	background-color: var(--color-font-base-link-focus-bg);
+	outline: none;
 }
 
 a.no-style {
 	color: inherit;
 	text-decoration: inherit;
 }
+
+a.no-style:hover,
+a.no-style:visited,
+a.no-style:visited:hover {
+	color: inherit;
+	border-radius: inherit;
+	transition: inherit;
+}
+
+a.no-style:focus-visible {
+	background-color: inherit;
+}
+
 
 h1 {
 	font-size: 2.2rem;
@@ -132,9 +221,8 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	color: var(--color-font-base);
-	display: grid;
-	grid-template-columns: min(calc(var(--sidebar-width) + var(--sidebar-margin-width) * 2), 100vw) auto;
-	grid-template-rows: 100vh;
+	display: flex;
+	position: relative;
 }
 
 
@@ -143,13 +231,31 @@ body {
 /******************************************************************
  **       sidebar                                                **
  ******************************************************************/
+#nav-container {
+	width: 0;
+	flex-grow: 0;
+	flex-shrink: 0;
+	position: relative;
+	transition: width calc(var(--sidebar-toggle-anima-speed) * var(--animation-speed-multiplier));
+}
+
+#nav-container.show-sidebar {
+	width: min(calc(var(--sidebar-width) + var(--sidebar-margin-width) * 2), 100vw);
+}
+
 #sidebar {
-	font-size: 0.83rem;
+	width: min(var(--sidebar-width), 100vw);
+	padding: var(--sidebar-margin-height) var(--sidebar-margin-width);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	font-size: var(--sidebar-font-size);
 	font-weight: bold;
 	display: flex;
 	flex-direction: column;
-	margin: var(--sidebar-margin-height) var(--sidebar-margin-width);
 	color: var(--color-font-sidebar);
+	overflow: hidden;
 }
 
 #sidebar .sidebar-card {
@@ -245,6 +351,7 @@ body {
 	display: block;
 	padding: 0.55rem 0;
 	position: relative;
+	transition: color calc(var(--sidebar-menu-item-anima-speed) * var(--animation-speed-multiplier));
 }
 
 #sidebar > .menu-container > .menu .menu-item:hover {
@@ -252,7 +359,7 @@ body {
 }
 
 #sidebar > .menu-container > .menu .menu-item.current {
-	color: var(--color-font-menu-item-current);
+	color: var(--color-font-menu-item-current) !important;
 }
 
 #sidebar > .menu-container > .menu .menu-item.current:after {
@@ -266,20 +373,27 @@ body {
 	background: var(--color-menu-item-indicator-current);
 }
 
+#sidebar > .menu-container > .menu .menu-item:before {
+	content: "";
+	position: absolute;
+	transition: top calc(var(--sidebar-menu-item-anima-speed) * var(--animation-speed-multiplier)),
+				bottom calc(var(--sidebar-menu-item-anima-speed) * var(--animation-speed-multiplier));
+	top: 50%;
+	bottom: 50%;
+	left:calc(0px - var(--sidebar-menu-item-indicator-focus-width) * 2);
+	width: var(--sidebar-menu-item-indicator-focus-width);
+	border-radius: calc(var(--sidebar-menu-item-indicator-focus-width) / 2);
+	background: var(--color-menu-item-indicator-focus);
+}
+
 #sidebar > .menu-container > .menu .menu-item:focus-visible{
 	color: var(--color-font-menu-item-hover);
 	outline: none;
 }
 
 #sidebar > .menu-container > .menu .menu-item:focus-visible:before {
-	content: "";
-	position: absolute;
 	top: calc(var(--sidebar-menu-item-indicator-focus-width) / 2);
 	bottom: calc(var(--sidebar-menu-item-indicator-focus-width) / 2);
-	left:calc(0px - var(--sidebar-menu-item-indicator-focus-width) * 2);
-	width: var(--sidebar-menu-item-indicator-focus-width);
-	border-radius: calc(var(--sidebar-menu-item-indicator-focus-width) / 2);
-	background: var(--color-menu-item-indicator-focus);
 }
 
 #sidebar > .menu-container > .menu .menu-item-parent > *:first-child:after {
@@ -287,7 +401,7 @@ body {
 	color: var(--color-font-base-link);
 	display: inline-block;
 	margin-left: 0.5rem;
-	transition: transform calc(0.2s * var(--animation-speed-multiplier));
+	transition: transform calc(var(--sidebar-menu-item-parent-arrow-anima-speed) * var(--animation-speed-multiplier));
 }
 
 #sidebar > .menu-container > .menu .menu-item-parent.active > *:first-child:after {
@@ -302,6 +416,7 @@ body {
 	border-left-width: 1px;
 	overflow: hidden;
 	display: none;
+	transition: height calc(var(--sidebar-menu-item-children-anima-speed) * var(--animation-speed-multiplier)) ease-in-out;
 }
 
 #sidebar > .menu-container > .menu .menu-item-parent.active > .children {
@@ -312,14 +427,45 @@ body {
 /*
 /*
 /******************************************************************
- **      page content                                            **
+ **      page header                                             **
  ******************************************************************/
 #main {
 	color: var(--color-font-base);
-	padding: 1rem;
+	margin: var(--main-margin-height) var(--main-margin-width);
+	flex-grow: 1;
 	overflow: auto;
+	position: relative;
 }
 
+#page-tools {
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: var(--color-font-tools-button);
+	font-size: var(--tools-font-size);
+	font-weight: bold;
+}
+
+#page-tools > button {
+	background-color: var(--color-tools-button-background);
+	padding: 0;
+	height: 2.2rem;
+	width: 2.2rem;
+	transition: background-color var(--tools-button-hover-anima-speed);
+}
+
+#page-tools > button:hover {
+	background-color: var(--color-tools-button-background-active);
+}
+
+
+
+/*
+/*
+/******************************************************************
+ **      page content                                            **
+ ******************************************************************/
 #article {
-	padding: 5rem;
+	margin-top: var(--article-margin-top);
+	padding: var(--article-padding-height) var(--article-padding-width);
 }
