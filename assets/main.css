@@ -423,6 +423,22 @@ body {
 	display: block;
 }
 
+#sidebar > .menu-container > .menu#menu-metas > .menu-item-parent > *:first-child {
+	position: relative;
+}
+
+#sidebar > .menu-container > .menu#menu-metas > .menu-item-parent > *:first-child:after {
+	position: absolute;
+	left: 0;
+	margin-left: -1rem;
+	color: inherit;
+}
+
+#sidebar > .menu-container > .menu#menu-metas > .menu-item-parent > .children {
+	padding-left: 0;
+	border-left-width: 0;
+}
+
 
 /*
 /*

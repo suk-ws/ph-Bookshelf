@@ -1,10 +1,30 @@
+<? require_once "./src/Data/SiteMeta.php"; ?>
 <div id="nav-container"><nav id="sidebar">
 	<noscript id="noscript-warn">For now, javascript must be enabled to view this site!!</noscript>
 	<address id="site-title">ph-Bookshelf BEDROCK Demo supports looooooooog title</address>
 	<div id="menu-container" class="menu-container sidebar-card">
-		<div id="menu-links" class="menu">
-			<a class="no-style menu-item" href="https://sukazyo.cc/" target="_blank">Workshop MetaBoard</a>
-			<a class="no-style menu-item" href="https://srv.sukazyo.cc/" target="_blank">Workshop Services</a>
+		<div id="menu-metas" class="menu">
+			<div class="menu-item-parent">
+				<a class="no-style menu-item" href="#">Links</a>
+				<div class="children">
+					<a class="no-style menu-item" href="https://sukazyo.cc/" target="_blank">Workshop MetaBoard</a>
+					<a class="no-style menu-item" href="https://srv.sukazyo.cc/" target="_blank">Workshop Services</a>
+				</div>
+			</div>
+			<div class="menu-item-parent">
+				<a class="no-style menu-item" href="#">Books</a>
+				<div class="children">
+					<a class="no-style menu-item" href="https://sukazyo.cc/" target="_blank">Template Book</a>
+					<a class="no-style menu-item" href="https://srv.sukazyo.cc/" target="_blank">phBookshelf Documentation</a>
+					<div class="menu-item-parent">
+						<a class="no-style menu-item" href="#">Some other Links</a>
+						<div class="children">
+							<a class="no-style menu-item current" href="https://sukazyo.cc/" target="_blank">Template Book</a>
+							<a class="no-style menu-item" href="https://srv.sukazyo.cc/" target="_blank">phBookshelf Documentation</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div id="menu-pages" class="menu">
 			<a class="no-style menu-item" href="#">Something?</a>
@@ -38,9 +58,17 @@
 			<a class="no-style menu-item" href="#">Something?</a>
 		</div>
 		<div id="menu-about" class="menu">
+			<a class="no-style menu-item" href="https://sukazyo.cc" target="_blank">
+				<span>hosted by Sukazyo Workshop</span><br>
+				<small>&nbsp;| @author A.C.Sukazyo Eyre</small><br>
+				<small>&nbsp;<object><a class="no-style" href="https://laple.me/">| @author Lapis Apple</a></object></small><br>
+				<small>&nbsp;| @author github contributors&~&</small><br>
+				<small>&nbsp;| CC BY-NC-SA</small><br>
+				<small>&nbsp;| CC statement just for testing</small>
+			</a>
 			<a class="no-style menu-item" href="https://github.com/suk-ws/ph-Bookshelf" target="_blank">
-				<span>Published by ph-Bookshelf</span><br>
-				<small>0.3-dev</small>
+				<span>published with ph-Bookshelf</span><br>
+				<small><?=SiteMeta::getProgramVersion()?></small>
 			</a>
 		</div>
 	</div>

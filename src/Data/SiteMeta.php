@@ -11,6 +11,10 @@ class SiteMeta {
 		return APP_NAME." ".VERSION;
 	}
 	
+	public static function getProgramVersion(): string {
+		return sprintf("%s @%s/%s", VERSION, CHANNEL, BRANCH);
+	}
+	
 	/**
 	 * @throws Exception
 	 */
