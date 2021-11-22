@@ -42,6 +42,9 @@
 	--color-tools-button-background-active: #eef1f4;
 	--color-font-tools-button: #c3ccd6;
 	
+	--color-scrollbar-main-background: var(--color-scrollbar-sidebar-foreground);
+	--color-scrollbar-main-foreground: var(--color-menu-item-indicator-focus);
+	
 }
 
 :root {
@@ -65,12 +68,15 @@
 	--main-margin-height: 2rem;
 	--main-margin-width: 2rem;
 	
+	--main-scrollbar-width: 0.5rem;
+	
 	--tools-button-padding: 0.75rem;
 	--tools-font-size: 0.83rem;
 	
 	--article-padding-height: 2rem;
 	--article-padding-width: 2rem;
 	--article-margin-top: 3rem;
+	--article-width-max: 800px;
 	
 }
 
@@ -123,9 +129,9 @@
 
 }
 
-#test-overflow {
-	display: none;
-}
+/*#test-overflow {*/
+/*	display: none;*/
+/*}*/
 
 button {
 	appearance: none;
@@ -425,6 +431,7 @@ body {
 
 #sidebar > .menu-container > .menu#menu-metas > .menu-item-parent > *:first-child {
 	position: relative;
+	/*text-decoration: underline;*/
 }
 
 #sidebar > .menu-container > .menu#menu-metas > .menu-item-parent > *:first-child:after {
@@ -451,6 +458,24 @@ body {
 	flex-grow: 1;
 	overflow: auto;
 	position: relative;
+}
+
+#main::-webkit-scrollbar {
+	width: var(--main-scrollbar-width);
+	border-radius: calc(var(--main-scrollbar-width) / 2);
+	background: none;
+}
+
+#main::-webkit-scrollbar-thumb {
+	width: var(--main-scrollbar-width);
+	border-radius: calc(var(--main-scrollbar-width) / 2);
+	background: var(--color-scrollbar-main-foreground);
+}
+
+#main::-webkit-scrollbar-track {
+	width: var(--main-scrollbar-width);
+	border-radius: calc(var(--main-scrollbar-width) / 2);
+	background: var(--color-scrollbar-main-background);
 }
 
 #page-tools {
@@ -482,6 +507,7 @@ body {
  **      page content                                            **
  ******************************************************************/
 #article {
-	margin-top: var(--article-margin-top);
+	margin: var(--article-margin-top) auto 0;
 	padding: var(--article-padding-height) var(--article-padding-width);
+	max-width: var(--article-width-max);
 }

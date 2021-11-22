@@ -11,26 +11,40 @@ for (const node of document.getElementsByTagName("noscript")) {
 }
 
 for (const node of document.getElementsByClassName("menu-item-parent")) {
-	const children = node.getElementsByClassName("children")[0];
-	node.firstElementChild.onclick = async function () {
-		node.classList.toggle("active");
-		if (node.classList.contains("active")) {
-			const height = children.clientHeight;
-			children.style.height = "0px";
-			await sleep(1);
-			children.style.height = height + "px";
-			await sleep(menuItemChildrenAnimaSpeed);
-			children.style.height = "";
-		} else {
-			children.style.display = "block";
-			const height = children.clientHeight;
-			children.style.height = height + "px";
-			await sleep(1);
-			children.style.height = "0px";
-			await sleep(menuItemChildrenAnimaSpeed);
-			children.style.height = "";
-			children.style.display = "";
+	if (node.parentElement.id === "menu-metas") {
+		console.log("a");
+		node.firstElementChild.onclick = function () {
+			if (!node.classList.contains("active")) {
+				for (const nodeOther of node.parentElement.children) {
+					if (nodeOther.classList.contains("active")) { toggleMenuItem(nodeOther).then(); }
+				}
+			}
+			toggleMenuItem(node).then();
 		}
+	} else {
+		node.firstElementChild.onclick = function () { toggleMenuItem(node).then(); }
+	}
+}
+
+async function toggleMenuItem(node) {
+	const children = node.getElementsByClassName("children")[0];
+	node.classList.toggle("active");
+	if (node.classList.contains("active")) {
+		const height = children.clientHeight;
+		children.style.height = "0px";
+		await sleep(1);
+		children.style.height = height + "px";
+		await sleep(menuItemChildrenAnimaSpeed);
+		children.style.height = "";
+	} else {
+		children.style.display = "block";
+		const height = children.clientHeight;
+		children.style.height = height + "px";
+		await sleep(1);
+		children.style.height = "0px";
+		await sleep(menuItemChildrenAnimaSpeed);
+		children.style.height = "";
+		children.style.display = "";
 	}
 }
 
