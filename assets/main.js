@@ -57,6 +57,8 @@ function sidebarToggle() {
 }
 if (window.innerWidth > 1000) { sidebarToggle(); }
 
+EventUtil.bindEvent(itemSidebar, 'swipeleft', sidebarToggle)
+
 
 
 window.onload = function () {

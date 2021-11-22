@@ -46,6 +46,7 @@ class SiteMeta {
 //			"/assets/gitbook-fix.js",
 //			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
 //			"/assets/ref.js",
+			"/assets/utils-touchscreen-event.js",
 			"/assets/main.js",
 		);
 	}
