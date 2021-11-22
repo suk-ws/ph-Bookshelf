@@ -55,6 +55,7 @@ class SiteMeta {
 	}
 	
 	public static function getCustomScriptContent (string $id): string {
+		if (!file_exists("./data/$id.js")) return "";
 		return file_get_contents("./data/$id.js");
 	}
 	

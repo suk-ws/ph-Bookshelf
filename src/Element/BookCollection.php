@@ -1,5 +1,6 @@
 <?php
 
+require_once "./src/Data/PageMeta.php";
 require_once "./src/Element/Book.php";
 
 class BookCollection {
@@ -72,11 +73,11 @@ class BookCollection {
 	
 	public function getHtml (): string {
 		$str = "";
-		if ($this->name != self::ROOT) $str .= "<li class='book-collection fold" . ($this->getBook(PageMeta::$book->getId())==null?"":" on") . "'><a class='book-collection'>$this->name<i class='exc-trigger fa'></i></a><ul class='book-collection summary'>";
+		if ($this->name != self::ROOT) $str .= "<div class='menu-item-parent" . ($this->getBook(PageMeta::$book->getId())==null?"":" active") . "'><a class='no-style menu-item'>$this->name</a><div class='children'>";
 		foreach ($this->array as $node) {
 			$str .= $node->getHtml();
 		}
-		if ($this->name != self::ROOT) $str .= "</ul></li>";
+		if ($this->name != self::ROOT) $str .= "</div></div>";
 		return $str;
 	}
 	

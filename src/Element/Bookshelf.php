@@ -70,16 +70,6 @@ class Bookshelf {
 		return $this->rootBook;
 	}
 	
-	public function getHtml (): string {
-		$str = $this->links->getHtml();
-		$str .= "<li class='divider block-start'></li><div class='summary-container" . (PageMeta::$isMainPage?" on":"") . "'>";
-		$str .= $this->books->getHtml();
-		$str .= "</div><li class='divider block-end'></li>";
-		$str .= PageMeta::$book->getSummaryHtml();
-		$str .= "";
-		return $str;
-	}
-	
 	public function getBook (string $id): ?Book {
 		return $this->books->getBook($id);
 	}

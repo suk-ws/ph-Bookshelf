@@ -64,7 +64,7 @@ class BookContented {
 	}
 	
 	public function getSummaryHtml (): string {
-		return "<div id='in-book-nav-container'>" . $this->childs->getSummaryHtml() . "</div>";
+		return $this->childs->getSummaryHtml();
 	}
 	
 	public function getPage (string $id): ?Page {

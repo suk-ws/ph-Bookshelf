@@ -66,11 +66,11 @@ class Chapter {
 	
 	public function getSummaryHtml (): string {
 		$str = "";
-		if ($this->parent != null) $str .= "<li class='chapter fold" . ($this->getPage(PageMeta::$page->getId())==null?"":" on") . "'><a class='page-chapter'>$this->name<i class='exc-trigger fa'></i></a><ul class='page-chapter summary'>";
+		if ($this->parent != null) $str .= "<div class='menu-item-parent" . ($this->getPage(PageMeta::$page->getId())==null?"":" active") . "'><a class='no-style menu-item' href='javascript:'>$this->name</a><div class='children'>";
 		foreach ($this->childs as $node) {
 			$str .= $node->getSummaryHtml();
 		}
-		if ($this->parent != null) $str .= "</ul></li>";
+		if ($this->parent != null) $str .= "</div></div>";
 		return $str;
 	}
 	

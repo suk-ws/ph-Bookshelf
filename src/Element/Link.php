@@ -53,7 +53,7 @@ class Link {
 	}
 	
 	public function getHtml (): string {
-		return "<li class='link'><a class='link' href='$this->href' target='_blank'>$this->name</a></li>";
+		return "<a class='no-style menu-item' href='$this->href' target='_blank'>$this->name</a>";
 	}
 	
 }
