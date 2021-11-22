@@ -1,5 +1,5 @@
 <? require_once "./src/Data/SiteMeta.php"; ?>
-<div id="nav-container"><nav id="sidebar">
+<div id="nav-container" class="prevent-animation"><nav id="sidebar">
 	<noscript id="noscript-warn">For now, javascript must be enabled to view this site!!</noscript>
 	<address id="site-title">ph-Bookshelf BEDROCK Demo supports looooooooog title</address>
 	<div id="menu-container" class="menu-container sidebar-card">
@@ -68,7 +68,8 @@
 			</a>
 			<a class="no-style menu-item" href="https://github.com/suk-ws/ph-Bookshelf" target="_blank">
 				<span>published with ph-Bookshelf</span><br>
-				<small><?=SiteMeta::getProgramVersion()?></small>
+				<small><?=SiteMeta::getProgramVersion()?></small><br>
+				<small>with BreadCardUI</small>
 			</a>
 		</div>
 	</div>

@@ -12,7 +12,6 @@ for (const node of document.getElementsByTagName("noscript")) {
 
 for (const node of document.getElementsByClassName("menu-item-parent")) {
 	if (node.parentElement.id === "menu-metas") {
-		console.log("a");
 		node.firstElementChild.onclick = function () {
 			if (!node.classList.contains("active")) {
 				for (const nodeOther of node.parentElement.children) {
@@ -56,4 +55,19 @@ document.getElementById("sidebar-show").onclick = sidebarToggle;
 function sidebarToggle() {
 	itemSidebar.parentElement.classList.toggle("show-sidebar");
 }
-sidebarToggle();
+if (window.innerWidth > 1000) { sidebarToggle(); }
+
+
+
+window.onload = function () {
+	
+	// 循环删除页面加载时css过度动画的效果抑制
+	const elementsTranslationPreload = document.getElementsByClassName("prevent-animation");
+	while (elementsTranslationPreload.length > 0) {
+		// console.debug("Removing translation-preload tag on element" + elementsTranslationPreload[0].nodeName + "#" + elementsTranslationPreload[0].id);
+		// console.debug("Last elements count is : " + elementsTranslationPreload.length);
+		elementsTranslationPreload[0].classList.remove("prevent-animation");
+	}
+	console.debug("prevent-animation tag remove done");
+	
+}

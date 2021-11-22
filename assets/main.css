@@ -129,6 +129,10 @@
 
 }
 
+.prevent-animation {
+	transition: none !important;
+}
+
 /*#test-overflow {*/
 /*	display: none;*/
 /*}*/
@@ -493,6 +497,7 @@ body {
 	height: 2.2rem;
 	width: 2.2rem;
 	transition: background-color var(--tools-button-hover-anima-speed);
+	user-select: none;
 }
 
 #page-tools > button:hover {
