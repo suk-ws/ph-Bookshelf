@@ -1,0 +1,78 @@
+/******************************************************************************
+ ##############################################################################
+ #####                                                                    #####
+ #####   Markdown StyleSheet of ui design BreadCard                       #####
+ #####     enhanced module                                                #####
+ #####     of rainbow marker of ul/ol listing                             #####
+ #####                                                                    #####
+ #####     @author: Sukazyo Workshop                                      #####
+ #####     @version： 1.0                                                 #####
+ #####                                                                    #####
+ ##############################################################################
+ ******************************************************************************/
+
+:root {
+	--bcm-color-list-item-marker-level0: hsl(230, 39%, 68%);
+	--bcm-color-list-item-marker-level1: hsl(220, 39%, 68%);
+	--bcm-color-list-item-marker-level2: hsl(210, 39%, 68%);
+	--bcm-color-list-item-marker-level3: hsl(200, 39%, 68%);
+	--bcm-color-list-item-marker-level4: hsl(190, 39%, 68%);
+	--bcm-color-list-item-marker-level5: hsl(180, 39%, 68%);
+	--bcm-color-list-item-marker-level6: hsl(170, 39%, 68%);
+	--bcm-color-list-item-marker-level7: hsl(160, 39%, 68%);
+	--bcm-color-list-item-marker-level8: hsl(150, 39%, 68%);
+	--bcm-color-list-item-marker-level9: hsl(140, 39%, 68%);
+}
+
+ul,
+ul ul,
+ul ul ul,
+ul ul ul ul,
+ul ul ul ul ul,
+ul ul ul ul ul ul,
+ul ul ul ul ul ul ul,
+ul ul ul ul ul ul ul ul,
+ul ul ul ul ul ul ul ul ul,
+ul ul ul ul ul ul ul ul ul ul {
+	list-style-type: disc;
+}
+
+:is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level0);
+}
+
+:is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level1);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level2);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level3);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level4);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level5);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level6);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level7);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level8);
+}
+
+:is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) li::marker {
+	color: var(--bcm-color-list-item-marker-level9);
+}
