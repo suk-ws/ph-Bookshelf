@@ -42,8 +42,10 @@ class Bookshelf {
 						case "rootBook":
 							$return->rootBook = BookContented::parse($rc);
 							break;
-						case "#text":
+						case "#comment":
 							break;
+						case "#text":
+							if (empty(trim($rc->nodeValue))) break;
 						default:
 							throw new Exception("Unsupported element type \"$rc->nodeName\" in root child of Bookshelf");
 					}

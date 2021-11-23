@@ -44,8 +44,10 @@ class BookCollection {
 				case "Collection":
 					array_push($node->array, BookCollection::parse($child, $node));
 					break;
-				case "#text":
+				case "#comment":
 					break;
+				case "#text":
+					if (empty(trim($child->nodeValue))) break;
 				default:
 					throw new Exception("Unsupported element type \"$child->nodeName\" in BookCollection named \"$name\"");
 			}

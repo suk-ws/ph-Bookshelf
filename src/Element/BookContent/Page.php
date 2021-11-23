@@ -38,7 +38,6 @@ class Page {
 		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "#text":
-					break;
 				default:
 					throw new Exception("Unsupported element type \"$child->nodeName\" in Page with id $id");
 			}

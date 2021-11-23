@@ -37,8 +37,10 @@ class Chapter {
 				case "Chapter":
 					array_push($node->childs, self::parse($child, $node));
 					break;
-				case "#text":
+				case "#comment":
 					break;
+				case "#text":
+					if (empty(trim($child->nodeValue))) break;
 				default:
 					throw new Exception("Unsupported element type \"$child->nodeName\" in Chapter \"$node->name\"");
 			}

@@ -8,5 +8,5 @@ $parser = new ParsedownExtend();
 $parser->setMarkupEscaped(false);
 $parser->setSafeMode(false);
 
-echo "<h1 id='phb-page-".PageMeta::$page->getId()."'>".PageMeta::$page->getName()."</h1>\n";
+//echo "<h1 id='phb-page-".PageMeta::$page->getId()."'>".PageMeta::$page->getName()."</h1>\n";
 echo $parser->text(PageMeta::$page->getMarkdownContent());
