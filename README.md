@@ -1,6 +1,6 @@
 # ph-Bookshelf
 
-一个基于 Gitbook 的简单的多 book 实现。
+一个可以在单一站点上放一大堆文档的文档托管项目——我们把它称之为书架。
 
 因为 web 相关的东西 Sukazyo 最熟悉的就是 php 了所以就用 php 写的。
 但是写出来的代码还是十分离谱的不易读的：各种调用交错在一起，前后端也交错在一起
@@ -33,5 +33,6 @@
 
 ### 开源许可
 
-本软件的代码（因为写得真的不好所以）开源于公共领域，<br/>
-（但显然 Gitbook (/assets/gitbook/*) 中的内容还是受限于 Apache 2.0 的）
+项目自身：MIT License.
+
+LIB: ParseDown : MIT License.
