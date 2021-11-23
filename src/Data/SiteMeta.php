@@ -36,6 +36,10 @@ class SiteMeta {
 //			"/assets/gitbook/gitbook-plugin-fontsettings/website.css",
 //			"/assets/gitbook-fix.css",
 //			"/assets/ref.css",
+			"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/atom-one-dark.min.css",
+			"/assets/bread-card-markdown.css",
+			"/assets/bread-card-markdown-enhanced-listing-rainbow.css",
+			"/assets/bread-card-markdown-compat-highlight-js.css",
 			"/assets/main.css",
 		);
 	}
@@ -46,6 +50,7 @@ class SiteMeta {
 //			"/assets/gitbook-fix.js",
 //			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
 //			"/assets/ref.js",
+			"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js",
 			"/assets/utils-touchscreen-event.js",
 			"/assets/main.js",
 		);

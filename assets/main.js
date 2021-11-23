@@ -58,6 +58,8 @@ function sidebarToggle() {
 if (window.innerWidth > 1000) { sidebarToggle(); }
 
 EventUtil.bindEvent(itemSidebar, 'swipeleft', sidebarToggle)
+// EventUtil.bindEvent(document.body, 'swipeleft', function () { if (itemSidebar.parentElement.classList.contains("show-sidebar")) { sidebarToggle(); } });
+// EventUtil.bindEvent(document.body, 'swiperight', function () { if (!itemSidebar.parentElement.classList.contains("show-sidebar")) { sidebarToggle(); } });
 
 
 

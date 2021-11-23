@@ -10,6 +10,7 @@
 		<script>
 			bookCurrentId = "<?= PageMeta::$book->getId() ?>";
 			pageCurrentId = "<?= PageMeta::$page->getId() ?>";
+			hljs.highlightAll();
 		</script>
 		
 	</body>

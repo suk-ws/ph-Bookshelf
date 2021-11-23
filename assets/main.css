@@ -75,7 +75,9 @@
 	
 	--article-padding-height: 2rem;
 	--article-padding-width: 2rem;
-	--article-margin-top: 3rem;
+	/*--article-margin-top: 3rem;*/
+	--article-margin-top: 0;
+	--article-margin-bottom: 30vh;
 	--article-width-max: 800px;
 	
 }
@@ -266,6 +268,7 @@ body {
 	flex-direction: column;
 	color: var(--color-font-sidebar);
 	overflow: hidden;
+	z-index: 99;
 }
 
 #sidebar .sidebar-card {
@@ -361,6 +364,7 @@ body {
 	display: block;
 	padding: 0.55rem 0;
 	position: relative;
+	-webkit-tap-highlight-color: transparent;
 	transition: color calc(var(--sidebar-menu-item-anima-speed) * var(--animation-speed-multiplier));
 }
 
@@ -458,10 +462,16 @@ body {
  ******************************************************************/
 #main {
 	color: var(--color-font-base);
-	margin: var(--main-margin-height) var(--main-margin-width);
+	margin: 0 var(--main-margin-width);
 	flex-grow: 1;
 	overflow: auto;
 	position: relative;
+}
+
+#main > #main-heading {
+	padding-top: var(--main-margin-height);
+	position: sticky;
+	top: 0;
 }
 
 #main::-webkit-scrollbar {
@@ -480,15 +490,16 @@ body {
 	width: var(--main-scrollbar-width);
 	border-radius: calc(var(--main-scrollbar-width) / 2);
 	background: var(--color-scrollbar-main-background);
+	margin: var(--main-margin-height);
 }
 
 #page-tools {
-	position: absolute;
-	top: 0;
-	left: 0;
 	color: var(--color-font-tools-button);
+	/*background-color: #ffffff;*/
+	border-radius: 0.5rem;
 	font-size: var(--tools-font-size);
 	font-weight: bold;
+	z-index: 100;
 }
 
 #page-tools > button {
@@ -512,7 +523,8 @@ body {
  **      page content                                            **
  ******************************************************************/
 #article {
-	margin: var(--article-margin-top) auto 0;
+	margin: var(--article-margin-top) auto var(--article-margin-bottom);
 	padding: var(--article-padding-height) var(--article-padding-width);
+	padding-right: calc(var(--article-padding-width));
 	max-width: var(--article-width-max);
 }

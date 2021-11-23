@@ -1,7 +1,7 @@
 <main id="main">
-	<div id="page-tools">
+	<div id="main-heading"><div id="page-tools">
 		<button id="sidebar-show">☰</button>
-	</div>
+	</div></div>
 	<article id="article">
 		<?php require "./template/raw-article.php" ?>
 	</article>
