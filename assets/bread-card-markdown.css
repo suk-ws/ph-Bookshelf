@@ -17,11 +17,27 @@
 	--bcm-color-font-base-link-visited: #a27aeb;
 	--bcm-color-font-base-link-visited-hover: #5a00ff;
 	--bcm-color-font-base-link-focus-bg: #33aee92b;
+	--bcm-color-font-base-mark: #257c78;
+	--bcm-color-font-base-mark-bg: #ceff818a;
 	
 	--bcm-color-blockquote-focus: #e2e5e8;
 	--bcm-color-blockquote-foreground: #949da9;
 	
 	--bcm-color-list-item-marker-std: #949da9;
+	
+	--bcm-color-table-background: #f6f8fa;
+	/*--bcm-color-table-background: #c7d4e5;*/
+	--bcm-color-table-head-background: #77a6e0;
+	--bcm-color-table-head-foreground: #f3f5f5;
+	--bcm-color-table-foot-background: #e7eef7;
+	--bcm-color-table-foot-foreground: #9dabba;
+	
+	--bcm-color-code-inline-background: #f1f1f1;
+	--bcm-color-codeblock-background: #223b5c;
+	--bcm-color-codeblock-foreground: aliceblue;
+	
+	--bcm-color-keyboard-background: #3764e2;
+	--bcm-color-keyboard-foreground: #ecedf1;
 	
 	--bcm-color-seperator: #e2e5e8;
 	
@@ -107,6 +123,37 @@ ol > li::marker {
 	font-size: 0.65rem;
 }
 
+table {
+	background: var(--bcm-color-table-background);
+	border-radius: 0.5rem;
+	border-spacing: 0.5rem;
+}
+
+table > thead > tr > :is(th, td) {
+	background: var(--bcm-color-table-head-background);
+	color: var(--bcm-color-table-head-foreground);
+	border-radius: 0.3rem;
+}
+
+table > tfoot > tr > :is(th, td) {
+	background: var(--bcm-color-table-foot-background);
+	color: var(--bcm-color-table-foot-foreground);
+	border-radius: 0.3rem;
+}
+
+/*table > thead,*/
+/*table > tbody {*/
+/*	margin: -0.5rem;*/
+/*}*/
+
+table > thead > tr > :is(th, td) {
+	padding: 0.3rem;
+}
+
+table > :is(tbody, tfoot) > tr > :is(th, td) {
+	padding: 0.5rem;
+}
+
 blockquote {
 	margin-block-start: 2.6rem;
 	margin-block-end: 2.6rem;
@@ -134,7 +181,7 @@ blockquote:before {
 code {
 	padding: 0.2rem;
 	border-radius: 0.3rem;
-	background: #f1f1f1;
+	background: var(--bcm-color-code-inline-background);
 	font-size: 0.85rem;
 }
 
@@ -143,15 +190,15 @@ pre {
 	padding: 0.7rem 0;
 	border-radius: 0.5rem;
 	display: block;
-	background: #223b5c;
-	color: aliceblue;
+	background: var(--bcm-color-codeblock-background);
+	color: var(--bcm-color-codeblock-foreground);
 	overflow: hidden;
 	font-size: 14px;
 }
 
 pre code {
 	display: block;
-	background: #223b5c;
+	background: var(--bcm-color-codeblock-background);
 	overflow-x: scroll;
 	padding: 0.2rem 1.2rem 0.6rem;
 	line-height: 1.4;
@@ -176,4 +223,23 @@ pre code::-webkit-scrollbar-track {
 	border-radius: 0.5rem;
 	background: none;
 	margin: 0.7rem;
+}
+
+
+kbd {
+	background: var(--bcm-color-keyboard-background);
+	border-radius: 50% 45% 0.1rem 0.2rem;
+	color: var(--bcm-color-keyboard-foreground);
+	font-weight: bold;
+	padding: 0.2rem 0.25rem;
+}
+
+kbd + kbd {
+	margin-inline-start: 0.25rem;
+}
+
+mark {
+	background-color: var(--bcm-color-font-base-mark-bg);
+	color: var(--bcm-color-font-base-mark);
+	border-radius: 0.1rem;
 }
