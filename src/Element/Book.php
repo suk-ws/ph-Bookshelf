@@ -54,8 +54,20 @@ class Book {
 		return $this->parent;
 	}
 	
-	public function getHtml (): string {
-		return "<a id='book/$this->id' book-id='$this->id' class='no-style menu-item" . (PageMeta::$book->getId()==$this->id?" current":"") . "' href='/$this->id'" . ">$this->name</a>";
+	public function getHtml (int $indent = 0): string {
+		return sprintf(<<<EOF
+			%s<a id='book/%s' book-id='%s'
+			%s  class='no-style menu-item%s'
+			%s  href='%s'" . ">%s</a>
+			EOF,
+			str_repeat("\t", $indent), $this->id, $this->id,
+			str_repeat("\t", $indent), PageMeta::$book->getId()==$this->id ? " current" : "",
+			str_repeat("\t", $indent), PageMeta::$book->getId()==$this->id ? "javascript:void(0)" : $this->encodeUrl(), $this->name
+		);
+	}
+	
+	public function encodeUrl (): string {
+		return "/" . urlencode($this->id);
 	}
 	
 	/**

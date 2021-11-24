@@ -7,14 +7,14 @@
 			<div id="menu-metas" class="menu">
 				<div class="menu-item-parent">
 					<a class="no-style menu-item" href="javascript:">Links</a>
-					<div class="children">
-						<?= SiteMeta::getBookshelf()->getLinks()->getHtml() ?>
+					<div class="children"><?=
+						SiteMeta::getBookshelf()->getLinks()->getHtml(7) ?>
 					</div>
 				</div>
 				<div class="menu-item-parent">
 					<a class="no-style menu-item" href="javascript:">Books</a>
-					<div class="children">
-						<?= SiteMeta::getBookshelf()->getBooks()->getHtml() ?>
+					<div class="children"><?=
+						SiteMeta::getBookshelf()->getBooks()->getHtml(7) ?>
 					</div>
 				</div>
 			</div>

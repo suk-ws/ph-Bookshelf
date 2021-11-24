@@ -68,7 +68,14 @@ class Chapter {
 	
 	public function getSummaryHtml (): string {
 		$str = "";
-		if ($this->parent != null) $str .= "<div class='menu-item-parent" . ($this->getPage(PageMeta::$page->getId())==null?"":" active") . "'><a class='no-style menu-item' href='javascript:'>$this->name</a><div class='children'>";
+		if ($this->parent != null) $str .= sprintf(<<<EOL
+			<div class='menu-item-parent%s'>
+				<a class='no-style menu-item' href='javascript:'>%s</a>
+				<div class='children'>
+			EOL,
+			$this->getPage(PageMeta::$page->getId())==null?"":" active",
+			$this->name
+		);
 		foreach ($this->childs as $node) {
 			$str .= $node->getSummaryHtml();
 		}

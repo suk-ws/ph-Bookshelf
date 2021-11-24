@@ -18,6 +18,7 @@ if (PageMeta::compatibilityOldTitlePolicy()) {
 		} else if ($pageMarkdownContent[$i] == '#' && $pageMarkdownContent[$i+1] != '#') {
 			break;
 		}
+		echo "<!-- compatibility old-title policy triggered -->\n";
 		echo "<h1 id='phb-page-".PageMeta::$page->getId()."'>".PageMeta::$page->getName()."</h1>\n";
 		break;
 	}

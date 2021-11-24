@@ -3,6 +3,11 @@
 		<button id="sidebar-show">☰</button>
 	</div></div>
 	<article id="article">
-		<?php require "./template/raw-article.php" ?>
+	
+	
+<?php require "./template/raw-article.php" ?>
+	
+	
+	
 	</article>
 </main>

@@ -24,9 +24,15 @@ try {
 		
 		if (sizeof($uri) > 0 && $uri[0] != null) {
 			// 非主页面，判定当前定义的 book
-			$tmp = SiteMeta::getBookshelf()->getBook($uri[0]);
-			if ($tmp == null) throw new RequestNotExistException("Book required \"$uri[0]\" not found!");
-			PageMeta::$book = $tmp->getContentedNode();
+			if ($uri[0] == "%root") {
+				PageMeta::$book = SiteMeta::getBookshelf()->getRootBook();
+			} else {
+				$tmp = SiteMeta::getBookshelf()->getBook($uri[0]);
+				if ($tmp == null)
+					throw new RequestNotExistException("Book required \"$uri[0]\" not found!");
+				PageMeta::$book = $tmp->getContentedNode();
+			}
+			
 			// 判定当前页面
 			if (sizeof($uri) > 1 && $uri[1] != null) {
 				$tmp = PageMeta::$book->getPage($uri[1]);

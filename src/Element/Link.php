@@ -52,8 +52,12 @@ class Link {
 		return $this->parent;
 	}
 	
-	public function getHtml (): string {
-		return "<a class='no-style menu-item' href='$this->href' target='_blank'>$this->name</a>";
+	public function getHtml (int $indent = 0): string {
+		return sprintf(
+			"%s<a class='no-style menu-item' href='%s' target='_blank'>%s</a>",
+			str_repeat("\t", $indent),
+			$this->href, $this->name
+		);
 	}
 	
 }

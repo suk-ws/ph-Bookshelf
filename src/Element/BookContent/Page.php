@@ -85,11 +85,27 @@ class Page {
 //		}
 //		$str .= "</li>";
 //		return $str;
-		return "<a id='page/$this->id' page-id='$this->id' class='no-style menu-item" . (PageMeta::$page->getId()==$this->id?" current":"") . "' href='/".PageMeta::$book->getId()."/$this->id'" . ">$this->name</a>";
+		return sprintf(<<<EOF
+			<a id='page/%s' page-id='%s'
+				class='no-style menu-item%s'
+				href='%s'>%s</a>
+			EOF,
+			$this->id, $this->id,
+			PageMeta::$page->getId()==$this->id ? " current" : "",
+			PageMeta::$page->getId()==$this->id ? "#" : $this->encodeUrl(),
+			$this->name
+		);
+	}
+	
+	public function encodeUrl (): string {
+		return str_replace(
+			"%2F", "/",
+			sprintf("/%s/%s", urlencode(PageMeta::$book->getId()), urlencode($this->id))
+		);
 	}
 	
 	public function getMarkdownContent (): string {
-		return file_get_contents("./data/".PageMeta::$book->getId()."/".$this->id.".md");
+		return file_get_contents(sprintf("./data/%s/%s.md", PageMeta::$book->getId(), $this->id));
 	}
 	
 }

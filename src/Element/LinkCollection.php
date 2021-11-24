@@ -72,13 +72,24 @@ class LinkCollection {
 		return $this->parent;
 	}
 	
-	public function getHtml (): string {
+	public function getHtml (int $indent = 0): string {
 		$str = "";
-		if ($this->name != self::ROOT) $str .= "<div class='menu-item-parent'><a class='no-style menu-item' href='javascript:'>$this->name</a><div class='children'>";
+		$isRoot = $this->name == self::ROOT;
+		if (!$isRoot) $str .= sprintf(<<<EOL
+			%s<div class='menu-item-parent'>
+			%s<a class='no-style menu-item' href='javascript:'>%s</a>
+			%s<div class='children'>
+			EOL,
+			str_repeat("\t", $indent),
+			str_repeat("\t", $indent), $this->name,
+			str_repeat("\t", $indent)
+		);
+		$str .= "\n";
 		foreach ($this->array as $node) {
-			$str .= $node->getHtml();
+			$str .= $node->getHtml($isRoot ? $indent : $indent + 2);
+			$str .= "\n";
 		}
-		if ($this->name != self::ROOT) $str .= "</div></div>";
+		if (!$isRoot) $str .= str_repeat("\t", $indent) . "</div></div>";
 		return $str;
 	}
 	

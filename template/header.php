@@ -15,12 +15,13 @@
 		<link rel="shortcut icon" href="<?= SiteMeta::getGlobalIcon() ?>">
 		<title><?= PageMeta::getPageTitle() ?></title>
 		<meta name="description" content="<?= PageMeta::getDescription() ?>">
-		<!-- Assets(css) -->
-		<?php
+		<!-- Assets(css) --><?php
 		foreach (SiteMeta::getStylesheetsList() as $item) {
 			if ($item==null) continue;
+			echo "\n\t\t";
 			echo "<link rel=\"stylesheet\" href=\"$item\">";
 		}
+		echo "\n";
 		?>
 		<!-- Customs(css) -->
 		<style>

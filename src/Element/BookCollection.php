@@ -73,13 +73,24 @@ class BookCollection {
 		return $this->parent;
 	}
 	
-	public function getHtml (): string {
+	public function getHtml (int $indent = 0): string {
 		$str = "";
-		if ($this->name != self::ROOT) $str .= "<div class='menu-item-parent" . ($this->getBook(PageMeta::$book->getId())==null?"":" active") . "'><a class='no-style menu-item'>$this->name</a><div class='children'>";
+		$isRoot = $this->name == self::ROOT;
+		if (!$isRoot) $str .= sprintf(<<<EOL
+			%s<div class='menu-item-parent%s'>
+			%s<a class='no-style menu-item'>%s</a>
+			%s<div class='children'>
+			EOL,
+			str_repeat("\t", $indent), $this->getBook(PageMeta::$book->getId())==null?"":" active",
+			str_repeat("\t", $indent), $this->name,
+			str_repeat("\t", $indent)
+		);
+		$str .= "\n";
 		foreach ($this->array as $node) {
-			$str .= $node->getHtml();
+			$str .= $node->getHtml($isRoot ? $indent : $indent + 2);
+			$str .= "\n";
 		}
-		if ($this->name != self::ROOT) $str .= "</div></div>";
+		if (!$isRoot) $str .= str_repeat("\t", $indent) . "</div></div>";
 		return $str;
 	}
 	
