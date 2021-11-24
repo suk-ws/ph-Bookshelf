@@ -1,5 +1,6 @@
 <?php
 
+require_once "./src/Data/PageMeta.php";
 require_once "./src/Element/Bookshelf.php";
 require_once "./constant.php";
 
@@ -30,33 +31,37 @@ class SiteMeta {
 		return "/favicon.ico"; // TODO ICON
 	}
 	
-	public static function getGitbookStylesheetsList (): array {
+	public static function getStylesheetsList (): array {
 		return array(
 //			"/assets/gitbook/style.css",
 //			"/assets/gitbook/gitbook-plugin-fontsettings/website.css",
 //			"/assets/gitbook-fix.css",
 //			"/assets/ref.css",
-			"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/atom-one-dark.min.css",
+			(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false"?
+			null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/".PageMeta::highlightJsTheme().".min.css"),
 			"/assets/bread-card-markdown.css",
-			"/assets/bread-card-markdown-enhanced-listing-rainbow.css",
+			(PageMeta::getConfigurationLevelPage("customization.article.listing.rainbow.marker")=="true"?
+			"/assets/bread-card-markdown-enhanced-listing-rainbow.css":null),
 			"/assets/bread-card-markdown-compat-highlight-js.css",
 			"/assets/main.css",
 		);
 	}
 	
-	public static function getGitbookJavascriptList (): array {
+	public static function getJavascriptList (): array {
 		return array(
 //			"/assets/gitbook/gitbook.js",
 //			"/assets/gitbook-fix.js",
 //			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
 //			"/assets/ref.js",
-			"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js",
+			(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false"?
+			null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"),
 			"/assets/utils-touchscreen-event.js",
 			"/assets/main.js",
 		);
 	}
 	
 	public static function getCustomCssContent (string $id): string {
+		if (!file_exists("./data/$id.css")) return "";
 		return file_get_contents("./data/$id.css");
 	}
 	
@@ -70,6 +75,10 @@ class SiteMeta {
 		$fontFamily = $_COOKIE['font-family'] ?? 1;
 		$colorTheme = $_COOKIE['color-theme'] ?? 0;
 		return "font-size-$fontSize font-family-$fontFamily color-theme-$colorTheme";
+	}
+	
+	public static function getConfigurationLevelShelf (string $key): ?string {
+		return self::$BOOKSHELF->getConfiguration($key);
 	}
 	
 }

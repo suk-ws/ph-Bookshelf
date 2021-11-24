@@ -1,12 +1,15 @@
 <?php
 
 require_once "./src/Element/Book.php";
+require_once "./src/Element/Bookshelf.php";
 require_once "./src/Element/BookContent/Chapter.php";
 
 class BookContented {
 	
 	private string $id;
 	private string $name;
+	
+	private array $configurations = array();
 	
 	public function __construct (string $id, string $name) {
 		$this->id = $id;
@@ -32,6 +35,7 @@ class BookContented {
 			else $id = $attrId->nodeValue;
 			$node = new BookContented($id, $name);
 			$node->childs = Chapter::parse($xmlData, null);
+			Bookshelf::parseConfigurationAttr($xmlData->attributes, $node->configurations, array("name", "id"));
 		} else
 			throw new Exception("No child or attribute found on BookWithContent");
 		return $node;
@@ -69,6 +73,10 @@ class BookContented {
 	
 	public function getPage (string $id): ?Page {
 		return $this->childs->getPage($id);
+	}
+	
+	public function getConfiguration (string $key): ?string {
+		return @$this->configurations[$key];
 	}
 	
 }

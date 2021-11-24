@@ -15,13 +15,19 @@
 		<link rel="shortcut icon" href="<?= SiteMeta::getGlobalIcon() ?>">
 		<title><?= PageMeta::getPageTitle() ?></title>
 		<meta name="description" content="<?= PageMeta::getDescription() ?>">
-		<!-- Gitbook Assets(css) -->
+		<!-- Assets(css) -->
 		<?php
-		foreach (SiteMeta::getGitbookStylesheetsList() as $item) {
+		foreach (SiteMeta::getStylesheetsList() as $item) {
+			if ($item==null) continue;
 			echo "<link rel=\"stylesheet\" href=\"$item\">";
 		}
 		?>
 		<!-- Customs(css) -->
+		<style>
+			:root {
+				----bcm-color-highlight-bg: <?= PageMeta::getConfigurationLevelPage("customization.article.codeblock.background.color") ?>;
+			}
+		</style>
 		<style><?= SiteMeta::getCustomCssContent("custom") ?></style>
 	</head>
 	<body>

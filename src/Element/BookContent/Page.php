@@ -1,6 +1,7 @@
 <?php
 
 require_once "./src/Data/PageMeta.php";
+require_once "./src/Element/Bookshelf.php";
 require_once "./src/Element/BookContent/Chapter.php";
 
 class Page {
@@ -9,6 +10,8 @@ class Page {
 	private string $name;
 	
 	private Chapter $parent;
+	
+	private array $configurations = array();
 	
 	public function __construct (string $id, string $name, Chapter $parent) {
 		$this->id = $id;
@@ -33,6 +36,7 @@ class Page {
 			if ($attrId == null) throw new Exception("Page xml data named \"$name\" missing attribute \"id\"");
 			else $id = $attrId->nodeValue;
 			$node = new Page($id, $name, $parent);
+			Bookshelf::parseConfigurationAttr($xmlData->attributes, $node->configurations, array("name", "id"));
 		} else
 			throw new Exception("Book xml data missing attributes");
 		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
@@ -55,6 +59,10 @@ class Page {
 	
 	public function getParent (): Chapter {
 		return $this->parent;
+	}
+	
+	public function getConfiguration (string $key): ?string {
+		return @$this->configurations[$key];
 	}
 	
 	public function getSummaryHtml (): string {

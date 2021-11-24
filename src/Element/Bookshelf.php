@@ -13,6 +13,8 @@ class Bookshelf {
 	
 	private BookContented $rootBook;
 	
+	private array $configurations = array();
+	
 	/**
 	 * @param string $xmlData
 	 * @return Bookshelf
@@ -42,6 +44,9 @@ class Bookshelf {
 						case "rootBook":
 							$return->rootBook = BookContented::parse($rc);
 							break;
+						case "configurations":
+							self::parseConfiguration($rc, $return->configurations);
+							break;
 						case "#comment":
 							break;
 						case "#text":
@@ -54,6 +59,39 @@ class Bookshelf {
 			} else throw new Exception("No child or attribute found on Bookshelf");
 		} else throw new Exception("Load Bookshelf xml file failed");
 		return $return;
+	}
+	
+	/**
+	 * @throws Exception
+	 */
+	public static function parseConfiguration(DOMNode $dom, array &$configurations) {
+		for ($rc = $dom->firstChild; $rc != null; $rc = $rc->nextSibling) {
+			if ($rc->nodeName == "#text") {
+				if (!empty(trim($rc->nodeValue)))
+					throw new Exception("Unsupported element type \"$rc->nodeName\" in parsing configurations");
+				else continue;
+			} else if ($rc->nodeName == "#comment") continue;
+			$value = "";
+			for ($rcc = $rc->firstChild; $rcc != null; $rcc = $rcc->nextSibling) {
+				switch ($rcc->nodeName) {
+					case "#text":
+						$value .= trim($rcc->nodeValue);
+						break;
+					case "#comment":
+						break;
+					default:
+						throw new Exception("Unsupported element type \"$rcc->nodeName\" in parsing configuration $rcc->nodeName");
+				}
+			}
+			$configurations[$rc->nodeName] = $value;
+		}
+	}
+	
+	public static function parseConfigurationAttr (DOMNamedNodeMap $attributes, array &$configurations, array $ignores = array()) {
+		foreach ($attributes as $attr) {
+			if (in_array($attr->name, $ignores)) continue;
+			$configurations[$attr->name] = $attr->value;
+		}
 	}
 	
 	public function getSiteName (): string {
@@ -74,6 +112,10 @@ class Bookshelf {
 	
 	public function getBook (string $id): ?Book {
 		return $this->books->getBook($id);
+	}
+	
+	public function getConfiguration (string $key): ?string {
+		return @$this->configurations[$key];
 	}
 	
 }
