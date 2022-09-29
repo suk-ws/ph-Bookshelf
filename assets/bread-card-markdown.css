@@ -96,7 +96,8 @@ hr {
 
 p,
 h1, h2, h3, h4, h5, h6,
-ul, ol, table {
+ul, ol, table,
+pre {
 	margin-block-start: 1.6rem;
 	margin-block-end: 1.6rem;
 	
@@ -186,7 +187,8 @@ code {
 }
 
 pre {
-	margin: 0 1.4rem;
+	margin-left: 1.4rem;
+	margin-right: 1.4rem;
 	padding: 0.7rem 0;
 	border-radius: 0.5rem;
 	display: block;

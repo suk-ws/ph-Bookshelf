@@ -2,7 +2,7 @@
 <?php require_once "./src/Data/PageMeta.php" ?>
 <div id="nav-container" class="prevent-animation"><nav id="sidebar">
 		<noscript id="noscript-warn">For now, javascript must be enabled to view this site!!</noscript>
-		<address id="site-title"><?= SiteMeta::getBookshelf()->getSiteName() ?></address>
+		<a id="site-title" class="no-style" href="/"><?= SiteMeta::getBookshelf()->getSiteName() ?></a>
 		<div id="menu-container" class="menu-container sidebar-card">
 			<div id="menu-metas" class="menu">
 				<div class="menu-item-parent">

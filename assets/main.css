@@ -29,6 +29,7 @@
 	--color-warn-noscript: #ce263d;
 	--color-font-warn-noscript: #f5eaea;
 	--color-font-sidebar-sitetitle: #3a2b8c;
+	--color-font-sidebar-sitetitle-highlight: #4a60b6;
 	--color-sidebar-sitetitle-background: #e8f0fe;
 	
 	--color-menu-list-separator: #ebeff2;
@@ -297,8 +298,18 @@ body {
 	font-style: normal;
 	background: var(--color-sidebar-sitetitle-background);
 	color: var(--color-font-sidebar-sitetitle);
+	/*transition:*/
+	/*		color calc(var(--element-href-anima-speed) * var(--animation-speed-multiplier)),*/
+	/*		background calc(var(--element-href-anima-speed) * var(--animation-speed-multiplier));*/
 	border-radius: 0.5rem;
 	z-index:10;
+}
+
+#sidebar > #site-title:hover {
+	/*background: var(--color-font-sidebar-sitetitle);*/
+	/*color: var(--color-font-sidebar-sitetitle-highlight);*/
+	/*background: var(--color-font-sidebar-sitetitle-highlight);*/
+	text-decoration: underline;
 }
 
 #sidebar > #site-title + *,
@@ -466,6 +477,7 @@ body {
 	flex-grow: 1;
 	overflow: auto;
 	position: relative;
+	scroll-behavior: smooth;
 }
 
 #main > #main-heading {

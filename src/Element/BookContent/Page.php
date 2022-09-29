@@ -92,7 +92,7 @@ class Page {
 			EOF,
 			$this->id, $this->id,
 			PageMeta::$page->getId()==$this->id ? " current" : "",
-			PageMeta::$page->getId()==$this->id ? "#" : $this->encodeUrl(),
+			PageMeta::$page->getId()==$this->id ? "#top" : $this->encodeUrl(),
 			$this->name
 		);
 	}

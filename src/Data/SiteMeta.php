@@ -38,12 +38,12 @@ class SiteMeta {
 //			"/assets/gitbook-fix.css",
 //			"/assets/ref.css",
 			(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false"?
-			null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/".PageMeta::highlightJsTheme().".min.css"),
-			"/assets/bread-card-markdown.css",
+					null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/".PageMeta::highlightJsTheme().".min.css"),
+			"/assets/bread-card-markdown.css?ver=1",
 			(PageMeta::getConfigurationLevelPage("customization.article.listing.rainbow.marker")=="true"?
-			"/assets/bread-card-markdown-enhanced-listing-rainbow.css":null),
-			"/assets/bread-card-markdown-compat-highlight-js.css",
-			"/assets/main.css",
+					"/assets/bread-card-markdown-enhanced-listing-rainbow.css?ver=1":null),
+			"/assets/bread-card-markdown-compat-highlight-js.css?ver=1",
+			"/assets/main.css?ver=1",
 		);
 	}
 	
@@ -54,9 +54,9 @@ class SiteMeta {
 //			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
 //			"/assets/ref.js",
 			(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false"?
-			null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"),
-			"/assets/utils-touchscreen-event.js",
-			"/assets/main.js",
+					null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"),
+			"/assets/utils-touchscreen-event.js?ver=1",
+			"/assets/main.js?ver=1",
 		);
 	}
 	
