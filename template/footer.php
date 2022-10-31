@@ -15,6 +15,8 @@
 			pageCurrentId = "<?= PageMeta::$page->getId() ?>";
 			<?php if (!(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false")) :
 			?>hljs.highlightAll();<?php endif; ?>
+			<?php if (!(PageMeta::getConfigurationLevelPage("customization.article.regex.highlight")=="false")) :
+			?>RegexColorizer.coloringAll();<?php endif; ?>
 		</script>
 		
 	</body>

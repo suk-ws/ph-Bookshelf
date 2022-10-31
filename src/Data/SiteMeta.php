@@ -39,6 +39,8 @@ class SiteMeta {
 //			"/assets/ref.css",
 			(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false"?
 					null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/".PageMeta::highlightJsTheme().".min.css"),
+			(PageMeta::getConfigurationLevelPage("customization.article.regex.highlight")=="false")?
+					null:"//cdn.jsdelivr.net/gh/suk-ws/regex-colorizer@master/regex-colorizer-default.min.css",
 			"/assets/bread-card-markdown.css?ver=1",
 			(PageMeta::getConfigurationLevelPage("customization.article.listing.rainbow.marker")=="true"?
 					"/assets/bread-card-markdown-enhanced-listing-rainbow.css?ver=1":null),
@@ -55,6 +57,8 @@ class SiteMeta {
 //			"/assets/ref.js",
 			(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false"?
 					null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"),
+			(PageMeta::getConfigurationLevelPage("customization.article.regex.highlight")=="false"?
+					null:"//cdn.jsdelivr.net/gh/suk-ws/regex-colorizer@master/regex-colorizer.min.js"),
 			"/assets/utils-touchscreen-event.js?ver=1",
 			"/assets/main.js?ver=1",
 		);
