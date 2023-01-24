@@ -22,6 +22,7 @@
 		"ext-dom": "*",
 		"ext-mbstring": "*",
 		"ext-fileinfo": "*",
-		"league/commonmark": ">=2.3.8"
+		"league/commonmark": ">=2.3.8",
+		"gregwar/rst": "^1.0"
 	}
 }

@@ -107,8 +107,16 @@ class Page {
 		);
 	}
 	
-	public function getMarkdownContent (): string {
-		return file_get_contents(sprintf("./data/%s/%s.md", PageMeta::$book->getId(), $this->id));
+	public function getContentFilename (string $type): string {
+		return sprintf("./data/%s/%s.%s", PageMeta::$book->getId(), $this->id, $type);
+	}
+	
+	public function hasContent (string $type): string {
+		return file_exists($this->getContentFilename($type));
+	}
+	
+	public function getContent (string $type): string {
+		return file_get_contents($this->getContentFilename($type));
 	}
 	
 }

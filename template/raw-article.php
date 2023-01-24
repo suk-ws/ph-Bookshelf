@@ -1,16 +1,16 @@
 <?php
 
 use SukWs\Bookshelf\Data\PageMeta;
-use SukWs\Bookshelf\Utils\Markdown\Parser;
-
-$pageMarkdownContent = PageMeta::$page->getMarkdownContent();
+use SukWs\Bookshelf\Utils\Markdown\Markdown;
+use SukWs\Bookshelf\Utils\ReST\ReST;
 
 //   if the `compatibility.article.title.oldversion` is enabled
 // that means the title should be auto-generated from book.xml
 // but not written on page.md.
 //   this code will generate a title from book.xml if the start
 // of the page.md is not `# Title` formatting page title.
-if (PageMeta::compatibilityOldTitlePolicy()) {
+if (PageMeta::compatibilityOldTitlePolicy() && PageMeta::$page->hasContent(Markdown::type[0])) {
+	$pageMarkdownContent = PageMeta::$page->getContent(Markdown::type[0]);
 	$length = strlen($pageMarkdownContent);
 	for ($i=0; $i<$length; $i++) {
 		if (empty(trim($pageMarkdownContent[$i]))) {
@@ -24,4 +24,22 @@ if (PageMeta::compatibilityOldTitlePolicy()) {
 	}
 }
 
-echo Parser::parse($pageMarkdownContent);
+$parsers = array(
+	new Markdown(),
+	new ReST()
+);
+
+$htmlContent = null;
+
+foreach ($parsers as $parser) {
+	$ok = false;
+	foreach ($parser->type() as $suffix) {
+		if (PageMeta::$page->hasContent($suffix)) {
+			$htmlContent = $parser->parse(PageMeta::$page->getContent($suffix));
+			$ok = true;
+		}
+	}
+	if ($ok) break;
+}
+
+echo $htmlContent;

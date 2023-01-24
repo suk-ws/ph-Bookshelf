@@ -13,10 +13,19 @@ use League\CommonMark\Extension\Strikethrough\StrikethroughExtension;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Extension\TaskList\TaskListExtension;
 use League\CommonMark\MarkdownConverter;
+use SukWs\Bookshelf\Utils\PageContentType;
 
-class Parser {
+class Markdown implements PageContentType {
 	
-	private static ?ConverterInterface $converter = null;
+	private ?ConverterInterface $converter = null;
+	public const type = array("md");
+	
+	/**
+	 * @return string[]
+	 */
+	public function type (): array {
+		return self::type;
+	}
 	
 	public static function getDefaultParser (): ConverterInterface {
 		
@@ -49,14 +58,14 @@ class Parser {
 		
 	}
 	
-	private static function getParser (): ConverterInterface {
-		if (Parser::$converter === null)
-			Parser::$converter = self::getDefaultParser();
-		return Parser::$converter;
+	private function getParser (): ConverterInterface {
+		if ($this->converter === null)
+			$this->converter = self::getDefaultParser();
+		return $this->converter;
 	}
 	
-	public static function parse (string $article): string {
-		return self::getParser()->convert($article);
+	public function parse (string $raw): string {
+		return $this->getParser()->convert($raw);
 	}
 	
 }
