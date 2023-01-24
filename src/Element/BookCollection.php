@@ -1,7 +1,10 @@
 <?php
 
-require_once "./src/Data/PageMeta.php";
-require_once "./src/Element/Book.php";
+namespace SukWs\Bookshelf\Element;
+
+use SukWs\Bookshelf\Data\PageMeta;
+use DOMNode;
+use Exception;
 
 class BookCollection {
 	
@@ -39,15 +42,16 @@ class BookCollection {
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Book":
-					array_push($node->array, Book::parse($child, $node));
+					$node->array[] = Book::parse($child, $node);
 					break;
 				case "Collection":
-					array_push($node->array, BookCollection::parse($child, $node));
+					$node->array[] = BookCollection::parse($child, $node);
 					break;
 				case "#comment":
 					break;
 				case "#text":
 					if (empty(trim($child->nodeValue))) break;
+					throw new Exception("Unsupported element type \"$child->nodeName\" in BookCollection named \"$name\"");
 				default:
 					throw new Exception("Unsupported element type \"$child->nodeName\" in BookCollection named \"$name\"");
 			}
@@ -69,7 +73,7 @@ class BookCollection {
 	/**
 	 * @return BookCollection|null
 	 */
-	public function getParent (): BookCollection {
+	public function getParent (): ?BookCollection {
 		return $this->parent;
 	}
 	

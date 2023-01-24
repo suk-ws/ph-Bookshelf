@@ -1,8 +1,9 @@
 <?php
 
-require_once "./src/Data/PageMeta.php";
-require_once "./src/Element/Bookshelf.php";
-require_once "./constant.php";
+namespace SukWs\Bookshelf\Data;
+
+use Exception;
+use SukWs\Bookshelf\Element\Bookshelf;
 
 class SiteMeta {
 	
@@ -19,7 +20,7 @@ class SiteMeta {
 	/**
 	 * @throws Exception
 	 */
-	public static function load () {
+	public static function load (): void {
 		self::$BOOKSHELF = Bookshelf::parseString(file_get_contents("./data/bookshelf.xml"));
 	}
 	

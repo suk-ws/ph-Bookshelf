@@ -1,5 +1,5 @@
-<?php require_once "./src/Data/SiteMeta.php" ?>
-<?php require_once "./src/Data/PageMeta.php" ?>
+<?php use SukWs\Bookshelf\Data\SiteMeta; ?>
+<?php use SukWs\Bookshelf\Data\PageMeta; ?>
 <div id="nav-container" class="prevent-animation"><nav id="sidebar">
 		<noscript id="noscript-warn">For now, javascript must be enabled to view this site!!</noscript>
 		<a id="site-title" class="no-style" href="/"><?= SiteMeta::getBookshelf()->getSiteName() ?></a>

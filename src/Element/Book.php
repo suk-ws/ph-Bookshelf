@@ -1,8 +1,11 @@
 <?php
 
-require_once "./src/Data/PageMeta.php";
-require_once "./src/Element/BookCollection.php";
-require_once "./src/Element/BookContent/BookContented.php";
+namespace SukWs\Bookshelf\Element;
+
+use SukWs\Bookshelf\Data\PageMeta;
+use DOMNode;
+use SukWs\Bookshelf\Element\BookContent\BookContented;
+use Exception;
 
 class Book {
 	
@@ -50,7 +53,7 @@ class Book {
 	/**
 	 * @return BookCollection|null
 	 */
-	public function getParent (): BookCollection {
+	public function getParent (): ?BookCollection {
 		return $this->parent;
 	}
 	

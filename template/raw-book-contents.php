@@ -1,5 +1,5 @@
 <?php
 
-require_once "./src/Data/PageMeta.php";
+use SukWs\Bookshelf\Data\PageMeta;
 
 PageMeta::$page->getSummaryHtml();

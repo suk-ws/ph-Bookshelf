@@ -1,19 +1,23 @@
 <?php
 
-require_once "./src/Element/BookContent/Page.php";
+namespace SukWs\Bookshelf\Element\BookContent;
+
+use SukWs\Bookshelf\Data\PageMeta;
+use DOMNode;
+use Exception;
 
 class Chapter {
 	
 	private string $name;
 	
 	/** @var Chapter[]|Page[] */
-	private array $childs;
+	private array $children;
 	
 	private ?Chapter $parent;
 	
 	private function __construct (string $name, array $array, ?Chapter $parent) {
 		$this->name = $name;
-		$this->childs = $array;
+		$this->children = $array;
 		$this->parent = $parent;
 	}
 	
@@ -32,15 +36,16 @@ class Chapter {
 		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Page":
-					array_push($node->childs, Page::parse($child, $node));
+					$node->children[] = Page::parse($child, $node);
 					break;
 				case "Chapter":
-					array_push($node->childs, self::parse($child, $node));
+					$node->children[] = self::parse($child, $node);
 					break;
 				case "#comment":
 					break;
 				case "#text":
 					if (empty(trim($child->nodeValue))) break;
+					throw new Exception("Unsupported element type \"$child->nodeName\" in Chapter \"$node->name\"");
 				default:
 					throw new Exception("Unsupported element type \"$child->nodeName\" in Chapter \"$node->name\"");
 			}
@@ -55,14 +60,14 @@ class Chapter {
 	/**
 	 * @return Chapter[]|Page[]
 	 */
-	public function getChilds (): array {
-		return $this->childs;
+	public function getChildren (): array {
+		return $this->children;
 	}
 	
 	/**
 	 * @return Chapter|null
 	 */
-	public function getParent (): Chapter {
+	public function getParent (): ?Chapter {
 		return $this->parent;
 	}
 	
@@ -76,7 +81,7 @@ class Chapter {
 			$this->getPage(PageMeta::$page->getId())==null?"":" active",
 			$this->name
 		);
-		foreach ($this->childs as $node) {
+		foreach ($this->children as $node) {
 			$str .= $node->getSummaryHtml();
 		}
 		if ($this->parent != null) $str .= "</div></div>";
@@ -85,7 +90,7 @@ class Chapter {
 	
 	public function getPage (string $id): ?Page {
 		
-		foreach ($this->childs as $node) {
+		foreach ($this->children as $node) {
 			if ($node instanceof Page && $node->getId() == $id)
 				return $node;
 			else if ($node instanceof Chapter) {

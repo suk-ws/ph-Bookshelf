@@ -11,10 +11,17 @@
 			"email": "email@example.com"
 		}
 	],
+	"autoload": {
+		"psr-4": {
+			"SukWs\\Bookshelf\\": "src"
+		}
+	},
 	"require": {
 		"php": ">=8.0",
 		"ext-xml": "*",
+		"ext-dom": "*",
 		"ext-mbstring": "*",
+		"ext-fileinfo": "*",
 		"league/commonmark": ">=2.3.8"
 	}
 }

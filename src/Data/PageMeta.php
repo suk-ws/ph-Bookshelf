@@ -1,8 +1,9 @@
 <?php
 
-require_once "./src/Data/SiteMeta.php";
-require_once "./src/Element/BookContent/BookContented.php";
-require_once "./src/Element/BookContent/Page.php";
+namespace SukWs\Bookshelf\Data;
+
+use SukWs\Bookshelf\Element\BookContent\BookContented;
+use SukWs\Bookshelf\Element\BookContent\Page;
 
 class PageMeta {
 	

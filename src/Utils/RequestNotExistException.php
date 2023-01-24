@@ -1,5 +1,9 @@
 <?php
 
+namespace SukWs\Bookshelf\Utils;
+
+use Exception;
+use Throwable;
 
 class RequestNotExistException extends Exception {
 	

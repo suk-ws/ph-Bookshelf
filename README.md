@@ -24,8 +24,9 @@
   - 使用其它 Webserver，可以自行查询如何将 .htaccess 规则转换为你所使用的网站配置并写进你的网站配置当中
 - PHP 版本 8.0 以上
   （旧版可能可以使用，但未经完全测试）
-  - PHP 模块 `xml` (旧版可能叫做 `dom`)
+  - PHP 模块 `xml` (也可能叫做 `dom`)
   - PHP 模块 `mbstring`
+  - PHP 模块 `fileinfo`
   - composer 工具以安装项目依赖
   - 在 php.ini 中设置 `display_errors` 以及 `display_startup_errors` 为 `Off` (或者关闭 `E_WARNING` 及以下 log) <small>(这是由于最开始写代码极不上心导致很多地方都会有可能报出 warn，输出在屏幕上会导致很糟糕的使用体验)</small>
 

@@ -1,6 +1,9 @@
 <?php
 
-require_once "./src/Element/Link.php";
+namespace SukWs\Bookshelf\Element;
+
+use DOMNode;
+use Exception;
 
 class LinkCollection {
 	
@@ -38,15 +41,16 @@ class LinkCollection {
 		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Link":
-					array_push($node->array, Link::parse($child, $node));
+					$node->array[] = Link::parse($child, $node);
 					break;
 				case "Collection":
-					array_push($node->array, LinkCollection::parse($child, $node));
+					$node->array[] = LinkCollection::parse($child, $node);
 					break;
 				case "#comment":
 					break;
 				case "#text":
 					if (empty(trim($child->nodeValue))) break;
+					throw new Exception("Unsupported element type \"$child->nodeName\" in LinkCollection named \"$name\"");
 				default:
 					throw new Exception("Unsupported element type \"$child->nodeName\" in LinkCollection named \"$name\"");
 			}
@@ -68,7 +72,7 @@ class LinkCollection {
 	/**
 	 * @return LinkCollection|null
 	 */
-	public function getParent (): LinkCollection {
+	public function getParent (): ?LinkCollection {
 		return $this->parent;
 	}
 	

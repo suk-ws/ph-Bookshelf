@@ -1,6 +1,6 @@
 <?php
 
-require_once "./src/Utils/StringUtils.php";
+namespace SukWs\Bookshelf\Utils;
 
 class PageParse {
 	

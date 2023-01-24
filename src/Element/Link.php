@@ -1,6 +1,9 @@
 <?php
 
-require_once "./src/Element/LinkCollection.php";
+namespace SukWs\Bookshelf\Element;
+
+use DOMNode;
+use Exception;
 
 class Link {
 	
@@ -48,7 +51,7 @@ class Link {
 	/**
 	 * @return LinkCollection|null
 	 */
-	public function getParent (): LinkCollection {
+	public function getParent (): ?LinkCollection {
 		return $this->parent;
 	}
 	

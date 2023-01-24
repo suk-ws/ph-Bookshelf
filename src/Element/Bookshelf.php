@@ -1,8 +1,12 @@
 <?php
 
-require_once "./src/Element/BookCollection.php";
-require_once "./src/Element/LinkCollection.php";
-require_once "./src/Element/BookContent/BookContented.php";
+namespace SukWs\Bookshelf\Element;
+
+use DOMDocument;
+use DOMNamedNodeMap;
+use DOMNode;
+use SukWs\Bookshelf\Element\BookContent\BookContented;
+use Exception;
 
 class Bookshelf {
 	
@@ -51,6 +55,7 @@ class Bookshelf {
 							break;
 						case "#text":
 							if (empty(trim($rc->nodeValue))) break;
+							throw new Exception("Unsupported element type \"$rc->nodeName\" in root child of Bookshelf");
 						default:
 							throw new Exception("Unsupported element type \"$rc->nodeName\" in root child of Bookshelf");
 					}
@@ -64,7 +69,7 @@ class Bookshelf {
 	/**
 	 * @throws Exception
 	 */
-	public static function parseConfiguration(DOMNode $dom, array &$configurations) {
+	public static function parseConfiguration(DOMNode $dom, array &$configurations): void {
 		for ($rc = $dom->firstChild; $rc != null; $rc = $rc->nextSibling) {
 			if ($rc->nodeName == "#text") {
 				if (!empty(trim($rc->nodeValue)))
@@ -87,7 +92,7 @@ class Bookshelf {
 		}
 	}
 	
-	public static function parseConfigurationAttr (DOMNamedNodeMap $attributes, array &$configurations, array $ignores = array()) {
+	public static function parseConfigurationAttr (DOMNamedNodeMap $attributes, array &$configurations, array $ignores = array()): void {
 		foreach ($attributes as $attr) {
 			if (in_array($attr->name, $ignores)) continue;
 			$configurations[$attr->name] = $attr->value;

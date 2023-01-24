@@ -1,5 +1,7 @@
 <?php
 
+namespace SukWs\Bookshelf\Utils;
+
 use Erusev\Parsedown\Parsedown;
 
 class ParsedownExtend extends Parsedown {

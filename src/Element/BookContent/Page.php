@@ -1,8 +1,11 @@
 <?php
 
-require_once "./src/Data/PageMeta.php";
-require_once "./src/Element/Bookshelf.php";
-require_once "./src/Element/BookContent/Chapter.php";
+namespace SukWs\Bookshelf\Element\BookContent;
+
+use SukWs\Bookshelf\Data\PageMeta;
+use DOMNode;
+use SukWs\Bookshelf\Element\Bookshelf;
+use Exception;
 
 class Page {
 	
@@ -39,7 +42,7 @@ class Page {
 			Bookshelf::parseConfigurationAttr($xmlData->attributes, $node->configurations, array("name", "id"));
 		} else
 			throw new Exception("Book xml data missing attributes");
-		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
+		for ($child = $xmlData->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "#text":
 				default:

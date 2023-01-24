@@ -1,5 +1,5 @@
-<?php require_once "./src/Data/SiteMeta.php" ?>
-<?php require_once "./src/Data/PageMeta.php" ?>
+<?php use SukWs\Bookshelf\Data\SiteMeta; ?>
+<?php use SukWs\Bookshelf\Data\PageMeta; ?>
 <!DOCTYPE HTML>
 <html lang="<?= "" // TODO Page language ?>">
 	<head>

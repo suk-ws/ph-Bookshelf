@@ -1,7 +1,7 @@
 <?php
 
-require_once "./src/Data/PageMeta.php";
-require_once "./src/Utils/Markdown/Parser.php";
+use SukWs\Bookshelf\Data\PageMeta;
+use SukWs\Bookshelf\Utils\Markdown\Parser;
 
 $pageMarkdownContent = PageMeta::$page->getMarkdownContent();
 

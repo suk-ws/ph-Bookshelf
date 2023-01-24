@@ -1,5 +1,7 @@
 <?php
 
+namespace SukWs\Bookshelf\Utils\Markdown;
+
 use League\CommonMark\ConverterInterface;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;

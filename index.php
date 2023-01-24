@@ -1,13 +1,12 @@
 <?php
 
-require_once "./vendor/autoload.php";
+require "./constant.php";
+require "./vendor/autoload.php";
 
-require_once "./src/Data/SiteMeta.php";
-require_once "./src/Data/PageMeta.php";
-require_once "./src/Utils/PageParse.php";
-require_once "./src/Utils/RequestNotExistException.php";
-
-
+use SukWs\Bookshelf\Data\PageMeta;
+use SukWs\Bookshelf\Data\SiteMeta;
+use SukWs\Bookshelf\Utils\PageParse;
+use SukWs\Bookshelf\Utils\RequestNotExistException;
 
 try {
 	
@@ -40,12 +39,12 @@ try {
 				if ($tmp == null) throw new RequestNotExistException("Page required \"$uri[1]\" not found on book \"$uri[0]\"!");
 				PageMeta::$page = $tmp;
 			} else {
-				PageMeta::$page = PageMeta::$book->getChilds()->getChilds()[0];
+				PageMeta::$page = PageMeta::$book->getChilds()->getChildren()[0];
 			}
 		} else {
 			// 主页面
 			PageMeta::$book = SiteMeta::getBookshelf()->getRootBook();
-			PageMeta::$page = PageMeta::$book->getChilds()->getChilds()[0];
+			PageMeta::$page = PageMeta::$book->getChilds()->getChildren()[0];
 			PageMeta::$isMainPage = true;
 		}
 		

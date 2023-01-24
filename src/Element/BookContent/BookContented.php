@@ -1,8 +1,11 @@
 <?php
 
-require_once "./src/Element/Book.php";
-require_once "./src/Element/Bookshelf.php";
-require_once "./src/Element/BookContent/Chapter.php";
+namespace SukWs\Bookshelf\Element\BookContent;
+
+use DOMDocument;
+use DOMNode;
+use SukWs\Bookshelf\Element\Bookshelf;
+use Exception;
 
 class BookContented {
 	
