@@ -1,9 +1,8 @@
 <?php
 
-require_once "./lib/Parsedown/Parsedown.php";
-require_once "./lib/Parsedown/ParsedownExtra.php";
+use Erusev\Parsedown\Parsedown;
 
-class ParsedownExtend extends ParsedownExtra {
+class ParsedownExtend extends Parsedown {
 	
 	function __construct() {
 		

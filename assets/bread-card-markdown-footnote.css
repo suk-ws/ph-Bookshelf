@@ -2,8 +2,29 @@
  ##############################################################################
  #####                                                                    #####
  #####   Markdown StyleSheet of ui design BreadCard                       #####
+ #####     extended support                                               #####
+ #####     for footnote[^1]                                               #####
  #####                                                                    #####
  #####     @author: Sukazyo Workshop                                      #####
+ #####     @version： 1.0                                                 #####
  #####                                                                    #####
  ##############################################################################
  ******************************************************************************/
+
+.footnote-ref {
+	display: inline-block;
+	border-style: solid;
+	border-width: 0.15em;
+	padding: 0 0.2em;
+	transform: scale(0.6) translate(-0.4em, -0.4em);
+	margin: 0 -0.5em;
+	font-weight: 900;
+}
+
+.footnote::marker {
+	font-weight: bolder;
+}
+
+.footnote .footnote-backref {
+	font-size: smaller;
+}

@@ -1,15 +1,15 @@
 <?php
 
-require_once "./src/Utils/ParsedownExtend.php";
 require_once "./src/Data/PageMeta.php";
-
-$parser = new ParsedownExtend();
-
-$parser->setMarkupEscaped(false);
-$parser->setSafeMode(false);
+require_once "./src/Utils/Markdown/Parser.php";
 
 $pageMarkdownContent = PageMeta::$page->getMarkdownContent();
 
+//   if the `compatibility.article.title.oldversion` is enabled
+// that means the title should be auto-generated from book.xml
+// but not written on page.md.
+//   this code will generate a title from book.xml if the start
+// of the page.md is not `# Title` formatting page title.
 if (PageMeta::compatibilityOldTitlePolicy()) {
 	$length = strlen($pageMarkdownContent);
 	for ($i=0; $i<$length; $i++) {
@@ -24,4 +24,4 @@ if (PageMeta::compatibilityOldTitlePolicy()) {
 	}
 }
 
-echo $parser->text($pageMarkdownContent);
+echo Parser::parse($pageMarkdownContent);

@@ -11,17 +11,23 @@
 
 <br/>
 
-### 安装
+## 安装
 
-下载/clone此仓库的内容，然后拖进 php 站点根目录。
+下载/clone此仓库的内容，然后拖进 php 站点根目录即可。
 
-**要求 php 环境安装了 php-xml 插件**
-（7.0及以下旧版本可能叫做 php-dom 插件）
-（安装方法应该是能 Google 到的）
+### web-server 环境要求
 
-对于 Apache（即 .htaccess 支持的 php 环境），可以直接运行。
-
-对于 Nginx 或者别的之类的 php 环境，需要转换一下伪静态配置，以 .htaccess 文件内的内容为依据即可。
+- 支援 `.htaccess` 的 Webserver
+  - 如果使用 Apache:
+    - 启用模块 `rewrite`
+      - 为网站根目录设置 `AllowOverride All`
+  - 使用其它 Webserver，可以自行查询如何将 .htaccess 规则转换为你所使用的网站配置并写进你的网站配置当中
+- PHP 版本 8.0 以上
+  （旧版可能可以使用，但未经完全测试）
+  - PHP 模块 `xml` (旧版可能叫做 `dom`)
+  - PHP 模块 `mbstring`
+  - composer 工具以安装项目依赖
+  - 在 php.ini 中设置 `display_errors` 以及 `display_startup_errors` 为 `Off` (或者关闭 `E_WARNING` 及以下 log) <small>(这是由于最开始写代码极不上心导致很多地方都会有可能报出 warn，输出在屏幕上会导致很糟糕的使用体验)</small>
 
 <br/>
 
@@ -31,8 +37,6 @@
 
 <br/>
 
-### 开源许可
+## 开源许可
 
-项目自身：MIT License.
-
-LIB: ParseDown : MIT License.
+MIT License.

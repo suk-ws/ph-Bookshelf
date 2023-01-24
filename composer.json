@@ -1,0 +1,20 @@
+{
+	"name": "suk-ws/ph-bookshelf",
+	"description": "一个简单简洁(?)的文档书架实现。",
+	"keywords": ["website", "documentation-tool", "markdown"],
+	"minimum-stability": "alpha",
+	"type": "website",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "A.C.Sukazyo Eyre",
+			"email": "email@example.com"
+		}
+	],
+	"require": {
+		"php": ">=8.0",
+		"ext-xml": "*",
+		"ext-mbstring": "*",
+		"league/commonmark": ">=2.3.8"
+	}
+}

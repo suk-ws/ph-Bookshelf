@@ -4,6 +4,9 @@ debug/
 .idea/
 
 # 忽略服务器运行时文件
+vendor/
+composer.lock
+composer.phar
 .well-known/
 .user.ini
 
