@@ -52,8 +52,22 @@ try {
 		
 		// 页面寻找失败，寻找资源文件
 		
-		if (!is_file($resLoc = "./data/%assets/$req")) { // 全局文件夹的资源文件
-			throw $e;
+		if ( // 搜索全局资源文件夹的指定文件
+			file_exists($resLoc = "./data/%assets/$req")
+		) {} else if ( // 搜索原始路径上的文件
+			file_exists($resLoc = "./data/$req")
+		) {} else if ( // 搜索可能存在的书籍资源文件夹中的指定文件
+			sizeof($uri) > 1 && ($resBook = (SiteMeta::getBookshelf()->getBook($uri[0]))) != null &&
+			file_exists($resLoc = "./data/{$resBook->getId()}/%assets/$uri[1]")
+		) {} else if ( // 上面的 %root 兼容
+			sizeof($uri) > 1 && ($resBook = $uri[0]) == "%root" &&
+			file_exists($resLoc = "./data/$resBook/%assets/$uri[1]")
+		) {} else if ( // 搜索以root书为根目录的原始路径上的文件
+			file_exists($resLoc = "./data/%root/$req")
+		) {} else if ( // 搜索root书中的书籍资源文件夹中的文件
+			file_exists($resLoc = "./data/%root/%assets/$req")
+		) {} else {
+			throw $e; // 找不到资源文件
 		}
 		PageParse::outputBinaryFile($resLoc);
 		

@@ -1,6 +1,8 @@
 <?php
 
 use SukWs\Bookshelf\Data\PageMeta;
+use SukWs\Bookshelf\Utils\HTML\HTML;
+use SukWs\Bookshelf\Utils\LaTeX\LaTeX;
 use SukWs\Bookshelf\Utils\Markdown\Markdown;
 use SukWs\Bookshelf\Utils\ReST\ReST;
 
@@ -25,7 +27,9 @@ if (PageMeta::compatibilityOldTitlePolicy() && PageMeta::$page->hasContent(Markd
 }
 
 $parsers = array(
+	new HTML(),
 	new Markdown(),
+	new LaTeX(),
 	new ReST()
 );
 

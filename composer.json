@@ -23,6 +23,7 @@
 		"ext-mbstring": "*",
 		"ext-fileinfo": "*",
 		"league/commonmark": ">=2.3.8",
-		"gregwar/rst": "^1.0"
+		"gregwar/rst": "^1.0",
+		"xemlock/php-latex": "dev-master"
 	}
 }
