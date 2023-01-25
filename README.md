@@ -22,8 +22,7 @@
     - 启用模块 `rewrite`
       - 为网站根目录设置 `AllowOverride All`
   - 使用其它 Webserver，可以自行查询如何将 .htaccess 规则转换为你所使用的网站配置并写进你的网站配置当中
-- PHP 版本 8.0 以上
-  （旧版可能可以使用，但未经完全测试）
+- PHP 版本 8.1 以上
   - PHP 模块 `xml` (也可能叫做 `dom`)
   - PHP 模块 `mbstring`
   - PHP 模块 `fileinfo`

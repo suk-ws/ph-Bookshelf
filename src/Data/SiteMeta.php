@@ -3,6 +3,7 @@
 namespace SukWs\Bookshelf\Data;
 
 use Exception;
+use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Element\Bookshelf;
 
 class SiteMeta {
@@ -86,6 +87,15 @@ class SiteMeta {
 	
 	public static function getConfigurationLevelShelf (string $key): ?string {
 		return self::$BOOKSHELF->getConfiguration($key);
+	}
+	
+	public static function getRobotsPolicy (): RobotsPolicy {
+		return match (self::getConfigurationLevelShelf("site.robots")) {
+			"allow", null => RobotsPolicy::allow,
+			"deny" => RobotsPolicy::deny,
+			"custom", "file" => RobotsPolicy::file,
+			default => RobotsPolicy::raw,
+		};
 	}
 	
 }

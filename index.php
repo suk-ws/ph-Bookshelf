@@ -4,6 +4,7 @@ require "./constant.php";
 require "./vendor/autoload.php";
 
 use SukWs\Bookshelf\Data\PageMeta;
+use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Data\SiteMeta;
 use SukWs\Bookshelf\Utils\PageParse;
 use SukWs\Bookshelf\Utils\RequestNotExistException;
@@ -17,6 +18,24 @@ try {
 	if (strlen($req) > 0 && $req[strlen($req) - 1] === '/')
 		$tmp = substr($req, 0, -1);
 	$uri = explode("/", $req, 2);
+	
+	// 为 robots.txt 进行特别支持
+	if (sizeof($uri) == 1 && $uri[0] == "robots.txt") {
+		
+		$policy = SiteMeta::getRobotsPolicy();
+		
+		switch ($policy) {
+			case RobotsPolicy::allow:
+				exit(file_get_contents("./assets/robots.allow"));
+			case RobotsPolicy::deny:
+				exit(file_get_contents("./assets/robots.deny"));
+			case RobotsPolicy::file:
+				exit(file_get_contents("./data/robots.txt"));
+			case RobotsPolicy::raw:
+				exit(SiteMeta::getConfigurationLevelShelf("site.robots"));
+		}
+		
+	}
 	
 	try {
 		
