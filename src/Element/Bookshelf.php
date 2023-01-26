@@ -80,6 +80,7 @@ class Bookshelf {
 			for ($rcc = $rc->firstChild; $rcc != null; $rcc = $rcc->nextSibling) {
 				switch ($rcc->nodeName) {
 					case "#text":
+					case "#cdata-section":
 						$value .= trim($rcc->nodeValue);
 						break;
 					case "#comment":
