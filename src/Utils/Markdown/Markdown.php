@@ -9,6 +9,7 @@ use League\CommonMark\Extension\Autolink\AutolinkExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\DescriptionList\DescriptionListExtension;
 use League\CommonMark\Extension\Footnote\FootnoteExtension;
+use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\Strikethrough\StrikethroughExtension;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Extension\TaskList\TaskListExtension;
@@ -29,10 +30,23 @@ class Markdown implements PageContentType {
 	
 	public static function getDefaultParser (): ConverterInterface {
 		
+		$parserConfig = [
+			'heading_permalink' => [
+				'symbol' => "⁕",
+				'insert' => 'after',
+				'id_prefix' => "",
+				'fragment_prefix' => "",
+				'title' => ""
+			]
+		];
+		
 		// MarkDown Parser:
 		// CommonMark
-		$parserEnv = new Environment();
+		$parserEnv = new Environment($parserConfig);
 		$parserEnv->addExtension(new CommonMarkCoreExtension());
+		
+		// + heading(title) permalink # [title](#title)
+		$parserEnv->addExtension(new HeadingPermalinkExtension());
 		
 		// from GitHub Flavor Markdown
 		// + autolink [https://link.to]

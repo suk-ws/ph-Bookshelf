@@ -1,0 +1,56 @@
+/******************************************************************************
+ ##############################################################################
+ #####                                                                    #####
+ #####   Markdown StyleSheet of ui design BreadCard                       #####
+ #####     extended support                                               #####
+ #####     for ¶[Heading Permalink](#heading-permalink)                   #####
+ #####                                                                    #####
+ #####     @author: Sukazyo Workshop                                      #####
+ #####     @version： 1.0                                                 #####
+ #####                                                                    #####
+ ##############################################################################
+ ******************************************************************************/
+
+:root {
+	
+	--bcm-permalink-color: #d3d9e0;
+	/*--bcm-permalink-visited-color: #edf0f3;*/
+	--bcm-permalink-activited-color: #99bbe1;
+	
+	--bcm-permalink-highlighting-color: #293048;
+	
+	--bcm-element-permalink-anima-speed: 0.15s;
+	
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+	position: relative;
+}
+
+:is(h1, h2, h3, h4, h5, h6) > .heading-permalink {
+	position: absolute;
+	/*z-index: -1;*/
+	top: 0;
+	left: -0.4em;
+	color: var(--bcm-permalink-color);
+	line-height: 0;
+	font-size: 2.6em;
+	font-weight: bolder;
+	opacity: 0.3;
+	transition-duration: var(--bcm-element-permalink-anima-speed);
+	user-select: none;
+}
+
+:is(h1, h2, h3, h4, h5, h6) > .heading-permalink:visited {
+	color: var(--bcm-permalink-color);
+	/*color: var(--bcm-permalink-visited-color);*/
+}
+
+:is(h1, h2, h3, h4, h5, h6) > a.heading-permalink:hover {
+	color: var(--bcm-permalink-activited-color);
+}
+
+:is(h1, h2, h3, h4, h5, h6) > a.heading-permalink.highlighting {
+	color: var(--bcm-permalink-highlighting-color);
+	opacity: 0.8;
+}
