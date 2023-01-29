@@ -1,3 +1,4 @@
+<?php use SukWs\Bookshelf\Data\SiteConfig\ConfigName; ?>
 <?php use SukWs\Bookshelf\Data\SiteMeta; ?>
 <?php use SukWs\Bookshelf\Data\PageMeta; ?>
 		
@@ -13,9 +14,9 @@
 		<script>
 			bookCurrentId = "<?= PageMeta::$book->getId() ?>";
 			pageCurrentId = "<?= PageMeta::$page->getId() ?>";
-			<?php if (!(PageMeta::getConfigurationLevelPage("customization.article.codeblock.highlightjs")=="false")) :
+			<?php if (!(PageMeta::getConfigurationLevelPage(ConfigName::highlightjs)=="false")) :
 			?>hljs.highlightAll();<?php endif; ?>
-			<?php if (!(PageMeta::getConfigurationLevelPage("customization.article.regex.highlight")=="false")) :
+			<?php if (!(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false")) :
 			?>RegexColorizer.coloringAll();<?php endif; ?>
 		</script>
 		

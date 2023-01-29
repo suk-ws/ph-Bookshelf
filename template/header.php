@@ -1,3 +1,4 @@
+<?php use SukWs\Bookshelf\Data\SiteConfig\ConfigName; ?>
 <?php use SukWs\Bookshelf\Data\SiteMeta; ?>
 <?php use SukWs\Bookshelf\Data\PageMeta; ?>
 <!DOCTYPE HTML>
@@ -26,7 +27,11 @@
 		<!-- Customs(css) -->
 		<style>
 			:root {
-				----bcm-color-highlight-bg: <?= PageMeta::getConfigurationLevelPage("customization.article.codeblock.background.color") ?>;
+				--bcm-color-codeblock-background: <?= PageMeta::getConfigurationLevelPage(ConfigName::codeblock_bg) ?>;
+				--bcm-color-codeblock-foreground: <?= PageMeta::getConfigurationLevelPage(ConfigName::codeblock_fg) ?>;
+			}
+			pre code {
+				tab-size: <?= PageMeta::getConfigurationLevelPage(ConfigName::codeblock_tab_size) ?>;
 			}
 		</style>
 		<style><?= SiteMeta::getCustomCssContent("custom") ?></style>

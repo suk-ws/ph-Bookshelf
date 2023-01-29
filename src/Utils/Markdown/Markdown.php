@@ -9,6 +9,7 @@ use League\CommonMark\Extension\Autolink\AutolinkExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\DescriptionList\DescriptionListExtension;
 use League\CommonMark\Extension\Footnote\FootnoteExtension;
+use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\Strikethrough\StrikethroughExtension;
 use League\CommonMark\Extension\Table\TableExtension;
@@ -47,6 +48,9 @@ class Markdown implements PageContentType {
 		
 		// + heading(title) permalink # [title](#title)
 		$parserEnv->addExtension(new HeadingPermalinkExtension());
+		
+		// + front matter --- title: Front Matter? ---
+		$parserEnv->addExtension(new FrontMatterExtension());
 		
 		// from GitHub Flavor Markdown
 		// + autolink [https://link.to]

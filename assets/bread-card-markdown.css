@@ -245,3 +245,7 @@ mark {
 	color: var(--bcm-color-font-base-mark);
 	border-radius: 0.1rem;
 }
+
+img {
+	max-width: 100%;
+}

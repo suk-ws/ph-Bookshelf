@@ -2,6 +2,7 @@
 
 namespace SukWs\Bookshelf\Data;
 
+use SukWs\Bookshelf\Data\SiteConfig\ConfigName;
 use SukWs\Bookshelf\Element\BookContent\BookContented;
 use SukWs\Bookshelf\Element\BookContent\Page;
 
@@ -34,15 +35,36 @@ class PageMeta {
 	}
 	
 	public static function compatibilityOldTitlePolicy (): bool {
-		if (self::getConfigurationLevelPage("compatibility.article.title.oldversion") == "true")
+		if (self::getConfigurationLevelPage(ConfigName::old_title_gen) == "true")
 			return true;
 		return false;
 	}
 	
 	public static function highlightJsTheme (): string {
-		$theme = trim(self::getConfigurationLevelPage("customization.article.codeblock.highlightjs.theme"));
+		$theme = trim(self::getConfigurationLevelPage(ConfigName::highlightjs_theme));
 		if (empty($theme)) return "atom-one-dark";
 		return $theme;
+	}
+	
+	/**
+	 * @return string[]
+	 */
+	public static function highlightJsLanguages (): array {
+		$langDef = "";
+		{
+			$langDefList = array();
+			$langDefList[] = SiteMeta::getConfigurationLevelShelf(ConfigName::highlightjs_lang);
+			$langDefList[] = PageMeta::getConfigurationLevelBook(ConfigName::highlightjs_lang);
+			$langDefList[] = PageMeta::getConfigurationLevelPage(ConfigName::highlightjs_lang);
+			foreach ($langDefList as $langDefNode) $langDef .= $langDefNode . ";";
+		}
+		$lang = array();
+		foreach (explode(";", $langDef) as $i) {
+			$i = trim($i);
+			if ($i != "") $lang[] =$i;
+		}
+		$lang = array_unique($lang);
+		return $lang;
 	}
 	
 }

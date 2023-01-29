@@ -11,17 +11,8 @@
  ##############################################################################
  ******************************************************************************/
 
-:root {
-	--bcm-color-highlight-bg: #223b5c; /* user define */
-}
-
-pre {
-	background: var(--bcm-color-highlight-bg);
-}
-
 .hljs,
 code.hljs,
 pre code.hljs {
-	background: var(--bcm-color-highlight-bg);
 	padding: 0.2rem 1.2rem 0.6rem;
 }
