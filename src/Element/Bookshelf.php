@@ -48,7 +48,7 @@ class Bookshelf {
 							$return->books = BookCollection::parse($rc, null, true);
 							break;
 						case "root_book":
-							$return->rootBook = BookContented::parseRootBook($rc);
+							$return->rootBook = BookContented::parseRootBook($rc, $return->siteName);
 							break;
 						case "configurations":
 							self::parseConfiguration($rc, $return->configurations);

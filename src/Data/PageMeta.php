@@ -8,6 +8,7 @@ use SukWs\Bookshelf\Element\BookContent\Page;
 
 class PageMeta {
 	
+	public static string $bookId;
 	public static BookContented $book;
 	public static Page $page;
 	public static bool $isMainPage = false;

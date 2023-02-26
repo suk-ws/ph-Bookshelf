@@ -49,6 +49,7 @@ try {
 				$tmp = SiteMeta::getBookshelf()->getBook($uri[0]);
 				if ($tmp == null)
 					throw new RequestNotExistException("Book required \"$uri[0]\" not found!");
+				PageMeta::$bookId = $uri[0];
 				PageMeta::$book = $tmp->getContentedNode();
 			}
 			
@@ -58,12 +59,13 @@ try {
 				if ($tmp == null) throw new RequestNotExistException("Page required \"$uri[1]\" not found on book \"$uri[0]\"!");
 				PageMeta::$page = $tmp;
 			} else {
-				PageMeta::$page = PageMeta::$book->getChilds()->getChildren()[0];
+				PageMeta::$page = PageMeta::$book->getChildren()->getChildren()[0];
 			}
 		} else {
 			// 主页面
+			PageMeta::$bookId = "%root";
 			PageMeta::$book = SiteMeta::getBookshelf()->getRootBook();
-			PageMeta::$page = PageMeta::$book->getChilds()->getChildren()[0];
+			PageMeta::$page = PageMeta::$book->getChildren()->getChildren()[0];
 			PageMeta::$isMainPage = true;
 		}
 		

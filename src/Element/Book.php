@@ -66,8 +66,8 @@ class Book {
 			%s  href='%s'" . ">%s</a>
 			EOF,
 			str_repeat("\t", $indent), $this->id, $this->id,
-			str_repeat("\t", $indent), PageMeta::$book->getId()==$this->id ? " current" : "",
-			str_repeat("\t", $indent), PageMeta::$book->getId()==$this->id ? "javascript:void(0)" : $this->encodeUrl(), $this->name
+			str_repeat("\t", $indent), PageMeta::$bookId==$this->id ? " current" : "",
+			str_repeat("\t", $indent), PageMeta::$bookId==$this->id ? "javascript:void(0)" : $this->encodeUrl(), $this->name
 		);
 	}
 	

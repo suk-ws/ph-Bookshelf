@@ -28,11 +28,11 @@ class Page {
 	 * @return Page
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $pageNode, Chapter $parent): Page {
+	public static function parse (DOMNode $pageNode, Chapter $parent, ?string $idRoot): Page {
 		if ($pageNode->hasAttributes()) {
 			$attrId = $pageNode->attributes->getNamedItem("id");
 			if ($attrId == null) throw new Exception("an Page xml data missing attribute \"id\"");
-			else $id = $attrId->nodeValue;
+			else $id = $idRoot . $attrId->nodeValue;
 		} else
 			throw new Exception("Book xml data missing attributes");
 		return new Page($id, $pageNode->nodeValue, $parent);
@@ -89,12 +89,12 @@ class Page {
 	public function encodeUrl (): string {
 		return str_replace(
 			"%2F", "/",
-			sprintf("/%s/%s", urlencode(PageMeta::$book->getId()), urlencode($this->id))
+			sprintf("/%s/%s", urlencode(PageMeta::$bookId), urlencode($this->id))
 		);
 	}
 	
 	public function getContentFilename (string $type): string {
-		return sprintf("./data/%s/%s.%s", PageMeta::$book->getId(), $this->id, $type);
+		return sprintf("./data/%s/%s.%s", PageMeta::$bookId, $this->id, $type);
 	}
 	
 	public function hasContent (string $type): string {

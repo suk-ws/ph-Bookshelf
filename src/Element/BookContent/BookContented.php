@@ -4,44 +4,49 @@ namespace SukWs\Bookshelf\Element\BookContent;
 
 use DOMDocument;
 use DOMNode;
-use SukWs\Bookshelf\Element\Bookshelf;
 use Exception;
 
 class BookContented {
 	
-	private string $id;
+	private string $configVersion;
+	
 	private string $name;
 	
 	private array $configurations = array();
 	
-	public function __construct (string $id, string $name) {
-		$this->id = $id;
-		$this->name = $name;
+	public function __construct (string $configVersion) {
+		$this->configVersion = $configVersion;
 	}
 	
-	private Chapter $childs;
+	private Chapter $children;
 	
 	/**
-	 * @param DOMNode $xmlData
+	 * @param DOMNode $nodeBook
 	 * @return BookContented
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData): BookContented {
-		if ($xmlData->hasAttributes() && $xmlData->hasChildNodes()) {
-			$attrName = $xmlData->attributes->getNamedItem("name");
-			$attrId = $xmlData->attributes->getNamedItem("id");
-			if ($attrName == null)
-				if ($attrId == null) throw new Exception("BookWithContent xml data missing attribute \"name\"");
-				else throw new Exception("BookWithContent xml data with id \"$attrId->nodeValue\" missing attribute \"name\"");
-			else $name = $attrName->nodeValue;
-			if ($attrId == null) throw new Exception("BookWithContent xml data named \"$name\" missing attribute \"id\"");
-			else $id = $attrId->nodeValue;
-			$node = new BookContented($id, $name);
-			$node->childs = Chapter::parse($xmlData, null);
-			Bookshelf::parseConfigurationAttr($xmlData->attributes, $node->configurations, array("name", "id"));
-		} else
-			throw new Exception("No child or attribute found on BookWithContent");
-		return $node;
+	public static function parse (DOMNode $nodeBook): BookContented {
+		$attrVersion = $nodeBook->attributes->getNamedItem("version");
+		$bookConfigVersion = $attrVersion?->nodeValue;
+		$return = new BookContented($bookConfigVersion);
+		for ($child = $nodeBook->firstChild; $child != null; $child = $child->nextSibling) {
+			switch ($child->nodeName) {
+				case "book_name":
+					if (!empty($return->name)) throw new Exception("Duplicated contents in Book.xml");
+					$return->name = $child->nodeValue;
+					break;
+				case "contents":
+					if (!empty($return->children)) throw new Exception("Duplicated contents in Book.xml");
+					$return->children = Chapter::parse($child, null);
+					break;
+				case "#comment":
+				case "#text":
+					if (empty(trim($child->nodeValue))) break;
+				default:
+					throw new Exception("Book.xml has sub-node \"$child->nodeName\" with is not supported.");
+			}
+		}
+		return $return;
 	}
 	
 	/**
@@ -49,9 +54,10 @@ class BookContented {
 	 * @return BookContented
 	 * @throws Exception
 	 */
-	public static function parseRootBook (DOMNode $rootBookNode): BookContented {
-		$return = new BookContented("%root", "");
-		$return->childs = Chapter::parse($rootBookNode, null);
+	public static function parseRootBook (DOMNode $rootBookNode, string $bookName): BookContented {
+		$return = new BookContented("2.0");
+		$return->name = $bookName;
+		$return->children = Chapter::parse($rootBookNode, null);
 		return $return;
 	}
 	
@@ -69,24 +75,24 @@ class BookContented {
 		
 	}
 	
-	public function getId (): string {
-		return $this->id;
+	public function getConfigVersion (): string {
+		return $this->configVersion;
 	}
 	
 	public function getName (): string {
 		return $this->name;
 	}
 	
-	public function getChilds (): Chapter {
-		return $this->childs;
+	public function getChildren (): Chapter {
+		return $this->children;
 	}
 	
 	public function getSummaryHtml (): string {
-		return $this->childs->getSummaryHtml();
+		return $this->children->getSummaryHtml();
 	}
 	
 	public function getPage (string $id): ?Page {
-		return $this->childs->getPage($id);
+		return $this->children->getPage($id);
 	}
 	
 	public function getConfiguration (string $key): ?string {

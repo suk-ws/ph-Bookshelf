@@ -27,7 +27,7 @@ class Chapter {
 	 * @return Chapter
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData, ?Chapter $parent): Chapter {
+	public static function parse (DOMNode $xmlData, ?Chapter $parent, ?string $idRoot = null): Chapter {
 		$child = $xmlData->firstChild;
 		if ($parent != null) {
 			while ($child->nodeName != "caption") {
@@ -44,13 +44,15 @@ class Chapter {
 			$node = new Chapter($child->nodeValue, array(), $parent);
 			$child = $child->nextSibling;
 		} else $node = new Chapter("", array(), $parent);
+		$attrRoot = $xmlData->attributes->getNamedItem("root");
+		$chapterIdRoot = $idRoot . $attrRoot?->nodeValue;
 		for (;$child != null ; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Page":
-					$node->children[] = Page::parse($child, $node);
+					$node->children[] = Page::parse($child, $node, $chapterIdRoot);
 					break;
 				case "Chapter":
-					$node->children[] = self::parse($child, $node);
+					$node->children[] = self::parse($child, $node, $chapterIdRoot);
 					break;
 				case "Separator":
 					$node->children[] = Separator::parse($child, $node);
