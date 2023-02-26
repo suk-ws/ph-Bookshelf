@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="https://book.sukazyo.cc/assets/xsd/book.xsd"
+		xmlns="https://book.sukazyo.cc/assets/xsd/book.xsd"
+		elementFormDefault="qualified"
+>
+	
+	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configuations.xsd" />
+	
+	<xs:element name="Book" type="rootBook" />
+	
+	<xs:complexType name="rootBook">
+		<xs:complexContent>
+			<xs:extension base="bookChapter">
+				<xs:attribute name="id" type="xs:string" use="required" />
+				<xs:attribute name="name" type="xs:string" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="bookChapter">
+		<xs:choice maxOccurs="unbounded">
+			
+			<xs:element name="Chapter">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bookChapter">
+							<xs:attribute name="name" type="xs:string" use="required" />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="Page">
+				<xs:complexType>
+					<xs:attribute name="id" type="xs:string" use="required" />
+					<xs:attribute name="name" type="xs:string" use="required" />
+					<xs:attributeGroup ref="phb-config-level-page" />
+				</xs:complexType>
+			</xs:element>
+			
+		</xs:choice>
+	</xs:complexType>
+	
+</xs:schema>

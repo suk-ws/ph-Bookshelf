@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="https://book.sukazyo.cc/assets/xsd/configurations.xsd"
+		xmlns="https://book.sukazyo.cc/assets/xsd/configurations.xsd"
+		elementFormDefault="qualified"
+>
+	
+	<xs:complexType name="phb-config-level-site">
+		<xs:all minOccurs="0">
+			<xs:element name="old.title.gen" type="xs:boolean" />
+			<xs:element name="highlightjs" type="xs:boolean" />
+			<xs:element name="highlightjs.languages" type="xs:string" />
+			<xs:element name="highlightjs.theme" type="xs:string" />
+			<xs:element name="codeblock.bg-color" type="xs:string" />
+			<xs:element name="codeblock.fg-color" type="xs:string" />
+			<xs:element name="codeblock.tab-size" type="xs:integer" />
+			<xs:element name="regex.highlight" type="xs:boolean" />
+			<xs:element name="listing.marker.rainbow" type="xs:boolean" />
+			<xs:element name="title.permalink.flash" type="xs:boolean" />
+			<xs:element name="web-title.rolling" type="xs:boolean" />
+			<xs:element name="site.robots" type="xs:string" />
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:attributeGroup name="phb-config-level-page">
+		<xs:attribute name="old.title.gen" type="xs:boolean" />
+		<xs:attribute name="old.title.gen" type="xs:boolean" />
+		<xs:attribute name="highlightjs" type="xs:boolean" />
+		<xs:attribute name="highlightjs.languages" type="xs:string" />
+		<xs:attribute name="highlightjs.theme" type="xs:string" />
+		<xs:attribute name="codeblock.bg-color" type="xs:string" />
+		<xs:attribute name="codeblock.fg-color" type="xs:string" />
+		<xs:attribute name="codeblock.tab-size" type="xs:integer" />
+		<xs:attribute name="regex.highlight" type="xs:boolean" />
+		<xs:attribute name="listing.marker.rainbow" type="xs:boolean" />
+		<xs:attribute name="title.permalink.flash" type="xs:boolean" />
+		<xs:attribute name="web-title.rolling" type="xs:boolean" />
+	</xs:attributeGroup>
+	
+</xs:schema>
