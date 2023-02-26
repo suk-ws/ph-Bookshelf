@@ -28,18 +28,32 @@ class Chapter {
 	 * @throws Exception
 	 */
 	public static function parse (DOMNode $xmlData, ?Chapter $parent): Chapter {
-		if ($xmlData->hasAttributes()) {
-			$attrName = $xmlData->attributes->getNamedItem("name");
-			if ($attrName == null) throw new Exception("Chapter xml data missing attribute \"name\"");
-			else $node = new Chapter($xmlData->attributes->getNamedItem("name")->nodeValue, array(), $parent);
-		} else throw new Exception("Chapter xml data missing attributes");
-		for ($child = $xmlData->firstChild;$child != null ; $child = $child->nextSibling) {
+		$child = $xmlData->firstChild;
+		if ($parent != null) {
+			while ($child->nodeName != "caption") {
+				switch ($child->nodeName) {
+					case "#comment":
+						break;
+					case "#text":
+						if (empty(trim($child->nodeValue))) break;
+					default:
+						throw new Exception("Chapter need a \"caption\" as first child but \"$child->nodeName\" found");
+				}
+				$child = $child->nextSibling;
+			}
+			$node = new Chapter($child->nodeValue, array(), $parent);
+			$child = $child->nextSibling;
+		} else $node = new Chapter("", array(), $parent);
+		for (;$child != null ; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Page":
 					$node->children[] = Page::parse($child, $node);
 					break;
 				case "Chapter":
 					$node->children[] = self::parse($child, $node);
+					break;
+				case "Separator":
+					$node->children[] = Separator::parse($child, $node);
 					break;
 				case "#comment":
 					break;

@@ -371,6 +371,15 @@ body {
 	flex-grow: 1;
 }
 
+#sidebar > .menu-container > .menu hr {
+	width: calc(0.66 * calc(var(--sidebar-menu-container-padding-width) + 100%));
+	margin: 0.55rem auto;
+	transform: translate(calc(0px - var(--sidebar-menu-container-padding-width)/2), 0px);
+	height: var(--sidebar-menu-list-seperator-width);
+	border-radius: calc(var(--sidebar-menu-list-seperator-width) / 2);
+	background: var(--color-menu-list-separator);
+}
+
 #sidebar > .menu-container > .menu .menu-item {
 	display: block;
 	padding: 0.55rem 0;

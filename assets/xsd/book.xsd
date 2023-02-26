@@ -1,46 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		targetNamespace="https://book.sukazyo.cc/assets/xsd/book.xsd"
-		xmlns="https://book.sukazyo.cc/assets/xsd/book.xsd"
+		targetNamespace="https://book.sukazyo.cc"
+		xmlns="https://book.sukazyo.cc"
 		elementFormDefault="qualified"
 >
 	
 	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configuations.xsd" />
 	
-	<xs:element name="Book" type="rootBook" />
+	<xs:element name="Book">
+		<xs:complexType>
+			<xs:sequence>
+				
+				<xs:element name="book_name" type="xs:string" />
+				
+				<xs:element name="contents" type="bookContents" />
+				
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
 	
-	<xs:complexType name="rootBook">
-		<xs:complexContent>
-			<xs:extension base="bookChapter">
-				<xs:attribute name="id" type="xs:string" use="required" />
-				<xs:attribute name="name" type="xs:string" use="required" />
-			</xs:extension>
-		</xs:complexContent>
+	<xs:complexType name="bookContents">
+		<xs:sequence>
+			<xs:element name="Page" type="bookPage" />
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="bookContent" />
+				<xs:element name="Separator" />
+			</xs:choice>
+		</xs:sequence>
 	</xs:complexType>
 	
-	<xs:complexType name="bookChapter">
-		<xs:choice maxOccurs="unbounded">
+	<xs:group name="bookContent">
+		<xs:choice>
 			
-			<xs:element name="Chapter">
-				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="bookChapter">
-							<xs:attribute name="name" type="xs:string" use="required" />
-						</xs:extension>
-					</xs:complexContent>
-				</xs:complexType>
-			</xs:element>
+			<xs:element name="Chapter" type="bookChapter" />
 			
-			<xs:element name="Page">
-				<xs:complexType>
-					<xs:attribute name="id" type="xs:string" use="required" />
-					<xs:attribute name="name" type="xs:string" use="required" />
-					<xs:attributeGroup ref="phb-config-level-page" />
-				</xs:complexType>
-			</xs:element>
+			<xs:element name="Page" type="bookPage" />
 			
 		</xs:choice>
+	</xs:group>
+	
+	<xs:complexType name="bookChapter">
+		<xs:sequence>
+			
+			<xs:element name="caption" type="xs:string" />
+			
+			<xs:group ref="bookContent" maxOccurs="unbounded" />
+			
+		</xs:sequence>
+		<xs:attribute name="root" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="bookPage">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="id" type="xs:string" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
 	</xs:complexType>
 	
 </xs:schema>

@@ -22,23 +22,33 @@ class LinkCollection {
 	}
 	
 	/**
-	 * @param DOMNode $root
+	 * @param DOMNode $collectionNode
 	 * @param ?LinkCollection $parent
 	 * @param bool $isRoot
 	 * @return LinkCollection
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $root, ?LinkCollection $parent, bool $isRoot = false): LinkCollection {
-		$name = LinkCollection::ROOT;
+	public static function parse (DOMNode $collectionNode, ?LinkCollection $parent, bool $isRoot = false): LinkCollection {
+		$collectionName = LinkCollection::ROOT;
+		$child = $collectionNode->firstChild;
+		if ($child == null) throw new Exception("an LinkCollection is NULL!");
 		if (!$isRoot) {
-			if ($root->hasAttributes()) {
-				$attrName = $root->attributes->getNamedItem("name");
-				if ($attrName == null) throw new Exception("LinkCollection (not root) xml data missing attribute \"name\"");
-				else $name = $attrName->nodeValue;
-			} else throw new Exception("LinkCollection (not root) xml data missing attributes");
+			while ($child->nodeName != "caption") {
+				switch ($child->nodeName) {
+					case "#comment":
+						break;
+					case "#text":
+						if (empty(trim($child->nodeValue))) break;
+					default:
+						throw new Exception("LinkCollection need a \"caption\" as first child but \"$child->nodeName\" found");
+				}
+				$child = $child->nextSibling;
+			}
+			$collectionName = $child->nodeValue;
+			$child = $child->nextSibling;
 		}
-		$node = new LinkCollection($name, $parent);
-		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
+		$node = new LinkCollection($collectionName, $parent);
+		for (; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Link":
 					$node->array[] = Link::parse($child, $node);
@@ -50,9 +60,9 @@ class LinkCollection {
 					break;
 				case "#text":
 					if (empty(trim($child->nodeValue))) break;
-					throw new Exception("Unsupported element type \"$child->nodeName\" in LinkCollection named \"$name\"");
+					throw new Exception("Unsupported element type \"$child->nodeName\" in LinkCollection named \"$collectionName\"");
 				default:
-					throw new Exception("Unsupported element type \"$child->nodeName\" in LinkCollection named \"$name\"");
+					throw new Exception("Unsupported element type \"$child->nodeName\" in LinkCollection named \"$collectionName\"");
 			}
 		}
 		return $node;

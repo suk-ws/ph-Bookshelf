@@ -45,6 +45,17 @@ class BookContented {
 	}
 	
 	/**
+	 * @param DOMNode $rootBookNode
+	 * @return BookContented
+	 * @throws Exception
+	 */
+	public static function parseRootBook (DOMNode $rootBookNode): BookContented {
+		$return = new BookContented("%root", "");
+		$return->childs = Chapter::parse($rootBookNode, null);
+		return $return;
+	}
+	
+	/**
 	 * @param string $xmlContent
 	 * @return BookContented
 	 * @throws Exception

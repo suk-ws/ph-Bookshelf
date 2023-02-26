@@ -18,26 +18,28 @@ class Link {
 	}
 	
 	/**
-	 * @param DOMNode $xmlData
+	 * @param DOMNode $linkNode
 	 * @param LinkCollection $parent
 	 * @return Link
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData, LinkCollection $parent): Link {
-		if ($xmlData->hasAttributes()) {
-			$attrName = $xmlData->attributes->getNamedItem("name");
-			$attrHref = $xmlData->attributes->getNamedItem("href");
-			if ($attrName == null)
-				if ($attrHref == null) throw new Exception("Link xml data missing attribute \"name\"");
-				else throw new Exception("Link xml data which href is \"$attrHref->nodeValue\" missing attribute \"name\"");
-			else $name = $attrName->nodeValue;
-			if ($attrHref == null) throw new Exception("Link xml data named \"$name\" missing attribute \"href\"");
+	public static function parse (DOMNode $linkNode, LinkCollection $parent): Link {
+		if ($linkNode->hasAttributes()) {
+			$attrHref = $linkNode->attributes->getNamedItem("href");
+			if ($attrHref == null) throw new Exception("an Link data missing attribute \"href\"");
 			else $href = $attrHref->nodeValue;
 		} else
-			throw new Exception("Link xml data missing attributes");
-		if ($xmlData->hasChildNodes())
-			throw new Exception("Link xml named \"$name\" have some children which are not supported");
-		return new Link($name, $href, $parent);
+			throw new Exception("an Link data missing attributes");
+		$valueName = $linkNode->nodeValue;
+//		if ($linkNode->hasChildNodes()) {
+//			for ($child = $linkNode->firstChild; $child; $child = $child->nextSibling) {
+//				$valueName .= match ($child->nodeName) {
+//					"#text", "#cdata-section" => $child->nodeValue,
+//					default => throw new Exception("Unsupported element type \"$child->nodeName\" in parsing configuration $linkNode->nodeName")
+//				};
+//			}
+//		} // todo warn if no link name
+		return new Link($valueName, $href, $parent);
 	}
 	
 	public function getName (): string {

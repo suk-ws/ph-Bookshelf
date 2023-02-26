@@ -20,26 +20,28 @@ class Book {
 	}
 	
 	/**
-	 * @param DOMNode $xmlData
+	 * @param DOMNode $bookNode
 	 * @param BookCollection $parent
 	 * @return Book
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $xmlData, BookCollection $parent): Book {
-		if ($xmlData->hasAttributes()) {
-			$attrName = $xmlData->attributes->getNamedItem("name");
-			$attrId = $xmlData->attributes->getNamedItem("id");
-			if ($attrName == null)
-				if ($attrId == null) throw new Exception("Book xml data missing attribute \"name\"");
-				else throw new Exception("Book xml data with id \"$attrId->nodeValue\" missing attribute \"name\"");
-			else $name = $attrName->nodeValue;
-			if ($attrId == null) throw new Exception("Book xml data named \"$name\" missing attribute \"id\"");
+	public static function parse (DOMNode $bookNode, BookCollection $parent): Book {
+		if ($bookNode->hasAttributes()) {
+			$attrId = $bookNode->attributes->getNamedItem("id");
+			if ($attrId == null) throw new Exception("an Book xml data named missing attribute \"id\"");
 			else $id = $attrId->nodeValue;
 		} else
 			throw new Exception("Book xml data missing attributes");
-		if ($xmlData->hasChildNodes())
-			throw new Exception("Book xml with id \"$id\" have some children which are not supported");
-		return new Book($id, $name, $parent);
+		$valueName = $bookNode->nodeValue;
+//		if ($bookNode->hasChildNodes()) {
+//			for ($child = $bookNode->firstChild; $child; $child = $child->nextSibling) {
+//				$valueName .= match ($child->nodeName) {
+//					"#text", "#cdata-section" => $child->nodeValue,
+//					default => throw new Exception("Unsupported element type \"$child->nodeName\" in parsing configuration $bookNode->nodeName")
+//				};
+//			}
+//		} // todo warn if no link name
+		return new Book($id, $valueName, $parent);
 	}
 	
 	public function getId (): string {

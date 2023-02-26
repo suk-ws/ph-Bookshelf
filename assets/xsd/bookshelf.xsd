@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		targetNamespace="https://book.sukazyo.cc/assets/xsd/bookshelf.xsd"
-		xmlns="https://book.sukazyo.cc/assets/xsd/bookshelf.xsd"
+		targetNamespace="https://book.sukazyo.cc"
+		xmlns="https://book.sukazyo.cc"
 		elementFormDefault="qualified"
 >
 	
@@ -13,63 +13,77 @@
 		<xs:complexType>
 			<xs:sequence>
 				
+				<xs:element name="site_name" type="xs:string" />
+				
 				<xs:element name="configurations" type="phb-config-level-site" />
 				
-				<xs:element name="links" type="linkCollection" />
+				<xs:element name="links">
+					<xs:complexType>
+						<xs:group ref="linkElement" maxOccurs="unbounded"/>
+					</xs:complexType>
+				</xs:element>
 				
-				<xs:element name="books" type="bookCollection" />
+				<xs:element name="books">
+					<xs:complexType>
+						<xs:group ref="bookElement" maxOccurs="unbounded" />
+					</xs:complexType>
+				</xs:element>
 				
-				<xs:element name="rootBook" type="rootBook" />
+				<xs:element name="root_book" type="bookContents" />
 				
 			</xs:sequence>
-			<xs:attribute name="siteName" type="xs:string" use="required" />
+			<xs:attribute name="version" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:complexType name="linkCollection">
-		<xs:choice maxOccurs="unbounded">
+	<xs:group name="linkElement">
+		<xs:choice>
 			
 			<xs:element name="Link">
 				<xs:complexType>
-					<xs:attribute name="name" type="xs:string" use="required" />
-					<xs:attribute name="href" type="xs:anyURI" use="required" />
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="href" type="xs:anyURI" use="required" />
+						</xs:extension>
+					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
 			
 			<xs:element name="Collection">
 				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="linkCollection">
-							<xs:attribute name="name" type="xs:string" use="required" />
-						</xs:extension>
-					</xs:complexContent>
+					<xs:sequence>
+						<xs:element name="caption" type="xs:string" />
+						<xs:group ref="linkElement" maxOccurs="unbounded" />
+					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 			
 		</xs:choice>
-	</xs:complexType>
+	</xs:group>
 	
-	<xs:complexType name="bookCollection">
-		<xs:choice maxOccurs="unbounded">
+	<xs:group name="bookElement">
+		<xs:choice>
 			
 			<xs:element name="Book">
 				<xs:complexType>
-					<xs:attribute name="name" type="xs:string" use="required" />
-					<xs:attribute name="id" type="xs:string" use="required" />
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="id" type="xs:string" use="required" />
+						</xs:extension>
+					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
 			
 			<xs:element name="Collection">
 				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="bookCollection">
-							<xs:attribute name="name" type="xs:string" use="required" />
-						</xs:extension>
-					</xs:complexContent>
+					<xs:sequence>
+						<xs:element name="caption" type="xs:string" />
+						<xs:group ref="bookElement" maxOccurs="unbounded" />
+					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 		
 		</xs:choice>
-	</xs:complexType>
+	</xs:group>
 	
 </xs:schema>

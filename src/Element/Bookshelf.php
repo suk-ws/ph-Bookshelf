@@ -10,6 +10,8 @@ use Exception;
 
 class Bookshelf {
 	
+	private string $configureVersion;
+	
 	private string $siteName;
 	
 	private LinkCollection $links;
@@ -32,9 +34,9 @@ class Bookshelf {
 			if ($dom->hasAttributes() && $dom->hasChildNodes()) {
 				
 				// Bookshelf 属性
-				$attrSiteName = $dom->attributes->getNamedItem("siteName");
-				if ($attrSiteName == null) throw new Exception("Bookshelf xml data missing attribute \"siteName\"");
-				$return->siteName = $attrSiteName->nodeValue;
+				$attrConfigVersion = $dom->attributes->getNamedItem("version");
+				// todo no version warning
+				$return->configureVersion = $attrConfigVersion->nodeValue;
 				
 				// 对根节点的子节点进行遍历
 				for ($rc = $dom->firstChild; $rc != null; $rc = $rc->nextSibling) {
@@ -45,11 +47,14 @@ class Bookshelf {
 						case "books":
 							$return->books = BookCollection::parse($rc, null, true);
 							break;
-						case "rootBook":
-							$return->rootBook = BookContented::parse($rc);
+						case "root_book":
+							$return->rootBook = BookContented::parseRootBook($rc);
 							break;
 						case "configurations":
 							self::parseConfiguration($rc, $return->configurations);
+							break;
+						case "site_name":
+							$return->siteName = self::parseSiteName($rc);
 							break;
 						case "#comment":
 							break;
@@ -98,6 +103,19 @@ class Bookshelf {
 			if (in_array($attr->name, $ignores)) continue;
 			$configurations[$attr->name] = $attr->value;
 		}
+	}
+	
+	private static function parseSiteName (DOMNode $siteNameNode): string {
+		$siteNameValue = "";
+		for ($child = $siteNameNode->firstChild; $child != null; $child = $child->nextSibling) {
+			$siteNameValue .= match ($child->nodeName) {
+				"#text", "#cdata-section" => $child->nodeValue,
+				default => throw new Exception(
+					"Unsupported element type \"$child->nodeName\" in parsing configuration $siteNameNode->nodeName"
+				),
+			};
+		}
+		return $siteNameValue;
 	}
 	
 	public function getSiteName (): string {

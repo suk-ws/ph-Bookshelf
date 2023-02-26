@@ -23,23 +23,33 @@ class BookCollection {
 	}
 	
 	/**
-	 * @param DOMNode $root
+	 * @param DOMNode $collectionNode
 	 * @param ?BookCollection $parent
 	 * @param bool $isRoot
 	 * @return BookCollection
 	 * @throws Exception
 	 */
-	public static function parse (DOMNode $root, ?BookCollection $parent, bool $isRoot = false): BookCollection {
-		$name = BookCollection::ROOT;
+	public static function parse (DOMNode $collectionNode, ?BookCollection $parent, bool $isRoot = false): BookCollection {
+		$collectionName = LinkCollection::ROOT;
+		$child = $collectionNode->firstChild;
+		if ($child == null) throw new Exception("an BookCollection is NULL!");
 		if (!$isRoot) {
-			if ($root->hasAttributes()) {
-				$attrName = $root->attributes->getNamedItem("name");
-				if ($attrName == null) throw new Exception("BookCollection (not root) xml data missing attribute \"name\"");
-				else $name = $attrName->nodeValue;
-			} else throw new Exception("BookCollection (not root) xml data missing attributes");
+			while ($child->nodeName != "caption") {
+				switch ($child->nodeName) {
+					case "#comment":
+						break;
+					case "#text":
+						if (empty(trim($child->nodeValue))) break;
+					default:
+						throw new Exception("BookCollection need a \"caption\" as first child but \"$child->nodeName\" found");
+				}
+				$child = $child->nextSibling;
+			}
+			$collectionName = $child->nodeValue;
+			$child = $child->nextSibling;
 		}
-		$node = new BookCollection($name, $parent);
-		for ($child = $root->firstChild; $child != null; $child = $child->nextSibling) {
+		$node = new BookCollection($collectionName, $parent);
+		for (; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "Book":
 					$node->array[] = Book::parse($child, $node);
@@ -51,9 +61,9 @@ class BookCollection {
 					break;
 				case "#text":
 					if (empty(trim($child->nodeValue))) break;
-					throw new Exception("Unsupported element type \"$child->nodeName\" in BookCollection named \"$name\"");
+					throw new Exception("Unsupported element type \"$child->nodeName\" in BookCollection named \"$collectionName\"");
 				default:
-					throw new Exception("Unsupported element type \"$child->nodeName\" in BookCollection named \"$name\"");
+					throw new Exception("Unsupported element type \"$child->nodeName\" in BookCollection named \"$collectionName\"");
 			}
 		}
 		return $node;

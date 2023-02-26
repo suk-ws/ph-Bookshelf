@@ -6,7 +6,7 @@
 	<article id="article">
 	
 	
-<?php require "./template/raw-article.php" ?>
+	<?php require "./template/raw-article.php" ?>
 	
 	
 	
