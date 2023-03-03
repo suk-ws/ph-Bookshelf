@@ -1,6 +1,8 @@
-<?php use SukWs\Bookshelf\Data\SiteConfig\ConfigName; ?>
-<?php use SukWs\Bookshelf\Data\SiteMeta; ?>
-<?php use SukWs\Bookshelf\Data\PageMeta; ?>
+<?php use SukWs\Bookshelf\PageMeta;
+use SukWs\Bookshelf\SiteConfig\ConfigName;
+use SukWs\Bookshelf\SiteMeta; ?>
+<?php ?>
+<?php ?>
 		
 		<!-- Assets(js) --><?php
 		foreach (SiteMeta::getJavascriptList() as $item) {

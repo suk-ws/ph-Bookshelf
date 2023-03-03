@@ -1,6 +1,6 @@
 <?php
 
-use SukWs\Bookshelf\Data\PageMeta;
+use SukWs\Bookshelf\PageMeta;
 use SukWs\Bookshelf\Utils\HTML\HTML;
 use SukWs\Bookshelf\Utils\LaTeX\LaTeX;
 use SukWs\Bookshelf\Utils\Markdown\Markdown;

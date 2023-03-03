@@ -1,10 +1,10 @@
 <?php
 
-namespace SukWs\Bookshelf\Data;
+namespace SukWs\Bookshelf;
 
-use SukWs\Bookshelf\Data\SiteConfig\ConfigName;
 use SukWs\Bookshelf\Element\BookContent\BookContented;
 use SukWs\Bookshelf\Element\BookContent\Page;
+use SukWs\Bookshelf\SiteConfig\ConfigName;
 
 class PageMeta {
 	

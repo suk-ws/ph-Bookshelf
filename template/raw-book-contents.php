@@ -1,5 +1,5 @@
 <?php
 
-use SukWs\Bookshelf\Data\PageMeta;
+use SukWs\Bookshelf\PageMeta;
 
 PageMeta::$page->getSummaryHtml();

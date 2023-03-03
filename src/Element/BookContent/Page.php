@@ -2,10 +2,9 @@
 
 namespace SukWs\Bookshelf\Element\BookContent;
 
-use SukWs\Bookshelf\Data\PageMeta;
 use DOMNode;
-use SukWs\Bookshelf\Element\Bookshelf;
 use Exception;
+use SukWs\Bookshelf\PageMeta;
 
 class Page {
 	

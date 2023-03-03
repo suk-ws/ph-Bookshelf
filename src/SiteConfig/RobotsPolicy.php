@@ -1,6 +1,6 @@
 <?php
 
-namespace SukWs\Bookshelf\Data\SiteConfig;
+namespace SukWs\Bookshelf\SiteConfig;
 
 enum RobotsPolicy {
 	case allow;

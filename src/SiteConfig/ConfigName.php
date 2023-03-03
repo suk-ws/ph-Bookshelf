@@ -1,6 +1,6 @@
 <?php
 
-namespace SukWs\Bookshelf\Data\SiteConfig;
+namespace SukWs\Bookshelf\SiteConfig;
 
 class ConfigName {
 	

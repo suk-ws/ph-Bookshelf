@@ -1,11 +1,11 @@
 <?php
 
-namespace SukWs\Bookshelf\Data;
+namespace SukWs\Bookshelf;
 
 use Exception;
-use SukWs\Bookshelf\Data\SiteConfig\ConfigName;
-use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Element\Bookshelf;
+use SukWs\Bookshelf\SiteConfig\ConfigName;
+use SukWs\Bookshelf\SiteConfig\RobotsPolicy;
 
 class SiteMeta {
 	

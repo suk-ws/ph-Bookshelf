@@ -1,5 +1,6 @@
-<?php use SukWs\Bookshelf\Data\SiteMeta; ?>
-<?php use SukWs\Bookshelf\Data\PageMeta; ?>
+<?php use SukWs\Bookshelf\PageMeta;
+use SukWs\Bookshelf\SiteMeta; ?>
+<?php ?>
 <div id="nav-container" class="prevent-animation"><nav id="sidebar">
 		<noscript id="noscript-warn">For now, javascript must be enabled to view this site!!</noscript>
 		<a id="site-title" class="no-style" href="/"><?= SiteMeta::getBookshelf()->getSiteName() ?></a>

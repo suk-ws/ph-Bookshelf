@@ -3,11 +3,18 @@
 require "./constant.php";
 require "./vendor/autoload.php";
 
-use SukWs\Bookshelf\Data\PageMeta;
-use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
-use SukWs\Bookshelf\Data\SiteMeta;
+use SukWs\Bookshelf\PageMeta;
+use SukWs\Bookshelf\SiteConfig\RobotsPolicy;
+use SukWs\Bookshelf\SiteMeta;
 use SukWs\Bookshelf\Utils\PageParse;
 use SukWs\Bookshelf\Utils\RequestNotExistException;
+use SukWs\Bookshelf\Web\HtmlPage;
+
+$page = new HtmlPage();
+
+echo $page->build()->document->saveHTML();
+
+exit();
 
 try {
 	
@@ -107,3 +114,6 @@ try {
 	echo "<h1>ERROR</h1><p>" . $e->getMessage() . "</p>";
 	
 }
+
+
+

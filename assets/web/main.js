@@ -51,12 +51,11 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-document.getElementById("sidebar-show").onclick = sidebarToggle;
 function sidebarToggle() {
 	itemSidebar.parentElement.classList.toggle("show-sidebar");
 }
 if (window.innerWidth > 1000) { sidebarToggle(); }
-
+document.getElementById("sidebar-show").onclick = sidebarToggle;
 EventUtil.bindEvent(itemSidebar, 'swipeleft', sidebarToggle)
 // EventUtil.bindEvent(document.body, 'swipeleft', function () { if (itemSidebar.parentElement.classList.contains("show-sidebar")) { sidebarToggle(); } });
 // EventUtil.bindEvent(document.body, 'swiperight', function () { if (!itemSidebar.parentElement.classList.contains("show-sidebar")) { sidebarToggle(); } });
