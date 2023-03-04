@@ -282,7 +282,7 @@ body {
 	margin-bottom: 1rem;
 }
 
-#sidebar > #noscript-warn {
+#sidebar > .warnings {
 	flex-shrink: 0;
 	padding: 1rem;
 	border-radius: 0.5rem;
