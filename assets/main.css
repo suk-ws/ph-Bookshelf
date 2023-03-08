@@ -14,22 +14,24 @@
  ******************************************************************/
 :root {
 	
-	--color-font-base: #223b5c;
-	--color-font-base-link: #409dff;
-	--color-font-base-link-hover: #0033ff;
-	--color-font-base-link-visited: #a27aeb;
-	--color-font-base-link-visited-hover: #5a00ff;
-	--color-font-base-link-focus-bg: #33aee92b;
+	--color-page-background: var(--bcm-color-page-background);
 	
-	--color-sidebar-background: #f6f8fa;
+	--color-font-base: var(--bcm-color-font-base);
+	--color-font-base-link: var(--bcm-color-font-base-link);
+	--color-font-base-link-hover: var(--bcm-color-font-base-link-hover);
+	--color-font-base-link-visited: var(--bcm-color-font-base-link-visited);
+	--color-font-base-link-visited-hover: var(--bcm-color-font-base-link-visited-hover);
+	--color-font-base-link-focus-bg: var(--bcm-color-font-base-link-focus-bg);
+	
+	--color-sidebar-background: var(--bcm-color-table-background);
 	--color-font-sidebar: var(--color-font-base);
 	--color-scrollbar-sidebar-background: none;
-	--color-scrollbar-sidebar-foreground: #78a8e021;
+	--color-scrollbar-sidebar-foreground: var(--color-menu-child-list-line);
 	
 	--color-warn-noscript: #ce263d;
 	--color-font-warn-noscript: #f5eaea;
 	--color-font-sidebar-sitetitle: #3a2b8c;
-	--color-font-sidebar-sitetitle-highlight: #4a60b6;
+	/*--color-font-sidebar-sitetitle-highlight: #4a60b6;*/
 	--color-sidebar-sitetitle-background: #e8f0fe;
 	
 	--color-menu-list-separator: #ebeff2;
@@ -39,7 +41,7 @@
 	--color-font-menu-item-current: #3697ff;
 	--color-font-menu-item-hover: #71b3f9;
 	
-	--color-tools-button-background: #f6f8fa;
+	--color-tools-button-background: var(--color-sidebar-background);
 	--color-tools-button-background-active: #eef1f4;
 	--color-font-tools-button: #c3ccd6;
 	
@@ -47,6 +49,44 @@
 	--color-scrollbar-main-foreground: var(--color-menu-item-indicator-focus);
 	
 }
+
+@media (prefers-color-scheme: dark) { :root {
+	
+	/*--color-page-background: var(--bcm-color-page-background);*/
+	
+	/*--color-font-base: var(--bcm-color-font-base);*/
+	/*--color-font-base-link: var(--bcm-color-font-base-link);*/
+	/*--color-font-base-link-hover: var(--bcm-color-font-base-link-hover);*/
+	/*--color-font-base-link-visited: var(--bcm-color-font-base-link-visited);*/
+	/*--color-font-base-link-visited-hover: var(--bcm-color-font-base-link-visited-hover);*/
+	/*--color-font-base-link-focus-bg: var(--bcm-color-font-base-link-focus-bg);*/
+	
+	/*--color-sidebar-background: var(--bcm-color-table-background);*/
+	/*--color-font-sidebar: var(--color-font-base);*/
+	/*--color-scrollbar-sidebar-background: none;*/
+	/*--color-scrollbar-sidebar-foreground: var(--color-menu-child-list-line);*/
+	
+	--color-warn-noscript: #ce263d; ;;
+	--color-font-warn-noscript: #f5eaea; ;;
+	--color-font-sidebar-sitetitle: #5d0a0a;
+	/*--color-font-sidebar-sitetitle-highlight: #4a60b6;*/
+	--color-sidebar-sitetitle-background: #be6964;
+	
+	--color-menu-list-separator: #383b3d;
+	--color-menu-child-list-line: #b28c9029;
+	--color-menu-item-indicator-current: #ff6c6c;
+	--color-menu-item-indicator-focus: #cc888f;
+	--color-font-menu-item-current: #f5848e;
+	--color-font-menu-item-hover: #ffa2ad;
+	
+	/*--color-tools-button-background: var(--color-sidebar-background);*/
+	--color-tools-button-background-active: #414344;
+	--color-font-tools-button: #747576; ;
+	
+	/*--color-scrollbar-main-background: var(--color-scrollbar-sidebar-foreground);*/
+	/*--color-scrollbar-main-foreground: var(--color-menu-item-indicator-focus);*/
+	
+}}
 
 :root {
 	
@@ -234,6 +274,7 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	color: var(--color-font-base);
+	background-color: var(--color-page-background);
 	display: flex;
 	position: relative;
 }
