@@ -3,6 +3,7 @@
 namespace SukWs\Bookshelf\Web\Html;
 
 use DOMElement;
+use SukWs\Bookshelf\Data\Bookshelf\NodeBookshelf;
 use SukWs\Bookshelf\Utils\DOMHtml;
 use SukWs\Bookshelf\Web\HtmlPage;
 
@@ -30,6 +31,10 @@ class Head {
 			DOMHtml::createHeaderMeta($root->document, array("name" => "generator", "content" => "ph-Bookshelf ".VERSION))
 		);
 		
+	}
+	
+	public function _parseBookshelf (NodeBookshelf $_data_shelf): void {
+		// todo use shelf config
 	}
 	
 	public function build (): DOMElement {

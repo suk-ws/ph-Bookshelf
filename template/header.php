@@ -1,7 +1,7 @@
 <?php use SukWs\Bookshelf\SiteConfig\ConfigName; ?>
 <?php use SukWs\Bookshelf\SiteMeta; ?>
 <?php use SukWs\Bookshelf\PageMeta; ?>
-<?php use SukWs\Bookshelf\Web\WebWarn; ?>
+<?php use SukWs\Bookshelf\Web\WebLog; ?>
 <!DOCTYPE HTML>
 <html lang="<?= "" // TODO Page language ?>">
 	<head>
@@ -36,9 +36,9 @@
 			}
 		</style>
 		<style><?= SiteMeta::getCustomCssContent("custom") ?></style>
-		<?php WebWarn::output("test warn"); ?>
+		<?php WebLog::warn("test warn"); ?>
 		<?php
-		$__web_js_warning_log = WebWarn::getWarningsAsJsLog();
+		$__web_js_warning_log = WebLog::getWarningsAsJsLog();
 		$__web_js_warning_log_document = new DOMDocument();
 		$__web_js_warning_log_document->appendChild($__web_js_warning_log);
 		echo $__web_js_warning_log_document->saveHTML();

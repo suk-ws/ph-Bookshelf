@@ -7,7 +7,7 @@ use DOMElement;
 use DOMNode;
 use Exception;
 use SukWs\Bookshelf\Utils\DOMXMLTools;
-use SukWs\Bookshelf\Web\WebWarn;
+use SukWs\Bookshelf\Web\WebLog;
 
 class NodeBookshelf {
 	
@@ -15,7 +15,7 @@ class NodeBookshelf {
 	
 	public readonly string $_site_name;
 	
-	public readonly array $_configurations;
+	public array $_configurations;
 	
 	/**
 	 * @throws Exception
@@ -25,16 +25,19 @@ class NodeBookshelf {
 		/* "" version "" */
 		$this->_Attr_version = $node_Bookshelf->attributes->getNamedItem("version")?->nodeValue;
 		// configure version check
-		if ($this->_Attr_version == null) WebWarn::output("bookshelf.xml:: file version is not declared.\n - the current ph-bookshelf uses version 2.0");
+		if ($this->_Attr_version == null) WebLog::warn("bookshelf.xml:: file version is not declared.\n - the current ph-bookshelf uses version 2.0");
 		else if ($this->_Attr_version != "2.0") throw new Exception("-0I{@EI[AID"); // todo throw exception
+		WebLog::info("bookshelf.xml:: read bookshelf.xml with config version ".$this->_Attr_version);
 		
 		/* @var DOMNode $dom_child */
-		$dom_child = $node_Bookshelf->firstChild;
+		/* @var DOMElement $dom_child */$dom_child = DOMXMLTools::firstChild($node_Bookshelf);
+		if ($dom_child == null) throw new Exception("bookshelf.xml:: is empty!");
 		
 		/* == site_name == */
-		if (!$dom_child->nodeName == "site_name") throw new Exception("O*R*OIArlAIWR"); // todo throw exception that site_name unavailable.
+		if (!$dom_child->nodeName == "site_name") throw new Exception("bookshelf.xml:: required <site_name> defined first but <".$dom_child->nodeName."> found."); // todo throw exception that site_name unavailable.
 		$this->_site_name = $dom_child->nodeValue;
-		$dom_child = $dom_child->nextSibling;
+		DOMXMLTools::next($dom_child);
+		WebLog::info("bookshelf.xml:: read site_name \"".$this->_site_name."\"");
 		
 		/* == configurations ==  */
 		if ($dom_child->nodeName == "configurations") {
@@ -43,9 +46,10 @@ class NodeBookshelf {
 			foreach ($dom_child->childNodes as $configNode) {
 				if (DOMXMLTools::isEmpty($configNode)) continue;
 				$my_configurations[$configNode->nodeName] = $configNode->nodeValue;
+				WebLog::info("bookshelf.xml:: configuration:: read [".$configNode->nodeName."] = \"".$configNode->nodeValue."\"");
 			}
 			$this->_configurations = $my_configurations;
-			$dom_child = $dom_child->nextSibling;
+			DOMXMLTools::next($dom_child);
 		}
 		
 		// todo elements.

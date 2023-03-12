@@ -4,10 +4,11 @@ namespace SukWs\Bookshelf\Web\Html;
 
 use DOMDocument;
 use DOMElement;
+use SukWs\Bookshelf\Data\Bookshelf\NodeBookshelf;
 use SukWs\Bookshelf\Web\Html\Main\MainContainer;
 use SukWs\Bookshelf\Web\Html\Sidebar\Sidebar;
 use SukWs\Bookshelf\Web\HtmlPage;
-use SukWs\Bookshelf\Web\WebWarn;
+use SukWs\Bookshelf\Web\WebLog;
 
 class Body {
 	
@@ -28,6 +29,10 @@ class Body {
 		
 	}
 	
+	public function _parseBookshelf (NodeBookshelf $_data_shelf): void {
+		$this->_sidebar->_parseBookshelf($_data_shelf);
+	}
+	
 	public function build (): DOMElement {
 		
 		$this->__self->appendChild($this->_sidebar->build());
@@ -37,7 +42,7 @@ class Body {
 			$this->__self->appendChild($script);
 		
 		// output the warnings message at the end.
-		$this->__self->appendChild(WebWarn::getWarningsAsJsLog()->build($this->root->document));
+		$this->__self->appendChild(WebLog::getWarningsAsJsLog()->build($this->root->document));
 		
 		return $this->__self;
 		

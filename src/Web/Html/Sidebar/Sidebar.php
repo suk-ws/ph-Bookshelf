@@ -3,6 +3,7 @@
 namespace SukWs\Bookshelf\Web\Html\Sidebar;
 
 use DOMElement;
+use SukWs\Bookshelf\Data\Bookshelf\NodeBookshelf;
 use SukWs\Bookshelf\Web\Html\Body;
 use SukWs\Bookshelf\Web\HtmlPage;
 
@@ -50,6 +51,10 @@ class Sidebar {
 		$this->_sidebar_site_title_node->setAttribute('href', "/");
 		$this->_sidebar_site_title_value = null;
 		
+	}
+	
+	public function _parseBookshelf (NodeBookshelf $_data_shelf): void {
+		$this->setSiteTitle($_data_shelf->_site_name);
 	}
 	
 	public function toggleSidebarShow (?bool $show = null): void {

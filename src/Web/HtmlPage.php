@@ -4,6 +4,7 @@ namespace SukWs\Bookshelf\Web;
 
 use DOMDocument;
 use DOMElement;
+use SukWs\Bookshelf\Data\Bookshelf\NodeBookshelf;
 use SukWs\Bookshelf\Utils\DOMHtml;
 use SukWs\Bookshelf\Web\Html\Body;
 use SukWs\Bookshelf\Web\Html\Head;
@@ -34,6 +35,11 @@ class HtmlPage {
 		/* @var */ $html_body = new Body($this);
 		$this->_html_body = $html_body;
 		
+	}
+	
+	public function _parseBookshelf (NodeBookshelf $_data_shelf): void {
+		$this->_html_head->_parseBookshelf($_data_shelf);
+		$this->_html_body->_parseBookshelf($_data_shelf);
 	}
 	
 	public function build(): self {

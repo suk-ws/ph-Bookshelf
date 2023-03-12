@@ -3,14 +3,35 @@
 require "./constant.php";
 require "./vendor/autoload.php";
 
+use SukWs\Bookshelf\Data\Bookshelf\NodeBookshelf;
 use SukWs\Bookshelf\PageMeta;
 use SukWs\Bookshelf\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\SiteMeta;
 use SukWs\Bookshelf\Utils\PageParse;
 use SukWs\Bookshelf\Utils\RequestNotExistException;
 use SukWs\Bookshelf\Web\HtmlPage;
+use SukWs\Bookshelf\Web\WebLog;
+
+const PHB_DATA_PATH = "./data/";
+const PHB_SHELF_CONF_PATH = PHB_DATA_PATH . "bookshelf.xml";
 
 $page = new HtmlPage();
+
+if (!file_exists(PHB_SHELF_CONF_PATH)) {
+	$page->_html_body->_sidebar->web_error->addErrorMessage("No /data/bookshelf.xml in your website!");
+} else try {
+	
+	$bookshelf = NodeBookshelf::__load_from_xml(
+		file_get_contents(PHB_SHELF_CONF_PATH)
+	);
+	WebLog::info("loaded bookshelf.xml\n  at path ".PHB_SHELF_CONF_PATH."\n  file md5 ".md5_file(PHB_SHELF_CONF_PATH));
+	
+	$page->_parseBookshelf($bookshelf);
+	
+} catch (Exception $e) {
+	$page->_html_body->_sidebar->web_error->addErrorMessage($e->getMessage());
+	WebLog::warn($e);
+}
 
 echo $page->build()->document->saveHTML();
 
