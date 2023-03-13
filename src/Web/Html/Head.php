@@ -6,6 +6,7 @@ use DOMElement;
 use SukWs\Bookshelf\Data\Bookshelf\NodeBookshelf;
 use SukWs\Bookshelf\Utils\DOMHtml;
 use SukWs\Bookshelf\Web\HtmlPage;
+use SukWs\Bookshelf\Web\WebLog;
 
 class Head {
 	
@@ -14,6 +15,10 @@ class Head {
 	public DOMElement $__self;
 	
 	public readonly array $standard_headers;
+	
+	public ?string $site_title = null;
+	public ?string $page_title = null;
+	public string $separator = " - ";
 	
 	public function __construct (HtmlPage $root) {
 		
@@ -34,7 +39,20 @@ class Head {
 	}
 	
 	public function _parseBookshelf (NodeBookshelf $_data_shelf): void {
-		// todo use shelf config
+		$this->site_title = $_data_shelf->_site_name;
+		WebLog::info("set html <title> site name as \"".$this->site_title."\"");
+	}
+	
+	public function build_html_title (): string {
+		if ($this->site_title == null) {
+			WebLog::error("Header Title cannot be set for site-title is not set.");
+			return "...";
+		}
+		$title = "";
+		if ($this->page_title != null)
+			$title .= $this->page_title . $this->separator;
+		$title .= $this->site_title;
+		return $title;
 	}
 	
 	public function build (): DOMElement {
@@ -42,11 +60,14 @@ class Head {
 		foreach ($this->standard_headers as $meta)
 			$this->__self->appendChild($meta);
 		
-		// todo maybe css js manager?
-		foreach ($this->root->res_manager->getStylesheetsDOM($this->root->document) as $style)
+		foreach ($this->root->res_manager->build_stylesheetsDOM($this->root->document) as $style)
 			$this->__self->appendChild($style);
-		foreach ($this->root->res_manager->getJavascriptPreloadsDOM($this->root->document) as $script)
+		foreach ($this->root->res_manager->build_javascriptPreloadsDOM($this->root->document) as $script)
 			$this->__self->appendChild($script);
+		
+		$title_dom = $this->root->document->createElement('title');
+		$title_dom->appendChild($this->root->document->createTextNode($this->build_html_title()));
+		$this->__self->appendChild($title_dom);
 		
 		return $this->__self;
 		

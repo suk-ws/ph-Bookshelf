@@ -6,7 +6,7 @@ use DOMElement;
 use DOMDocument;
 use SukWs\Bookshelf\Utils\DOMHtml;
 
-class JavascriptRef implements IWebResource {
+class JavascriptRef extends IWebResource {
 	
 	public string $uri;
 	

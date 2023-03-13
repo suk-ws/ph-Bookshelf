@@ -5,8 +5,21 @@ namespace SukWs\Bookshelf\Web\WebResource;
 use DOMDocument;
 use DOMElement;
 
-interface IWebResource {
+abstract class IWebResource {
 	
-	public function build (DOMDocument $root): DOMElement;
+	public bool $enabled = true;
+	
+	abstract public function build (DOMDocument $root): DOMElement;
+	
+	public function toggleEnable (?bool $is = null): IWebResource {
+		if ($is === null)
+			$is = !$this->enabled;
+		$this->enabled = $is;
+		return $this;
+	}
+	
+	public function isEnabled (): bool {
+		return $this->enabled;
+	}
 	
 }

@@ -38,11 +38,8 @@ class Body {
 		$this->__self->appendChild($this->_sidebar->build());
 		$this->__self->appendChild($this->_main->build());
 		
-		foreach ($this->root->res_manager->getJavascriptLazyloadsDOM($this->root->document) as $script)
+		foreach ($this->root->res_manager->build_javascriptLazyloadsDOM($this->root->document) as $script)
 			$this->__self->appendChild($script);
-		
-		// output the warnings message at the end.
-		$this->__self->appendChild(WebLog::getWarningsAsJsLog()->build($this->root->document));
 		
 		return $this->__self;
 		

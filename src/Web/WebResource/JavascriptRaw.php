@@ -5,7 +5,7 @@ namespace SukWs\Bookshelf\Web\WebResource;
 use DOMDocument;
 use DOMElement;
 
-class JavascriptRaw implements IWebResource {
+class JavascriptRaw extends IWebResource {
 	
 	public string $javascript_raw_code;
 	

@@ -8,6 +8,7 @@ use SukWs\Bookshelf\Data\Bookshelf\NodeBookshelf;
 use SukWs\Bookshelf\Utils\DOMHtml;
 use SukWs\Bookshelf\Web\Html\Body;
 use SukWs\Bookshelf\Web\Html\Head;
+use SukWs\Bookshelf\Web\WebResource\WebResManager;
 
 class HtmlPage {
 	
@@ -45,6 +46,10 @@ class HtmlPage {
 	public function build(): self {
 		$this->_html_html->appendChild($this->_html_head->build());
 		$this->_html_html->appendChild($this->_html_body->build());
+		
+		// output the warnings message at the end.
+		$this->_html_html->appendChild(WebLog::getWarningsAsJsLog()->build($this->document));
+		
 		return $this;
 	}
 	

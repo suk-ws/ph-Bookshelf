@@ -6,7 +6,7 @@ use DOMDocument;
 use DOMElement;
 use SukWs\Bookshelf\Utils\DOMHtml;
 
-class StylesheetsRef implements IWebResource {
+class StylesheetsRef extends IWebResource {
 	
 	public string $uri;
 	
