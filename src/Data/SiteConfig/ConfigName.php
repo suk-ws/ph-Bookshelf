@@ -20,6 +20,4 @@ class ConfigName {
 	public const ext_title_permalink_flash = "title.permalink.flash";
 	public const ext_rolling_title = "web-title.rolling";
 	
-	public const old_title_gen = "old.title.gen";
-	
 }

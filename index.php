@@ -6,8 +6,15 @@ require "./vendor/autoload.php";
 use SukWs\Bookshelf\Data\PageMeta;
 use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Data\SiteMeta;
+use SukWs\Bookshelf\Utils\Markdown\Markdown;
 use SukWs\Bookshelf\Utils\PageParse;
-use SukWs\Bookshelf\Utils\RequestNotExistException;
+use SukWs\Bookshelf\Web\Main;
+
+//$parser = new Markdown();
+//
+//$data = $parser->parse(file_get_contents("./data/test_page.md"));
+//
+//exit($data->page_html);
 
 try {
 	
@@ -35,41 +42,17 @@ try {
 				exit(SiteMeta::getConfigurationLevelShelf("site.robots"));
 		}
 		
-	}
-	
-	try {
+	} else if (PageMeta::init($uri)) {
 		
-		// 寻找页面
+		require "./template/header.php";
 		
-		if (sizeof($uri) > 0 && $uri[0] != null) {
-			// 非主页面，判定当前定义的 book
-			if ($uri[0] == "%root") {
-				PageMeta::$book = SiteMeta::getBookshelf()->getRootBook();
-			} else {
-				$tmp = SiteMeta::getBookshelf()->getBook($uri[0]);
-				if ($tmp == null)
-					throw new RequestNotExistException("Book required \"$uri[0]\" not found!");
-				PageMeta::$bookId = $uri[0];
-				PageMeta::$book = $tmp->getContentedNode();
-			}
-			
-			// 判定当前页面
-			if (sizeof($uri) > 1 && $uri[1] != null) {
-				$tmp = PageMeta::$book->getPage($uri[1]);
-				if ($tmp == null) throw new RequestNotExistException("Page required \"$uri[1]\" not found on book \"$uri[0]\"!");
-				PageMeta::$page = $tmp;
-			} else {
-				PageMeta::$page = PageMeta::$book->getChildren()->getChildren()[0];
-			}
-		} else {
-			// 主页面
-			PageMeta::$bookId = "%root";
-			PageMeta::$book = SiteMeta::getBookshelf()->getRootBook();
-			PageMeta::$page = PageMeta::$book->getChildren()->getChildren()[0];
-			PageMeta::$isMainPage = true;
-		}
+		require "./template/nav.php";
 		
-	} catch (RequestNotExistException $e) {
+		Main::main(PageMeta::$page_data);
+		
+		require "./template/footer.php";
+		
+	} else {
 		
 		// 页面寻找失败，寻找资源文件
 		
@@ -88,19 +71,11 @@ try {
 		) {} else if ( // 搜索root书中的书籍资源文件夹中的文件
 			file_exists($resLoc = "./data/%root/%assets/$req")
 		) {} else {
-			throw $e; // 找不到资源文件
+			throw new Exception("cannot find file " . $req); // 找不到资源文件
 		}
 		PageParse::outputBinaryFile($resLoc);
 		
 	}
-	
-	require "./template/header.php";
-	
-	require "./template/nav.php";
-	
-	require "./template/main.php";
-	
-	require "./template/footer.php";
 	
 } catch (Exception $e) {
 	

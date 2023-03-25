@@ -2,6 +2,8 @@
 
 namespace SukWs\Bookshelf\Utils;
 
+use SukWs\Bookshelf\Data\PageData;
+
 interface PageContentType {
 	
 	/**
@@ -9,6 +11,6 @@ interface PageContentType {
 	 */
 	public function type (): array;
 	
-	public function parse (string $raw): string;
+	public function parse (string $raw): PageData;
 	
 }

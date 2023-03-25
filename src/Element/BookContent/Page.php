@@ -14,8 +14,6 @@ class Page {
 	
 	private Chapter $parent;
 	
-	private array $configurations = array();
-	
 	public function __construct (string $id, string $name, Chapter $parent) {
 		$this->id = $id;
 		$this->name = $name;
@@ -50,10 +48,6 @@ class Page {
 		return $this->parent;
 	}
 	
-	public function getConfiguration (string $key): ?string {
-		return @$this->configurations[$key];
-	}
-	
 	public function getSummaryHtml (): string {
 //		$str =
 //			"<li id='page/$this->id' page-id='$this->id' class='page-contented chapter link-page " .
@@ -80,8 +74,8 @@ class Page {
 				href='%s'>%s</a>
 			EOF,
 			$this->id, $this->id,
-			PageMeta::$page->getId()==$this->id ? " current" : "",
-			PageMeta::$page->getId()==$this->id ? "#top" : $this->encodeUrl(),
+			PageMeta::$page_id==$this->id ? " current" : "",
+			PageMeta::$page_id==$this->id ? "#top" : $this->encodeUrl(),
 			$this->name
 		);
 	}
@@ -91,18 +85,6 @@ class Page {
 			"%2F", "/",
 			sprintf("/%s/%s", urlencode(PageMeta::$bookId), urlencode($this->id))
 		);
-	}
-	
-	public function getContentFilename (string $type): string {
-		return sprintf("./data/%s/%s.%s", PageMeta::$bookId, $this->id, $type);
-	}
-	
-	public function hasContent (string $type): string {
-		return file_exists($this->getContentFilename($type));
-	}
-	
-	public function getContent (string $type): string {
-		return file_get_contents($this->getContentFilename($type));
 	}
 	
 }

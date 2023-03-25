@@ -10,11 +10,13 @@ use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\DescriptionList\DescriptionListExtension;
 use League\CommonMark\Extension\Footnote\FootnoteExtension;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
+use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\Strikethrough\StrikethroughExtension;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Extension\TaskList\TaskListExtension;
 use League\CommonMark\MarkdownConverter;
+use SukWs\Bookshelf\Data\PageData;
 use SukWs\Bookshelf\Utils\PageContentType;
 
 class Markdown implements PageContentType {
@@ -82,8 +84,35 @@ class Markdown implements PageContentType {
 		return $this->converter;
 	}
 	
-	public function parse (string $raw): string {
-		return $this->getParser()->convert($raw);
+	public function parse (string $raw): PageData {
+		
+		$parsed = $this->getParser()->convert($raw);
+		
+		$configurations = array();
+		$title = null;
+		$gen_title = false;
+		
+		if ($parsed instanceof RenderedContentWithFrontMatter) {
+			$front_matter = $parsed->getFrontMatter();
+			
+			if (isset($front_matter['title'])) {
+				$title = strval($front_matter['title']);
+				if (!str_starts_with($parsed->getContent(), '<h1>')) {
+					$gen_title = true;
+				}
+			}
+			
+			if (isset($front_matter['configurations'])) {
+				$configurations = $front_matter['configurations'];
+			}
+			
+		}
+		
+		return new PageData(
+			$parsed->getContent(), $configurations,
+			$title, $gen_title
+		);
+		
 	}
 	
 }

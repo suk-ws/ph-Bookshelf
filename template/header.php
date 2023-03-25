@@ -14,7 +14,7 @@
 		<meta name="generator" content="<?= SiteMeta::get_frontpage_generate_version() ?>">
 		<!-- Page Meta -->
 		<link rel="shortcut icon" href="<?= SiteMeta::getGlobalIcon() ?>">
-		<title><?= PageMeta::getPageTitle() ?></title>
+		<title><?= PageMeta::getHtmlTitle() ?></title>
 		<meta name="description" content="<?= PageMeta::getDescription() ?>">
 		<!-- Assets(css) --><?php
 		foreach (SiteMeta::getStylesheetsList() as $item) {

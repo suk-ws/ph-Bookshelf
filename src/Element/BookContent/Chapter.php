@@ -94,7 +94,7 @@ class Chapter {
 				<a class='no-style menu-item' href='javascript:'>%s</a>
 				<div class='children'>
 			EOL,
-			$this->getPage(PageMeta::$page->getId())==null?"":" active",
+			$this->getPage(PageMeta::$page_id)==null?"":" active",
 			$this->name
 		);
 		foreach ($this->children as $node) {

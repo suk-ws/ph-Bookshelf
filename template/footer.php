@@ -13,7 +13,7 @@
 		<script><?= SiteMeta::getCustomScriptContent("custom") ?></script>
 		<script>
 			bookCurrentId = "<?= PageMeta::$bookId ?>";
-			pageCurrentId = "<?= PageMeta::$page->getId() ?>";
+			pageCurrentId = "<?= PageMeta::$page_id ?>";
 			<?php if (!(PageMeta::getConfigurationLevelPage(ConfigName::highlightjs)=="false")) :
 			?>hljs.highlightAll();<?php endif; ?>
 			<?php if (!(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false")) :
