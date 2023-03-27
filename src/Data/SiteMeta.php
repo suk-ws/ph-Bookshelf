@@ -40,8 +40,8 @@ class SiteMeta {
 //			"/assets/gitbook/gitbook-plugin-fontsettings/website.css",
 //			"/assets/gitbook-fix.css",
 //			"/assets/ref.css",
-			(PageMeta::getConfigurationLevelPage(ConfigName::highlightjs)=="false"?
-					null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/".PageMeta::highlightJsTheme().".min.css"),
+			(PageMeta::getConfigurationLevelPage(ConfigName::prism)=="false"?
+					null:"https://cdn.jsdelivr.net/gh/PrismJS/prism-themes@master/themes/".PageMeta::prismTheme().".min.css"),
 			(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false")?
 					null:"//cdn.jsdelivr.net/gh/suk-ws/regex-colorizer@master/regex-colorizer-default.min.css",
 			"/assets/bread-card-markdown.css?ver=2",
@@ -50,7 +50,6 @@ class SiteMeta {
 			"/assets/bread-card-markdown-heading-permalink.css?ver=1",
 			(PageMeta::getConfigurationLevelPage(ConfigName::ext_listing_rainbow)=="true"?
 					"/assets/bread-card-markdown-enhanced-listing-rainbow.css?ver=1":null),
-			"/assets/bread-card-markdown-compat-highlight-js.css?ver=2",
 			"/assets/main.css?ver=1",
 		);
 	}
@@ -61,8 +60,10 @@ class SiteMeta {
 //			"/assets/gitbook-fix.js",
 //			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
 //			"/assets/ref.js",
-			(PageMeta::getConfigurationLevelPage(ConfigName::highlightjs)=="false"?
-					null:"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"),
+			(PageMeta::getConfigurationLevelPage(ConfigName::prism)=="false"?
+					null:"//cdn.jsdelivr.net/npm/prismjs@v1.x/components/prism-core.min.js"),
+			(PageMeta::getConfigurationLevelPage(ConfigName::prism)=="false"?
+				null:"//cdn.jsdelivr.net/npm/prismjs@v1.x/plugins/autoloader/prism-autoloader.min.js"),
 			(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false"?
 					null:"//cdn.jsdelivr.net/gh/suk-ws/regex-colorizer@master/regex-colorizer.min.js"),
 			(PageMeta::getConfigurationLevelPage(ConfigName::ext_rolling_title)=="true"?
@@ -71,8 +72,7 @@ class SiteMeta {
 					"/assets/bread-card-markdown-heading-permalink-highlight.js?ver=1":null),
 			"/assets/utils-touchscreen-event.js?ver=1",
 			"/assets/main.js?ver=1",
-		),
-			self::getHighlightLanguagesJs(PageMeta::highlightJsLanguages())
+		)
 		);
 	}
 	
@@ -104,14 +104,6 @@ class SiteMeta {
 			"custom", "file" => RobotsPolicy::file,
 			default => RobotsPolicy::raw,
 		};
-	}
-	
-	public static function getHighlightLanguagesJs (array $languages): array {
-		$links = array();
-		foreach ($languages as $lang) {
-			$links[] = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/$lang.min.js";
-		}
-		return $links;
 	}
 	
 }

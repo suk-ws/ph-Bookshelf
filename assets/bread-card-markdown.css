@@ -223,6 +223,13 @@ code {
 	font-size: 0.85rem;
 }
 
+:not(pre)>code[class*=language-] {
+	padding: 0.2rem;
+	border-radius: 0.3rem;
+	background: var(--bcm-color-code-inline-background);
+	font-size: 0.85rem;
+}
+
 pre {
 	margin-left: 1.4rem;
 	margin-right: 1.4rem;
@@ -235,13 +242,24 @@ pre {
 	font-size: 14px;
 }
 
+pre[class*=language-] {
+	margin-left: 1.4rem;
+	margin-right: 1.4rem;
+	padding: 0.7rem 0;
+	font-size: 14px;
+}
+
 pre code {
 	display: block;
 	background: var(--bcm-color-codeblock-background);
 	overflow-x: scroll;
 	padding: 0.2rem 1.2rem 0.6rem;
 	line-height: 1.4;
-	font-size: inherit;
+	font-size: 14px;
+}
+
+pre[class*=language-] code[class*=language-]  {
+	font-size: 14px;
 }
 
 pre code::-webkit-scrollbar {

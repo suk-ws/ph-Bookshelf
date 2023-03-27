@@ -6,9 +6,8 @@ class ConfigName {
 	
 	public const robots_txt = "site.robots";
 	
-	public const highlightjs = "highlightjs";
-	public const highlightjs_theme = "highlightjs.theme";
-	public const highlightjs_lang = "highlightjs.languages";
+	public const prism = "prism";
+	public const prism_theme = "prism.theme";
 	
 	public const codeblock_bg = "codeblock.bg-color";
 	public const codeblock_fg = "codeblock.fg-color";

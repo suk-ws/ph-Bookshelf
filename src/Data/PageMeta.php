@@ -88,30 +88,10 @@ class PageMeta {
 		return $value;
 	}
 	
-	public static function highlightJsTheme (): string {
-		$theme = trim(self::getConfigurationLevelPage(ConfigName::highlightjs_theme));
-		if (empty($theme)) return "atom-one-dark";
+	public static function prismTheme (): string {
+		$theme = trim(self::getConfigurationLevelPage(ConfigName::prism_theme));
+		if (empty($theme)) return "prism-material-light";
 		return $theme;
-	}
-	
-	/**
-	 * @return string[]
-	 */
-	public static function highlightJsLanguages (): array {
-		$langDef = "";
-		{
-			$langDefList = array();
-			$langDefList[] = SiteMeta::getConfigurationLevelShelf(ConfigName::highlightjs_lang);
-			$langDefList[] = PageMeta::getConfigurationLevelBook(ConfigName::highlightjs_lang);
-			$langDefList[] = PageMeta::getConfigurationLevelPage(ConfigName::highlightjs_lang);
-			foreach ($langDefList as $langDefNode) $langDef .= $langDefNode . ";";
-		}
-		$lang = array();
-		foreach (explode(";", $langDef) as $i) {
-			$i = trim($i);
-			if ($i != "") $lang[] =$i;
-		}
-		return array_unique($lang);
 	}
 	
 	public static function getPagePath (?string $extension = null): string {
