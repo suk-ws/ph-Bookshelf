@@ -6,15 +6,8 @@ require "./vendor/autoload.php";
 use SukWs\Bookshelf\Data\PageMeta;
 use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Data\SiteMeta;
-use SukWs\Bookshelf\Utils\Markdown\Markdown;
 use SukWs\Bookshelf\Utils\PageParse;
 use SukWs\Bookshelf\Web\Main;
-
-//$parser = new Markdown();
-//
-//$data = $parser->parse(file_get_contents("./data/test_page.md"));
-//
-//exit($data->page_html);
 
 try {
 	
@@ -57,19 +50,19 @@ try {
 		// 页面寻找失败，寻找资源文件
 		
 		if ( // 搜索全局资源文件夹的指定文件
-			file_exists($resLoc = "./data/%assets/$req")
+			is_file($resLoc = "./data/%assets/$req")
 		) {} else if ( // 搜索原始路径上的文件
-			file_exists($resLoc = "./data/$req")
+			is_file($resLoc = "./data/$req")
 		) {} else if ( // 搜索可能存在的书籍资源文件夹中的指定文件
 			sizeof($uri) > 1 && ($resBook = (SiteMeta::getBookshelf()->getBook($uri[0]))) != null &&
-			file_exists($resLoc = "./data/{$resBook->getId()}/%assets/$uri[1]")
+			is_file($resLoc = "./data/{$resBook->getId()}/%assets/$uri[1]")
 		) {} else if ( // 上面的 %root 兼容
 			sizeof($uri) > 1 && ($resBook = $uri[0]) == "%root" &&
-			file_exists($resLoc = "./data/$resBook/%assets/$uri[1]")
+			is_file($resLoc = "./data/$resBook/%assets/$uri[1]")
 		) {} else if ( // 搜索以root书为根目录的原始路径上的文件
-			file_exists($resLoc = "./data/%root/$req")
+			is_file($resLoc = "./data/%root/$req")
 		) {} else if ( // 搜索root书中的书籍资源文件夹中的文件
-			file_exists($resLoc = "./data/%root/%assets/$req")
+			is_file($resLoc = "./data/%root/%assets/$req")
 		) {} else {
 			throw new Exception("cannot find file " . $req); // 找不到资源文件
 		}

@@ -67,6 +67,11 @@ class PageParse {
 		return true;
 	}
 	
+	public static function output302 (string $url): void {
+		header("Location: $url", true, 302);
+		exit;
+	}
+	
 	/**
 	 * 根据链接数组生成对应的链接/路径
 	 *

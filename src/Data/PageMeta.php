@@ -7,6 +7,7 @@ use SukWs\Bookshelf\Data\SiteConfig\ConfigName;
 use SukWs\Bookshelf\Element\BookContent\BookContented;
 use SukWs\Bookshelf\Element\BookContent\Page;
 use SukWs\Bookshelf\Utils\Markdown\Markdown;
+use SukWs\Bookshelf\Utils\PageParse;
 use SukWs\Bookshelf\Utils\RequestNotExistException;
 
 class PageMeta {
@@ -23,7 +24,7 @@ class PageMeta {
 	 */
 	public static function init (array $uri): bool {
 		
-		if (!isset($uri[0]) || $uri[0] == "%root" || $uri[0] == "/" || $uri[0] == "") {
+		if (empty($uri[0]) || $uri[0] == "%root") {
 			self::$book = SiteMeta::getBookshelf()->getRootBook();
 			self::$bookId = "%root";
 		} else {
@@ -34,13 +35,15 @@ class PageMeta {
 			self::$book = $tmp->getContentedNode();
 		}
 		
-		if (isset($uri[1])) {
-			self::$page_id = $uri[1];
-		} else {
+		if (!isset($uri[1]) && !empty($uri[0])) {
+				PageParse::output302($uri[0]."/");
+		} else if (empty($uri[1])) {
 			$tmp = self::$book->getChildren()->getChildren()[0];
 			if ($tmp instanceof Page) self::$page_id = $tmp->getId();
 			else throw new RequestNotExistException("No main page in required book \"$uri[0]\"");
 			self::$isMainPage = true;
+		} else {
+			self::$page_id = $uri[1];
 		}
 		if ($content = @file_get_contents(self::getPagePath("md"))) {
 			self::$page_data = (new Markdown())->parse($content);
@@ -108,8 +111,7 @@ class PageMeta {
 			$i = trim($i);
 			if ($i != "") $lang[] =$i;
 		}
-		$lang = array_unique($lang);
-		return $lang;
+		return array_unique($lang);
 	}
 	
 	public static function getPagePath (?string $extension = null): string {
