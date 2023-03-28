@@ -35,7 +35,7 @@ class SiteMeta {
 	}
 	
 	public static function getStylesheetsList (): array {
-		return array(
+		return array_merge(array(
 //			"/assets/gitbook/style.css",
 //			"/assets/gitbook/gitbook-plugin-fontsettings/website.css",
 //			"/assets/gitbook-fix.css",
@@ -51,6 +51,8 @@ class SiteMeta {
 			(PageMeta::getConfigurationLevelPage(ConfigName::ext_listing_rainbow)=="true"?
 					"/assets/bread-card-markdown-enhanced-listing-rainbow.css?ver=1":null),
 			"/assets/main.css?ver=1",
+		),
+		self::getPrismPluginsCss(PageMeta::prismPlugins())
 		);
 	}
 	
@@ -61,7 +63,7 @@ class SiteMeta {
 //			"https://cdn.jsdelivr.net/npm/marked/marked.min.js",
 //			"/assets/ref.js",
 			(PageMeta::getConfigurationLevelPage(ConfigName::prism)=="false"?
-					null:"//cdn.jsdelivr.net/npm/prismjs@v1.x/components/prism-core.min.js"),
+				null:"//cdn.jsdelivr.net/npm/prismjs@v1.x/components/prism-core.min.js"),
 			(PageMeta::getConfigurationLevelPage(ConfigName::prism)=="false"?
 				null:"//cdn.jsdelivr.net/npm/prismjs@v1.x/plugins/autoloader/prism-autoloader.min.js"),
 			(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false"?
@@ -72,7 +74,8 @@ class SiteMeta {
 					"/assets/bread-card-markdown-heading-permalink-highlight.js?ver=1":null),
 			"/assets/utils-touchscreen-event.js?ver=1",
 			"/assets/main.js?ver=1",
-		)
+		),
+		self::getPrismPluginsJs(PageMeta::prismPlugins())
 		);
 	}
 	
@@ -104,6 +107,22 @@ class SiteMeta {
 			"custom", "file" => RobotsPolicy::file,
 			default => RobotsPolicy::raw,
 		};
+	}
+	
+	public static function getPrismPluginsJs (array $plugins): array {
+		$links = array();
+		foreach ($plugins as $i) {
+			$links[] = "//cdn.jsdelivr.net/npm/prismjs@v1.x/plugins/$i/prism-$i.min.js";
+		}
+		return $links;
+	}
+	
+	public static function getPrismPluginsCss (array $plugins): array {
+		$links = array();
+		foreach ($plugins as $i) {
+			$links[] = "//cdn.jsdelivr.net/npm/prismjs@v1.x/plugins/$i/prism-$i.min.css";
+		}
+		return $links;
 	}
 	
 }

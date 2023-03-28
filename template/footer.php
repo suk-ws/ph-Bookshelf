@@ -14,10 +14,9 @@
 		<script>
 			bookCurrentId = "<?= PageMeta::$bookId ?>";
 			pageCurrentId = "<?= PageMeta::$page_id ?>";
-//			<?php //if (!(PageMeta::getConfigurationLevelPage(ConfigName::highlightjs)=="false")) :
-//			?>//hljs.highlightAll();<?php //endif; ?>
-//			<?php //if (!(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false")) :
-//			?>//RegexColorizer.coloringAll();<?php //endif; ?>
+			<?php if (!(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false")) :?>
+			RegexColorizer.coloringAll();
+			<?php endif; ?>
 		</script>
 		
 	</body>

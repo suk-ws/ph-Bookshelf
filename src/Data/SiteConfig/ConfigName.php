@@ -8,6 +8,7 @@ class ConfigName {
 	
 	public const prism = "prism";
 	public const prism_theme = "prism.theme";
+	public const prism_plugins = "prism.plugins";
 	
 	public const codeblock_bg = "codeblock.bg-color";
 	public const codeblock_fg = "codeblock.fg-color";

@@ -94,6 +94,26 @@ class PageMeta {
 		return $theme;
 	}
 	
+	/**
+	 * @return string[]
+	 */
+	public static function prismPlugins (): array {
+		$langDef = "";
+		{
+			$langDefList = array();
+			$langDefList[] = SiteMeta::getConfigurationLevelShelf(ConfigName::prism_plugins);
+			$langDefList[] = PageMeta::getConfigurationLevelBook(ConfigName::prism_plugins);
+			$langDefList[] = PageMeta::getConfigurationLevelPage(ConfigName::prism_plugins);
+			foreach ($langDefList as $langDefNode) $langDef .= $langDefNode . ";";
+		}
+		$lang = array();
+		foreach (explode(";", $langDef) as $i) {
+			$i = trim($i);
+			if ($i != "") $lang[] =$i;
+		}
+		return array_unique($lang);
+	}
+	
 	public static function getPagePath (?string $extension = null): string {
 		return "./data/" . self::$bookId . "/" . self::$page_id . ($extension == null ? "" : ".".$extension);
 	}
