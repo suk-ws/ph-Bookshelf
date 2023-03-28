@@ -8,9 +8,9 @@
 	
 	<xs:complexType name="phb-config-level-site">
 		<xs:all>
-			<xs:element minOccurs="0" name="highlightjs" type="xs:boolean" />
-			<xs:element minOccurs="0" name="highlightjs.languages" type="xs:string" />
-			<xs:element minOccurs="0" name="highlightjs.theme" type="xs:string" />
+			<xs:element minOccurs="0" name="prism" type="xs:boolean" />
+			<xs:element minOccurs="0" name="prism.theme" type="xs:string" />
+			<xs:element minOccurs="0" name="prism.plugins" type="xs:string" />
 			<xs:element minOccurs="0" name="codeblock.bg-color" type="xs:string" />
 			<xs:element minOccurs="0" name="codeblock.fg-color" type="xs:string" />
 			<xs:element minOccurs="0" name="codeblock.tab-size" type="xs:integer" />
@@ -22,10 +22,25 @@
 		</xs:all>
 	</xs:complexType>
 	
+	<xs:complexType name="phb-config-level-book">
+		<xs:all>
+			<xs:element minOccurs="0" name="prism" type="xs:boolean" />
+			<xs:element minOccurs="0" name="prism.theme" type="xs:string" />
+			<xs:element minOccurs="0" name="prism.plugins" type="xs:string" />
+			<xs:element minOccurs="0" name="codeblock.bg-color" type="xs:string" />
+			<xs:element minOccurs="0" name="codeblock.fg-color" type="xs:string" />
+			<xs:element minOccurs="0" name="codeblock.tab-size" type="xs:integer" />
+			<xs:element minOccurs="0" name="regex.highlight" type="xs:boolean" />
+			<xs:element minOccurs="0" name="listing.marker.rainbow" type="xs:boolean" />
+			<xs:element minOccurs="0" name="title.permalink.flash" type="xs:boolean" />
+			<xs:element minOccurs="0" name="web-title.rolling" type="xs:boolean" />
+		</xs:all>
+	</xs:complexType>
+	
 	<xs:attributeGroup name="phb-config-level-page">
-		<xs:attribute name="highlightjs" type="xs:boolean" />
-		<xs:attribute name="highlightjs.languages" type="xs:string" />
-		<xs:attribute name="highlightjs.theme" type="xs:string" />
+		<xs:attribute name="prism" type="xs:boolean" />
+		<xs:attribute name="prism.theme" type="xs:string" />
+		<xs:attribute name="prism.plugins" type="xs:string" />
 		<xs:attribute name="codeblock.bg-color" type="xs:string" />
 		<xs:attribute name="codeblock.fg-color" type="xs:string" />
 		<xs:attribute name="codeblock.tab-size" type="xs:integer" />

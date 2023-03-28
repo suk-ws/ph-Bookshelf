@@ -14,6 +14,8 @@
 				
 				<xs:element name="book_name" type="xs:string" />
 				
+				<xs:element name="configurations" type="phb-config-level-book" />
+				
 				<xs:element name="contents" type="bookContents" />
 				
 			</xs:sequence>

@@ -5,6 +5,7 @@ namespace SukWs\Bookshelf\Element\BookContent;
 use DOMDocument;
 use DOMNode;
 use Exception;
+use SukWs\Bookshelf\Element\Bookshelf;
 
 class BookContented {
 	
@@ -32,12 +33,16 @@ class BookContented {
 		for ($child = $nodeBook->firstChild; $child != null; $child = $child->nextSibling) {
 			switch ($child->nodeName) {
 				case "book_name":
-					if (!empty($return->name)) throw new Exception("Duplicated contents in Book.xml");
+					if (!empty($return->name)) throw new Exception("Duplicated book_name in Book.xml");
 					$return->name = $child->nodeValue;
 					break;
 				case "contents":
 					if (!empty($return->children)) throw new Exception("Duplicated contents in Book.xml");
 					$return->children = Chapter::parse($child, null);
+					break;
+				case "configurations":
+					if (!empty($return->children)) throw new Exception("Duplicated configurations in Book.xml");
+					Bookshelf::parseConfiguration($child, $return->configurations);
 					break;
 				case "#comment":
 				case "#text":
