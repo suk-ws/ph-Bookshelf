@@ -6,6 +6,7 @@ use Exception;
 use SukWs\Bookshelf\Data\SiteConfig\ConfigName;
 use SukWs\Bookshelf\Element\BookContent\BookContented;
 use SukWs\Bookshelf\Element\BookContent\Page;
+use SukWs\Bookshelf\Resource\Data;
 use SukWs\Bookshelf\Utils\Markdown\Markdown;
 use SukWs\Bookshelf\Utils\PageParse;
 use SukWs\Bookshelf\Utils\RequestNotExistException;
@@ -45,7 +46,8 @@ class PageMeta {
 		} else {
 			self::$page_id = $uri[1];
 		}
-		if ($content = @file_get_contents(self::getPagePath("md"))) {
+		if ($data = Data::get(self::getPagePath("md"))) {
+			if ($content = $data->get_content())
 			self::$page_data = (new Markdown())->parse($content);
 		} else {
 			return false;
@@ -89,9 +91,9 @@ class PageMeta {
 	}
 	
 	public static function prismTheme (): string {
-		$theme = trim(self::getConfigurationLevelPage(ConfigName::prism_theme));
+		$theme = self::getConfigurationLevelPage(ConfigName::prism_theme);
 		if (empty($theme)) return "prism-material-light";
-		return $theme;
+		return trim($theme);
 	}
 	
 	/**
@@ -115,7 +117,7 @@ class PageMeta {
 	}
 	
 	public static function getPagePath (?string $extension = null): string {
-		return "./data/" . self::$bookId . "/" . self::$page_id . ($extension == null ? "" : ".".$extension);
+		return self::$bookId . "/" . self::$page_id . ($extension == null ? "" : ".".$extension);
 	}
 	
 }

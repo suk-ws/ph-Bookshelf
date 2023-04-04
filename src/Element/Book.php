@@ -6,6 +6,7 @@ use SukWs\Bookshelf\Data\PageMeta;
 use DOMNode;
 use SukWs\Bookshelf\Element\BookContent\BookContented;
 use Exception;
+use SukWs\Bookshelf\Resource\Data;
 
 class Book {
 	
@@ -79,7 +80,7 @@ class Book {
 	 * @throws Exception
 	 */
 	public function getContentedNode (): BookContented {
-		return BookContented::parseString(file_get_contents("./data/$this->id/book.xml"));
+		return BookContented::parseString(Data::get($this->id."/book.xml")->get_content());
 	}
 	
 }

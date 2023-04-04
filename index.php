@@ -6,6 +6,8 @@ require "./vendor/autoload.php";
 use SukWs\Bookshelf\Data\PageMeta;
 use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Data\SiteMeta;
+use SukWs\Bookshelf\Resource\Assets;
+use SukWs\Bookshelf\Resource\Data;
 use SukWs\Bookshelf\Utils\PageParse;
 use SukWs\Bookshelf\Web\Main;
 
@@ -26,11 +28,11 @@ try {
 		
 		switch ($policy) {
 			case RobotsPolicy::allow:
-				exit(file_get_contents("./assets/robots.allow"));
+				exit(Assets::get("robots.allow")->get_content());
 			case RobotsPolicy::deny:
-				exit(file_get_contents("./assets/robots.deny"));
+				exit(Assets::get("robots.deny")->get_content());
 			case RobotsPolicy::file:
-				exit(file_get_contents("./data/robots.txt"));
+				exit(Data::get("./data/robots.txt")->get_content());
 			case RobotsPolicy::raw:
 				exit(SiteMeta::getConfigurationLevelShelf("site.robots"));
 		}

@@ -6,6 +6,8 @@ use Exception;
 use SukWs\Bookshelf\Data\SiteConfig\ConfigName;
 use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Element\Bookshelf;
+use SukWs\Bookshelf\Resource\Assets;
+use SukWs\Bookshelf\Resource\Data;
 
 class SiteMeta {
 	
@@ -23,7 +25,7 @@ class SiteMeta {
 	 * @throws Exception
 	 */
 	public static function load (): void {
-		self::$BOOKSHELF = Bookshelf::parseString(file_get_contents("./data/bookshelf.xml"));
+		self::$BOOKSHELF = Bookshelf::parseString(Data::get("bookshelf.xml")->get_content());
 	}
 	
 	public static function getBookshelf(): Bookshelf {
@@ -80,13 +82,15 @@ class SiteMeta {
 	}
 	
 	public static function getCustomCssContent (string $id): string {
-		if (!file_exists("./data/$id.css")) return "";
-		return file_get_contents("./data/$id.css");
+		$assets = Data::get($id.".css");
+		if ($assets === false) return "";
+		else return $assets->get_content();
 	}
 	
 	public static function getCustomScriptContent (string $id): string {
-		if (!file_exists("./data/$id.js")) return "";
-		return file_get_contents("./data/$id.js");
+		$assets = Data::get($id.".js");
+		if ($assets === false) return "";
+		else return $assets->get_content();
 	}
 	
 	public static function getUserThemes (): string {
