@@ -13,15 +13,15 @@
 
 :root {
 	--bcm-color-list-item-marker-level0: hsl(230, 39%, 68%);
-	--bcm-color-list-item-marker-level1: hsl(220, 39%, 68%);
-	--bcm-color-list-item-marker-level2: hsl(210, 39%, 68%);
-	--bcm-color-list-item-marker-level3: hsl(200, 39%, 68%);
-	--bcm-color-list-item-marker-level4: hsl(190, 39%, 68%);
-	--bcm-color-list-item-marker-level5: hsl(180, 39%, 68%);
-	--bcm-color-list-item-marker-level6: hsl(170, 39%, 68%);
-	--bcm-color-list-item-marker-level7: hsl(160, 39%, 68%);
-	--bcm-color-list-item-marker-level8: hsl(150, 39%, 68%);
-	--bcm-color-list-item-marker-level9: hsl(140, 39%, 68%);
+	--bcm-color-list-item-marker-level1: hsl(200, 39%, 68%);
+	--bcm-color-list-item-marker-level2: hsl(160, 39%, 68%);
+	--bcm-color-list-item-marker-level3: hsl(130, 39%, 68%);
+	--bcm-color-list-item-marker-level4: hsl(100, 39%, 68%);
+	--bcm-color-list-item-marker-level5: hsl(70, 39%, 68%);
+	--bcm-color-list-item-marker-level6: hsl(40, 39%, 68%);
+	--bcm-color-list-item-marker-level7: hsl(20, 39%, 68%);
+	--bcm-color-list-item-marker-level8: hsl(0, 39%, 68%);
+	--bcm-color-list-item-marker-level9: hsl(-30, 39%, 68%);
 }
 
 ul,

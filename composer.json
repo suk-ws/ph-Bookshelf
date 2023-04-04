@@ -18,7 +18,6 @@
 	},
 	"require": {
 		"php": ">=8.2",
-		"ext-xml": "*",
 		"ext-dom": "*",
 		"ext-mbstring": "*",
 		"ext-fileinfo": "*",

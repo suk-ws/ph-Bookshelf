@@ -153,6 +153,11 @@ ul, ol {
 	padding-inline-start: 1.2rem;
 }
 
+li {
+	margin-block-start: 0.2rem;
+	margin-block-end: 0.2rem;
+}
+
 li::marker {
 	color: var(--bcm-color-list-item-marker-std);
 }
