@@ -2,7 +2,8 @@
 
 namespace SukWs\Bookshelf\Utils;
 
-use SukWs\Bookshelf\Resource\Resource;
+use Elephox\Mimey\MimeType;
+use JetBrains\PhpStorm\NoReturn;
 
 class PageParse {
 	
@@ -26,20 +27,7 @@ class PageParse {
 			exit("File Can't Read!");
 		}
 		// 判定文件类型
-		$fileMime = mime_content_type($filePath);
-		$isText = false;
-		if ($fileMime == "text/plain") {
-			$isText = true;
-			switch ($fileExtension) {
-				case "css":
-					$fileMime = "text/css";
-					break;
-				case "js":
-					$fileMime = "application/javascript";
-					break;
-				default:
-			}
-		}
+		$fileMime = MimeType::fromExtension($fileExtension)->getValue();
 		// 文件类型是二进制流。设置为utf8编码（支持中文文件名称）
 		header('Content-type:'.$fileMime.'; charset=utf-8');
 		header("Access-Control-Allow-Origin: * ");
@@ -47,28 +35,23 @@ class PageParse {
 			// 触发浏览器文件下载功能
 			header('Content-Disposition:attachment;filename="'.urlencode($filename).'"');
 		}
-		if ($isText) {
-			echo file_get_contents($filePath);
-		} else {
-			// 二进制文件数据头
-			header("Accept-Ranges: bytes");
-			header("Content-Length: ".filesize($filePath));
-			// 以只读方式打开文件，并强制使用二进制模式
-			$fileHandle = fopen($filePath, "rb");
-			if ($fileHandle === false) {
-				exit("read false");
-			}
-			// 循环读取文件内容，并输出
-			while (!feof($fileHandle)) {
-				// 从文件指针 handle 读取最多 length 个字节（每次输出10k）
-				echo fread($fileHandle, 10240);
-			}
-			// 关闭文件流
-			fclose($fileHandle);
+		// 二进制文件数据头
+		// 以只读方式打开文件，并强制使用二进制模式
+		$fileHandle = fopen($filePath, "rb");
+		if ($fileHandle === false) {
+			exit("read false");
 		}
+		// 循环读取文件内容，并输出
+		while (!feof($fileHandle)) {
+			// 从文件指针 handle 读取最多 length 个字节（每次输出10k）
+			echo fread($fileHandle, 10240);
+		}
+		// 关闭文件流
+		fclose($fileHandle);
 		return true;
 	}
 	
+	#[NoReturn]
 	public static function output302 (string $url): void {
 		header("Location: $url", true, 302);
 		exit;

@@ -2,6 +2,6 @@
 
 const APP_NAME = "ph-Bookshelf";
 
-const VERSION = "0.5.0-alpha7";
+const VERSION = "0.5.0-alpha8";
 const CHANNEL = "suk-ws";
 const BRANCH = "config-v2.0";

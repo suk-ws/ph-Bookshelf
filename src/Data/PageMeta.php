@@ -31,7 +31,7 @@ class PageMeta {
 		} else {
 			$tmp = SiteMeta::getBookshelf()->getBook($uri[0]);
 			if ($tmp == null)
-				throw new RequestNotExistException("Book required \"$uri[0]\" not found!");
+				return false;
 			self::$bookId = $uri[0];
 			self::$book = $tmp->getContentedNode();
 		}
