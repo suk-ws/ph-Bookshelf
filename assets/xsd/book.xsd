@@ -29,6 +29,7 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:group ref="bookContent" />
 				<xs:element name="Separator" />
+				<xs:element name="Title" type="xs:string" />
 			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>

@@ -25,6 +25,7 @@
 	
 	--color-sidebar-background: var(--bcm-color-table-background);
 	--color-font-sidebar: var(--color-font-base);
+	--color-font-sidebar-title: #9e77e5;
 	--color-scrollbar-sidebar-background: none;
 	--color-scrollbar-sidebar-foreground: var(--color-menu-child-list-line);
 	
@@ -419,6 +420,21 @@ body {
 	height: var(--sidebar-menu-list-seperator-width);
 	border-radius: calc(var(--sidebar-menu-list-seperator-width) / 2);
 	background: var(--color-menu-list-separator);
+}
+
+#sidebar > .menu-container > .menu .menu-title {
+	display: block;
+	position: relative;
+	padding: 0.75rem 0 0;
+	margin: 0;
+	font-size: 0.8em;
+	color: var(--color-font-sidebar-title);
+}
+
+#sidebar > .menu-container > .menu .menu-title:before {
+	content: "•";
+	position: absolute;
+	left: -1em;
 }
 
 #sidebar > .menu-container > .menu .menu-item {

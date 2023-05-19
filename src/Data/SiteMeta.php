@@ -6,7 +6,6 @@ use Exception;
 use SukWs\Bookshelf\Data\SiteConfig\ConfigName;
 use SukWs\Bookshelf\Data\SiteConfig\RobotsPolicy;
 use SukWs\Bookshelf\Element\Bookshelf;
-use SukWs\Bookshelf\Resource\Assets;
 use SukWs\Bookshelf\Resource\Data;
 
 class SiteMeta {
@@ -52,7 +51,7 @@ class SiteMeta {
 			"/assets/bread-card-markdown-heading-permalink.css?ver=1",
 			(PageMeta::getConfigurationLevelPage(ConfigName::ext_listing_rainbow)=="true"?
 					"/assets/bread-card-markdown-enhanced-listing-rainbow.css?ver=2":null),
-			"/assets/main.css?ver=1",
+			"/assets/main.css?ver=2",
 		),
 		self::getPrismPluginsCss(PageMeta::prismPlugins())
 		);

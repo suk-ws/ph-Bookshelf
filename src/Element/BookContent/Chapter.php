@@ -57,6 +57,9 @@ class Chapter {
 				case "Separator":
 					$node->children[] = Separator::parse($child, $node);
 					break;
+				case "Title":
+					$node->children[] = Title::parse($child, $node);
+					break;
 				case "#comment":
 					break;
 				case "#text":
