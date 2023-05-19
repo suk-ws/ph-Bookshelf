@@ -1,5 +1,6 @@
 <?php
 
+require "./config.php";
 require "./constant.php";
 require "./vendor/autoload.php";
 

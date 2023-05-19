@@ -22,7 +22,7 @@ class PageParse {
 		// 将utf8编码转换成gbk编码，否则，中文名称的文件无法打开
 		//		$filePath = iconv('UTF-8', 'gbk', $filePath);
 		// 检查文件是否可读
-		if (!is_file($filePath) || !is_readable($filePath) || !Resource::checkSafety($filePath)) {
+		if (!is_file($filePath) || !is_readable($filePath)) {
 			exit("File Can't Read!");
 		}
 		// 判定文件类型
