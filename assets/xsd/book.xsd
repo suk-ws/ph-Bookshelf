@@ -6,7 +6,7 @@
 		elementFormDefault="qualified"
 >
 	
-	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configuations.xsd" />
+	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configurations.xsd" />
 	
 	<xs:element name="Book">
 		<xs:complexType>
@@ -14,7 +14,7 @@
 				
 				<xs:element name="book_name" type="xs:string" />
 				
-				<xs:element name="configurations" type="phb-config-level-book" />
+				<xs:element name="configurations" type="phb-config-level-book" minOccurs="0" />
 				
 				<xs:element name="contents" type="bookContents" />
 				

@@ -7,7 +7,7 @@
 >
 	
 	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/book.xsd" />
-	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configuations.xsd" />
+	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configurations.xsd" />
 	
 	<xs:element name="BookShelf">
 		<xs:complexType>
