@@ -3,4 +3,4 @@ RewriteEngine On
 RewriteCond $0 !index.php.*
 RewriteCond $0 !debug.php.*
 RewriteCond $0 !assets.*
-RewriteRule .* index.php?p=$0 [QSA]
+RewriteRule .* index.php [QSA]

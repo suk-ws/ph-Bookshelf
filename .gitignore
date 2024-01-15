@@ -8,6 +8,7 @@ vendor/
 composer.phar
 .well-known/
 .user.ini
+php.ini
 
 # 忽略数据
 data

@@ -17,7 +17,7 @@ try {
 	SiteMeta::load();
 	
 	// 格式化所给链接，并将链接转化为路径字符串数组
-	$req = array_key_exists('p', $_GET) ? $_GET['p'] : "";
+	$req = substr(urldecode($_SERVER['REQUEST_URI']), 1);
 	if (strlen($req) > 0 && $req[strlen($req) - 1] === '/')
 		$tmp = substr($req, 0, -1);
 	$uri = explode("/", $req, 2);
