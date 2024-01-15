@@ -18,18 +18,10 @@ class Data {
 	
 	public static function get(string $id): Data|false {
 		$path = realpath(self::root.$id);
-		if ($path !== false && self::checkSafety($path)) {
+		if ($path !== false) {
 			return new Data($path);
 		}
 		return false;
-	}
-	
-	private static function getRealRootPath(): string {
-		return realpath(self::root);
-	}
-	
-	private static function checkSafety (string $checked): bool {
-		return str_starts_with(realpath($checked), self::getRealRootPath());
 	}
 	
 }

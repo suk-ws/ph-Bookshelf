@@ -27,7 +27,7 @@ class PageParse {
 			exit("File Can't Read!");
 		}
 		// 判定文件类型
-		$fileMime = MimeType::fromExtension($fileExtension)->getValue();
+		$fileMime = FileMime::fromExtension($fileExtension);
 		// 文件类型是二进制流。设置为utf8编码（支持中文文件名称）
 		header('Content-type:'.$fileMime.'; charset=utf-8');
 		header("Access-Control-Allow-Origin: * ");
