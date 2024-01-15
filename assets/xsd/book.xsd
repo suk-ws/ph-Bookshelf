@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
+		targetNamespace="https://book.sukazyo.cc/"
+		xmlns:phb="https://book.sukazyo.cc/"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		targetNamespace="https://book.sukazyo.cc"
-		xmlns="https://book.sukazyo.cc"
 		elementFormDefault="qualified"
 >
 	
-	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configurations.xsd" />
+	<xs:include schemaLocation="./configurations.xsd" />
 	
 	<xs:element name="Book">
 		<xs:complexType>
@@ -14,9 +14,9 @@
 				
 				<xs:element name="book_name" type="xs:string" />
 				
-				<xs:element name="configurations" type="phb-config-level-book" minOccurs="0" />
+				<xs:element name="configurations" type="phb:phb-config-level-book" minOccurs="0" />
 				
-				<xs:element name="contents" type="bookContents" />
+				<xs:element name="contents" type="phb:bookContents" />
 				
 			</xs:sequence>
 			<xs:attribute name="version" type="xs:string" />
@@ -25,9 +25,9 @@
 	
 	<xs:complexType name="bookContents">
 		<xs:sequence>
-			<xs:element name="Page" type="bookPage" />
+			<xs:element name="Page" type="phb:bookPage" />
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:group ref="bookContent" />
+				<xs:group ref="phb:bookContent" />
 				<xs:element name="Separator" />
 				<xs:element name="Title" type="xs:string" />
 			</xs:choice>
@@ -37,9 +37,9 @@
 	<xs:group name="bookContent">
 		<xs:choice>
 			
-			<xs:element name="Chapter" type="bookChapter" />
+			<xs:element name="Chapter" type="phb:bookChapter" />
 			
-			<xs:element name="Page" type="bookPage" />
+			<xs:element name="Page" type="phb:bookPage" />
 			
 		</xs:choice>
 	</xs:group>
@@ -49,7 +49,7 @@
 			
 			<xs:element name="caption" type="xs:string" />
 			
-			<xs:group ref="bookContent" maxOccurs="unbounded" />
+			<xs:group ref="phb:bookContent" maxOccurs="unbounded" />
 			
 		</xs:sequence>
 		<xs:attribute name="root" type="xs:string" />

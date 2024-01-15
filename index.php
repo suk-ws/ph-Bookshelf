@@ -38,6 +38,12 @@ try {
 				exit(SiteMeta::getConfigurationLevelShelf("site.robots"));
 		}
 		
+	} else if (sizeof($uri) == 1 && $uri[0] == "favicon.ico") { // 为 favicon.ico 进行特别支持
+		
+		$iconPath = SiteMeta::getGlobalIcon();
+		
+		PageParse::output301($iconPath);
+		
 	} else if (PageMeta::init($uri)) {
 		
 		require "./template/header.php";

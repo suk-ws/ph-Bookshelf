@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
+		targetNamespace="https://book.sukazyo.cc/"
+		xmlns:phb="https://book.sukazyo.cc/"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		targetNamespace="https://book.sukazyo.cc"
-		xmlns="https://book.sukazyo.cc"
 		elementFormDefault="qualified"
 >
 	
-	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/book.xsd" />
-	<xs:include schemaLocation="https://book.sukazyo.cc/assets/xsd/configurations.xsd" />
+	<xs:include schemaLocation="./book.xsd" />
+	<xs:include schemaLocation="./configurations.xsd" />
 	
 	<xs:element name="BookShelf">
 		<xs:complexType>
 			<xs:sequence>
 				
 				<xs:element name="site_name" type="xs:string" />
+				<xs:element name="site_icon" type="xs:string" minOccurs="0" />
 				
-				<xs:element name="configurations" type="phb-config-level-site" />
+				<xs:element name="configurations" type="phb:phb-config-level-site" />
 				
 				<xs:element name="links">
 					<xs:complexType>
-						<xs:group ref="linkElement" maxOccurs="unbounded"/>
+						<xs:group ref="phb:linkElement" maxOccurs="unbounded"/>
 					</xs:complexType>
 				</xs:element>
 				
 				<xs:element name="books">
 					<xs:complexType>
-						<xs:group ref="bookElement" maxOccurs="unbounded" />
+						<xs:group ref="phb:bookElement" maxOccurs="unbounded" />
 					</xs:complexType>
 				</xs:element>
 				
-				<xs:element name="root_book" type="bookContents" />
+				<xs:element name="root_book" type="phb:bookContents" />
 				
 			</xs:sequence>
 			<xs:attribute name="version" type="xs:string" />
@@ -53,7 +54,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="caption" type="xs:string" />
-						<xs:group ref="linkElement" maxOccurs="unbounded" />
+						<xs:group ref="phb:linkElement" maxOccurs="unbounded" />
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -78,7 +79,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="caption" type="xs:string" />
-						<xs:group ref="bookElement" maxOccurs="unbounded" />
+						<xs:group ref="phb:bookElement" maxOccurs="unbounded" />
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>

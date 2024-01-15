@@ -1,5 +1,6 @@
 # 忽略开发文件夹
 .vs/
+.vscode/
 debug/
 .idea/
 

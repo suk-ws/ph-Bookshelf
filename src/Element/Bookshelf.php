@@ -13,6 +13,7 @@ class Bookshelf {
 	private string $configureVersion;
 	
 	private string $siteName;
+	private ?string $siteIcon;
 	
 	private LinkCollection $links;
 	private BookCollection $books;
@@ -55,6 +56,9 @@ class Bookshelf {
 							break;
 						case "site_name":
 							$return->siteName = self::parseSiteName($rc);
+							break;
+						case "site_icon":
+							$return->siteIcon = self::parseSiteIcon($rc);
 							break;
 						case "#comment":
 							break;
@@ -118,8 +122,25 @@ class Bookshelf {
 		return $siteNameValue;
 	}
 	
+	private static function parseSiteIcon (DOMNode $siteNameNode): string {
+		$siteNameValue = "";
+		for ($child = $siteNameNode->firstChild; $child != null; $child = $child->nextSibling) {
+			$siteNameValue .= match ($child->nodeName) {
+				"#text", "#cdata-section" => $child->nodeValue,
+				default => throw new Exception(
+					"Unsupported element type \"$child->nodeName\" in parsing configuration $siteNameNode->nodeName"
+				),
+			};
+		}
+		return $siteNameValue;
+	}
+	
 	public function getSiteName (): string {
 		return $this->siteName;
+	}
+	
+	public function getSiteIcon (): string {
+		return $this->siteIcon;
 	}
 	
 	public function getLinks (): LinkCollection {

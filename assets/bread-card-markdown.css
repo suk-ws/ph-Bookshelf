@@ -102,6 +102,7 @@ a {
 }
 
 a:hover {
+	text-decoration: none;
 	color: var(--bcm-color-font-base-link-hover);
 }
 
@@ -137,8 +138,10 @@ ul, ol, table,
 pre {
 	margin-block-start: 1.6rem;
 	margin-block-end: 1.6rem;
-	
 	line-height: 1.6;
+	/* for some capability */
+	border: none;
+	outline: none;
 }
 
 ul ul,

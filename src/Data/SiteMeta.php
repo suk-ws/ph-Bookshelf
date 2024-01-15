@@ -32,7 +32,9 @@ class SiteMeta {
 	}
 	
 	public static function getGlobalIcon (): string {
-		return "/favicon.ico"; // TODO ICON
+		$icon = self::$BOOKSHELF->getSiteIcon();
+		if ($icon != null) return $icon;
+		else return "/assets/ph-bookshelf.svg";
 	}
 	
 	public static function getStylesheetsList (): array {
@@ -45,7 +47,8 @@ class SiteMeta {
 					null:"https://cdn.jsdelivr.net/gh/PrismJS/prism-themes@master/themes/".PageMeta::prismTheme().".min.css"),
 			(PageMeta::getConfigurationLevelPage(ConfigName::regex_highlight)=="false")?
 					null:"//cdn.jsdelivr.net/gh/suk-ws/regex-colorizer@master/regex-colorizer-default.min.css",
-			"/assets/bread-card-markdown.css?ver=3",
+			"/assets/bread-card-markdown.css?ver=4",
+			"/assets/bread-card-markdown-mixins.css?ver=1",
 			"/assets/bread-card-markdown-footnote.css?ver=1",
 			"/assets/bread-card-markdown-task-list.css?ver=1",
 			"/assets/bread-card-markdown-heading-permalink.css?ver=1",
